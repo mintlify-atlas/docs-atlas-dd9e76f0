@@ -1,0 +1,36 @@
+---
+title: "Toshiba T6W28"
+description: "Enhanced SN76489 with stereo and independent noise for Neo Geo Pocket"
+---
+
+# Toshiba T6W28
+
+An enhanced SN76489 derivative with the same 4 channels, but with stereo (soft panning!) and noise frequency being fully independent of channel 3's.
+
+This chip was used in Neo Geo Pocket.
+
+## Enhancements Over SN76489
+
+- **Stereo output** with soft panning capabilities
+- **Independent noise frequency** - not tied to channel 3 like the standard SN76489
+- Full compatibility with existing SN76489 music
+
+## Effects
+
+| Effect | Description |
+|--------|-------------|
+| `20xx` | **Set noise mode.** `0` = thin pulse, `1` = noise |
+
+## Instrument Editor
+
+This chip uses the T6W28 instrument editor.
+
+## Chip Configuration
+
+The following options are available in the Chip Manager window:
+
+- **Disable easy period to note mapping on upper octaves**: Furnace maps the notes in the upper octaves to periods for easier noise tuning. This option allows you to disable this feature.
+
+<Tip>
+The independent noise frequency makes the T6W28 more flexible than the standard SN76489 for creating varied sound effects.
+</Tip>

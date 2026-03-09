@@ -1,0 +1,42 @@
+---
+title: "Yamaha YMW258-F (MultiPCM)"
+description: "28-channel stereo PCM chip used in Sega arcade boards"
+---
+
+# Yamaha YMW258-F (MultiPCM)
+
+A sound chip introduced in 1991 by Yamaha for their first General MIDI-compliant synthesizer, the Yamaha TG100. It also appeared on a number of higher-end consumer keyboards and specialized professional devices.
+
+The YMW258-F implements the GEW8 sound synthesis technology, which is PCM sample-based synthesis under Yamaha's "Advanced Wave Modulation" (AWM) umbrella.
+
+## Usage in Arcade Games
+
+Sega used the chip in several arcade games on the Sega System Multi 32, Sega Model 1, and Sega Model 2 arcade boards. The chip as found on these boards is called MultiPCM, and has the Sega internal part number 315-5560.
+
+<Info>
+Contrary to popular belief, it is not a custom Sega part and is not based on the earlier SegaPCM chip, but it was named the MultiPCM as a successor to that chip.
+</Info>
+
+## Specifications
+
+- **28 channels** of stereo 16-bit PCM
+- Hardware LFO
+- 8-bit and 12-bit wave format support
+- Up to 4MB of wave memory
+- Full ADSR envelopes
+
+## Effects
+
+| Effect | Description |
+|--------|-------------|
+| `20xx` | **Set PCM LFO rate** |
+| `21xx` | **Set PCM LFO PM depth** |
+| `22xx` | **Set PCM LFO AM depth** |
+
+## Instrument Editor
+
+This chip uses the MultiPCM instrument editor.
+
+<Warning>
+Maximum sample length is 65,535 samples.
+</Warning>

@@ -1,0 +1,42 @@
+---
+title: "5E01"
+description: "Fantasy sound chip based on NES 2A03 with improvements"
+---
+
+# 5E01
+
+A fantasy sound chip created by Euly, based on [the Ricoh 2A03 in the NES](/chips/console/nes), with some improvements:
+
+- A 37.5% duty cycle
+- 32 noise pitches instead of 16
+- Triangle channel becomes a wave channel, with four available waveforms: triangle, saw, sine and square
+
+## Effects
+
+| Effect | Description |
+|--------|-------------|
+| `11xx` | **Write to delta modulation counter.** Range is `00` to `7F`. This may be used to attenuate the triangle and noise channels; at `7F`, they will be at about 57% volume. Will not work if a sample is playing. |
+| `12xx` | **Set duty cycle/noise mode/waveform of channel.** For pulse channels (0-3): `0` = 12.5%, `1` = 25%, `2` = 37.5%, `3` = 50%. For noise channel: `0` = long (15-bit LFSR), `1` = short (9-bit LFSR). For wave channel: `0` = triangle, `1` = saw, `2` = square, `3` = sine. |
+| `13xy` | **Setup sweep up.** `x` is the time, `y` is the shift. Set to `0` to disable. |
+| `14xy` | **Setup sweep down.** `x` is the time, `y` is the shift. Set to `0` to disable. |
+| `15xx` | **Set envelope mode** (pulse and noise channels only). `0` = envelope + length counter, `1` = length counter, `2` = looping envelope, `3` = constant volume (default). |
+| `16xx` | **Set length counter.** This will trigger phase reset. |
+| `17xx` | **Set frame counter mode.** `0` = 4-step, `1` = 5-step. |
+| `18xx` | **Set PCM channel mode.** `00` = PCM (software), `01` = DPCM (hardware). In DPCM mode, samples will sound muffled and have limited pitch options. |
+| `19xx` | **Set triangle linear counter.** `00` to `7F` set the counter, `80` and higher halt it. |
+| `20xx` | **Set DPCM frequency.** Only works in DPCM mode. |
+
+## Instrument Editor
+
+This chip uses the NES instrument editor.
+
+<Info>
+You may need to apply a phase reset (using the macro) to make the envelope effective.
+</Info>
+
+## Chip Configuration
+
+The following options are available in the Chip Manager window:
+
+- **Clock rate**: Sets the rate at which the chip will run
+- **DPCM channel mode**: Choose between DPCM (default 1-bit samples) or PCM (crispier samples but uses more CPU time in console)

@@ -1,0 +1,47 @@
+---
+title: "Dave"
+description: "Enterprise 128 sound chip with POKEY-like capabilities"
+---
+
+# Dave
+
+This is the sound chip used in the Enterprise 128 home computer of the '80s, which competed against other home computers in Europe such as the ZX Spectrum and Amstrad CPC.
+
+Dave is very similar to POKEY in many aspects. It has most of the signature Atari sounds and POKEY-style high-pass filter.
+
+## Features
+
+- 4 channels (3 LFSR-based + 1 noise channel)
+- Noise channel with five lengths
+- Ring modulation capabilities
+- High-pass and pseudo-low-pass filters
+- 4096 pitch levels and 64 volume levels
+- Stereo output
+- DAC mode for each stereo side
+
+The noise channel can either run at a fixed frequency or steal the frequency of another channel. The pitch and volume resolutions are much greater than that of POKEY.
+
+## Effects
+
+| Effect | Description |
+|--------|-------------|
+| `10xx` | **Set waveform or noise length.** For channels 1-3: `0` = square, `1` = bass, `2` = buzz, `3` = reed, `4` = noise. For noise channel: value from `0` to `3`. |
+| `11xx` | **Set noise frequency source.** `0` = fixed frequency (~62.5KHz), `1` = channel 1, `2` = channel 2, `3` = channel 3. |
+| `12xx` | **Toggle high-pass with the next channel** |
+| `13xx` | **Toggle ring modulation** with the channel located two channels ahead. Channel 1 modulates with channel 3, channel 2 with channel 4, etc. |
+| `14xx` | **Toggle "swap counters" mode.** Noise channel only. When enabled, the noise length is even shorter and has no effect. |
+| `15xx` | **Toggle low-pass with channel 2.** Noise channel only. |
+| `16xx` | **Set global clock divider.** `0` = divide by 2, `1` = divide by 3. |
+
+## Instrument Editor
+
+This chip uses the Dave instrument editor.
+
+## Channel Display
+
+<Info>
+The channel bar shows special indicators when channels are linked:
+- **high** - Two channels joined by high-pass filter
+- **low** - Two channels joined by low-pass filter  
+- **ring** - Two channels joined for ring modulation
+</Info>

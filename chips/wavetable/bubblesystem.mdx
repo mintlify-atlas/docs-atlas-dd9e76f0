@@ -1,0 +1,26 @@
+---
+title: "Bubble System WSG"
+description: "Konami 2-channel wavetable sound generator for Bubble System arcade"
+---
+
+# Bubble System WSG
+
+A Konami-made 2-channel wavetable sound generator logic used on the Bubble System arcade board, configured with K005289, a 4-bit PROM and DAC.
+
+However, the K005289 is just part of the logic used for pitch and wavetable ROM address. Waveform select and volume control are tied with a single AY-3-8910 I/O for both channels. Another AY-3-8910 I/O is used for reading sound hardware status.
+
+Furnace emulates this configuration as a "chip" with 32×16 wavetables.
+
+## Effects
+
+| Effect | Description |
+|--------|-------------|
+| `10xx` | **Change wave** |
+
+## Instrument Editor
+
+This chip uses the Konami SCC/Bubble System WSG instrument editor.
+
+<Info>
+The Bubble System combines wavetable synthesis with the K005289 chip for unique arcade sound generation.
+</Info>

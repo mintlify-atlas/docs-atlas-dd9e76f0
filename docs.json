@@ -124,6 +124,7 @@
               "chips/square/ay8910",
               "chips/square/ay8930",
               "chips/square/sn76489",
+              "chips/square/t6w28",
               "chips/square/saa1099",
               "chips/square/msm5232"
             ]
@@ -135,6 +136,7 @@
               "chips/sample/snes",
               "chips/sample/segapcm",
               "chips/sample/qsound",
+              "chips/sample/multipcm",
               "chips/sample/ymz280b",
               "chips/sample/rf5c68",
               "chips/sample/msm6258",
@@ -152,6 +154,7 @@
             "pages": [
               "chips/wavetable/huc6280",
               "chips/wavetable/namco-wsg",
+              "chips/wavetable/bubblesystem",
               "chips/wavetable/scc",
               "chips/wavetable/wonderswan",
               "chips/wavetable/x1-010",
@@ -162,6 +165,7 @@
             "group": "Console Chips",
             "pages": [
               "chips/console/nes",
+              "chips/console/5e01",
               "chips/console/game-boy",
               "chips/console/game-boy-advance",
               "chips/console/virtual-boy",
@@ -181,6 +185,7 @@
               "chips/computer/vic20",
               "chips/computer/pet",
               "chips/computer/ted",
+              "chips/computer/dave",
               "chips/computer/pokey",
               "chips/computer/tia",
               "chips/computer/lynx",
