@@ -1,0 +1,36 @@
+---
+title: "Nintendo MMC5"
+description: "NES mapper chip with additional sound capabilities"
+---
+
+A mapper chip which made NES cartridges exceeding 1MB possible.
+
+It has two pulse channels which are very similar to the ones found in the NES, but lacking the sweep unit.
+
+Additionally, it offers an 8-bit DAC which can be used to play samples. Only one game is known to use it, though.
+
+## Channel Configuration
+
+- **2 pulse channels**
+  - Similar to NES pulse channels
+  - **No sweep unit**
+  - Configurable duty cycle
+- **1 8-bit DAC channel**
+  - Sample playback
+  - Rarely used in actual games
+
+## Effects
+
+| Effect | Description |
+|--------|-------------|
+| `12xx` | **Set duty cycle or noise mode of channel**<br/>Range: `0-3` for pulse channels |
+
+## Chip Configuration
+
+The following options are available in the Chip Manager window:
+
+- **Clock rate**: Sets the rate at which the chip will run
+
+## Instrument Editor
+
+This chip uses the NES and Generic Sample instrument editors.

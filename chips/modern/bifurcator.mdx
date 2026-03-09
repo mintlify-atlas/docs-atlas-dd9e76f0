@@ -1,0 +1,43 @@
+---
+title: Bifurcator
+description: A fantasy sound chip using logistic map iterations
+---
+
+This is a fantasy sound chip which uses a unique sound generation method: [logistic map](https://en.wikipedia.org/wiki/Logistic_map) iterations.
+
+## Usage
+
+The core of the Bifurcator is the iterative logistic map function:
+
+_x_<sub>_n_+1</sub> = _rx_<sub>_n_</sub>(1 - _x_<sub>_n_</sub>)
+
+When iterated across 2 ≤ _r_ ≤ 4, this produces the characteristic bifurcation diagram.
+
+In Bifurcator:
+- Current output (and initial "load value") ranges from 0 to 65535, mapping to _x_ in range 0.0 to 1.0
+- Parameter ranges from 0 to 65535, mapping to _r_ in range 2.0 to approximately 4.0
+
+### Load Value
+
+The first value of _x_ is set with the **load value**. It must be set to a non-zero value, otherwise the next iteration would also be zero... and the next one too... and so on, generating silence. Default is 1.
+
+Different load values will cause different "attack" sounds before the iterations stabilize (if they do).
+
+### Parameter
+
+By varying the parameter, the values of _x_ may change drastically, producing a variety of sounds. The higher the parameter, the more "chaos" is present, effectively yielding noise.
+
+- **Below 32768**: Output converges to a single value (effectively no sound)
+- **32768 to 47496**: Output bifurcates to oscillate between 2 values, generating a square wave
+- **47497 to 51433**: Bifurcates again to a period of 4 values
+- **Beyond that**: System rapidly becomes chaotic (noise)
+- **Around 59914**: An "island of stability" where output oscillates between 3 values, then bifurcates from there
+
+The default parameter value is 47360.
+
+## Effects
+
+- `10xx`: **Set low byte of load state**
+- `11xx`: **Set high byte of load state**
+- `12xx`: **Set low byte of parameter**
+- `13xx`: **Set high byte of parameter**

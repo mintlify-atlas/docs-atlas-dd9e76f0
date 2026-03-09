@@ -1,0 +1,193 @@
+---
+title: Command Line Usage
+description: Run Furnace from the terminal for automation and headless operation
+---
+
+Even though Furnace is primarily controlled by using its graphical user interface, it also offers a command line interface for automation, batch processing, and headless operation.
+
+## Synopsis
+
+```bash
+furnace [params...] [file]
+```
+
+## Description
+
+Furnace is a chiptune tracker that supports many systems and sound chips from the 8/16-bit era.
+
+## Usage
+
+Starting Furnace without arguments will start the graphical user interface (GUI), as long as Furnace has been compiled with GUI enabled.
+
+Passing the path to a file will open that file at start-up. If Furnace cannot open that file, it will report an error and quit.
+
+## General Parameters
+
+<ParamField path="-help" type="flag">
+  Display help information.
+</ParamField>
+
+<ParamField path="-console" type="flag">
+  Enable command-line interface (CLI) player. See the [CLI section](#command-line-interface) below for controls.
+</ParamField>
+
+<ParamField path="-loglevel" type="string" default="trace">
+  Set the logging level.
+  
+  Options:
+  - `error`: Critical errors only
+  - `warning`: Errors and warnings
+  - `info`: Errors, warnings, and useful information
+  - `debug`: All of the above, including debug information
+  - `trace`: Like debug, but with even more details (default)
+</ParamField>
+
+<ParamField path="-info" type="flag">
+  Get information about a song. You must provide a file, otherwise Furnace will quit.
+</ParamField>
+
+<ParamField path="-version" type="flag">
+  Display version information.
+</ParamField>
+
+<ParamField path="-warranty" type="flag">
+  View warranty disclaimer.
+</ParamField>
+
+## Engine Parameters
+
+<ParamField path="-audio" type="string" default="sdl">
+  Override audio backend.
+  
+  Options:
+  - `sdl`: SDL (default)
+  - `jack`: JACK Audio Connection Kit
+  - `portaudio`: PortAudio
+</ParamField>
+
+<ParamField path="-view" type="string" default="nothing">
+  Set visualization of data.
+  
+  Options:
+  - `pattern`: Order and pattern
+  - `commands`: Engine commands
+  - `nothing`: Guess (default)
+</ParamField>
+
+<ParamField path="-loops" type="number" default="-1">
+  Set number of loops. `-1` means loop forever.
+</ParamField>
+
+<ParamField path="-subsong" type="number">
+  Set sub-song to play.
+</ParamField>
+
+<ParamField path="-safemode" type="flag">
+  Enable safe mode (software rendering without audio).
+</ParamField>
+
+<ParamField path="-safeaudio" type="flag">
+  Enable safe mode (software rendering with audio).
+</ParamField>
+
+<ParamField path="-benchmark" type="string">
+  Run performance test and output total time.
+  
+  Options:
+  - `render`: Measure render time
+  - `seek`: Measure time to seek through the entire song
+  
+  You must provide a file, otherwise Furnace will quit.
+</ParamField>
+
+## Audio Export
+
+<ParamField path="-output" type="path">
+  Export audio in .wav format to the specified path. You must provide a file, otherwise Furnace will quit.
+</ParamField>
+
+<ParamField path="-outmode" type="string" default="one">
+  Set audio export output mode.
+  
+  Options:
+  - `one`: Single file (default)
+  - `persys`: One file per chip (`_sXX` will be appended to file name, where `XX` is the chip number)
+  - `perchan`: One file per channel (`_cXX` will be appended to file name, where `XX` is the channel number)
+</ParamField>
+
+## VGM Export
+
+<ParamField path="-vgmout" type="path">
+  Output VGM data to the specified path. You must provide a file, otherwise Furnace will quit.
+</ParamField>
+
+<ParamField path="-direct" type="flag">
+  Enable VGM export direct stream mode. This mode is useful for DualPCM export.
+  
+  <Warning>
+    This will increase file size by a huge amount!
+  </Warning>
+</ParamField>
+
+## Other Export Formats
+
+<ParamField path="-cmdout" type="path">
+  Output command stream dump to the specified path. You must provide a file, otherwise Furnace will quit.
+</ParamField>
+
+<ParamField path="-romout" type="path">
+  Output ROM file export to the specified path. You must provide a file, otherwise Furnace will quit.
+  
+  <Info>
+    There must be an available ROM export target for the system.
+  </Info>
+</ParamField>
+
+<ParamField path="-romconf" type="string">
+  Set a configuration parameter for `-romout` in `key=value` format. You may use this multiple times to set multiple parameters.
+</ParamField>
+
+<ParamField path="-txtout" type="path">
+  Output text file export to the specified path. You must provide a file, otherwise Furnace will quit.
+</ParamField>
+
+## ROM Export Configuration
+
+### Amiga Validation
+
+No parameters.
+
+### Commander X16 ZSM
+
+- `zsmrate`: Tick rate (Hz), default: `60`
+- `loop`: Loop song, default: `true`
+- `optimize`: Optimize size, default: `true`
+
+### Atari 2600 (TIunA)
+
+- `baseLabel`: Base song label name, default: `song`
+- `firstBankSize`: Max size in first bank, default: `3072`
+- `otherBankSize`: Max size in other banks, default: `4048`
+- `sysToExport`: TIA chip index, default: `-1` (find first)
+
+### Atari 8-bit SAP-R
+
+No parameters.
+
+## Command Line Interface
+
+Furnace provides a command-line interface (CLI) player which may be activated through the `-console` option.
+
+### CLI Controls
+
+The following controls may be used:
+
+| Key             | Action                |
+|-----------------|-----------------------|
+| `Left` / `H`    | Go to previous order  |
+| `Right` / `L`   | Go to next order      |
+| `Space`         | Pause/resume playback |
+
+## See Also
+
+The Furnace user manual at https://github.com/tildearrow/furnace

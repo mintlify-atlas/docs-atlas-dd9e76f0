@@ -1,0 +1,114 @@
+---
+title: Hardware Envelope Guide
+description: Using AY-3-8910, AY8930, and SAA1099 hardware envelopes for synthesis
+---
+
+The AY-3-8910 programmable sound generator, aside from normal 4-bit volume control, has a hardware volume envelope. This feature allows for defining the shape of the volume envelope at arbitrary speed according to 8 preset envelope shapes.
+
+## Why Use Hardware Envelopes?
+
+One may think, what is any upside of hardware envelope? Well, it's somewhat independent of tone/noise generators, and since it goes so high in frequency, it can be used melodically! This guide explains how to make best use of the AY/SAA envelope.
+
+## AY-3-8910 / AY8930
+
+### Setup
+
+In the instrument editor:
+
+<Steps>
+  <Step title="Configure Waveform Macro">
+    Add a single tick to the "Waveform" macro with only `envelope` turned on. This will disable any output, but don't worry.
+  </Step>
+  
+  <Step title="Enable Envelope Macro">
+    Add a single tick to the "Envelope" macro and select `enable`.
+  </Step>
+</Steps>
+
+If you play a note now, you will hear a very high-pitched squeak. This is because you must set envelope period, which is the frequency at which the hardware envelope runs.
+
+### Setting Envelope Period
+
+You can set the envelope period in two ways:
+
+1. **Manual control**: Use `23xx` and `24xx` effects (envelope coarse and fine period)
+2. **Auto-envelope**: Use `29xx` auto-envelope period effect and macros
+
+#### Auto-Envelope
+
+Auto-envelope works via numerator and denominator:
+
+- **Higher numerator** = higher envelope pitch
+- **Higher denominator** = lower envelope pitch
+
+Why are there both of these? Because the envelope generator might be used to mask the tone output (i.e., affect the square wave as well).
+
+<Tip>
+  To mask the tone output, set the "Waveform" macro values to both `tone` and `envelope`. The higher the denominator value, the lower the envelope pitch relative to the square wave output, and similarly with the numerator. With the square-and-envelope setting, a lot of wild, detuned synth instruments can be made.
+</Tip>
+
+### Envelope Shapes
+
+Depending on the "Envelope" macro value, different envelope shapes can be obtained:
+
+- **Shape 8**: The most basic one is a sawtooth wave
+- **Direction**: Inverts the envelope, producing the reverse sawtooth
+- **Alternate**: Produces an interesting pseudo-triangular wave, similar to halved sine. This can also be reversed
+- **Hold**: Disables the envelope
+
+<Warning>
+  **Pitch Resolution**: The envelope pitch resolution is fairly low; at high pitches it will be detuned. Because of this, it's used mostly for bass.
+</Warning>
+
+<Warning>
+  **Single Generator**: There is only one hardware envelope generator. You can't use two pitches or two waveforms at once.
+</Warning>
+
+## SAA1099
+
+SAA envelope works a bit differently from the AY envelope:
+
+- It doesn't have its own pitch; instead, it relies on the channel 2/5 pitch
+- It has many more parameters than the AY envelope
+
+### Setup
+
+To use the SAA1099 envelope:
+
+<Steps>
+  <Step title="Configure Waveform Macro">
+    Go to waveform macro and add a single tick set to 0 (unless you want to have a square wave mask).
+  </Step>
+  
+  <Step title="Configure Envelope Macro">
+    Set up an envelope macro. Turn on:
+    - `enabled`
+    - `loop`
+    - Depending on the desired shape: `cut` and `direction`
+    - `Resolution` will give you higher pitch range than on the AY
+  </Step>
+  
+  <Step title="Place Notes">
+    Place two notes in the pattern editor:
+    - One in **channel 2** will control the envelope pitch
+    - The other in **channel 3** can be any note you wish; it's just to enable the envelope output
+  </Step>
+</Steps>
+
+## Examples
+
+Here are some examples of hardware envelope usage:
+
+<CardGroup cols={1}>
+  <Card title="Demoscene-type Beat by Duccinator" icon="youtube" href="https://www.youtube.com/watch?v=qcBgmpPrlUA">
+    Example of AY envelope in a demoscene-style track.
+  </Card>
+  
+  <Card title="Philips SAA1099 Test by Duccinator" icon="youtube" href="https://www.youtube.com/watch?v=IBh2gr09zjs">
+    Demonstration of SAA1099 envelope capabilities.
+  </Card>
+  
+  <Card title="Touhou Kaikidan: Mystic Square title theme by ZUN" icon="youtube" href="https://www.youtube.com/watch?v=tUKei7Pz0Fw">
+    Rare instance of AY envelope used for drums - it can be used to mask the noise generator output too.
+  </Card>
+</CardGroup>

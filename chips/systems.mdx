@@ -1,0 +1,389 @@
+---
+title: System Presets
+description: Pre-configured sound chip combinations from classic gaming systems
+---
+
+Furnace includes system presets that automatically configure multiple chips together, matching the audio hardware of real gaming consoles, computers, and arcade boards. These presets make it easy to start composing in the authentic style of your favorite classic systems.
+
+## What are System Presets?
+
+Most classic gaming systems used multiple sound chips working together. For example, the Sega Genesis combined the YM2612 FM chip with the SN76489 PSG. System presets configure these chip combinations automatically with the correct clock rates and settings.
+
+## How to Use System Presets
+
+When creating a new file in Furnace, you can select from dozens of system presets. You can also add systems to existing songs using the **Chip Manager** window.
+
+<Info>
+System presets are starting points. You can customize chip configurations, add extra chips, or adjust clock rates after selecting a preset.
+</Info>
+
+## Sega Systems
+
+### Sega Genesis / Mega Drive
+
+**Chips:** [YM2612](/chips/fm/ym2612-opn2) + [SN76489](/chips/square/sn76489)
+
+The iconic Sega Genesis sound: 6 channels of FM synthesis plus 3 square wave channels and noise. This combination gave the Genesis its characteristic "crunchy" sound.
+
+- **YM2612**: 6-channel FM synthesis (can use channel 6 for PCM samples)
+- **SN76489**: 3 square waves + 1 noise channel
+
+<Tip>
+Enable DualPCM mode in the YM2612 to split channel 6 into two independent PCM channels for drum samples.
+</Tip>
+
+### Sega Genesis (with Sega CD)
+
+**Chips:** [YM3438](/chips/fm/ym2612-opn2) + [SN76489](/chips/square/sn76489) + [RF5C164](/chips/sample/rf5c68)
+
+Adds the Sega CD's PCM chip for up to 8 channels of digital audio playback.
+
+- **YM3438**: Later revision of YM2612 with cleaner DAC
+- **RF5C164**: 8-channel PCM for CD audio and samples
+
+### Sega Master System
+
+**Chips:** [SN76489](/chips/square/sn76489)
+
+The simpler Master System used only the SN76489 PSG chip.
+
+- 3 square wave channels
+- 1 noise channel
+- Hardware stereo on Game Gear variant
+
+### Sega Master System (with FM expansion)
+
+**Chips:** [SN76489](/chips/square/sn76489) + [YM2413](/chips/fm/ym2413-opll)
+
+Japanese Master System models supported an FM expansion using the budget OPLL chip.
+
+- **YM2413**: 9-channel FM with preset instruments
+- Works together with the standard PSG channels
+
+## Nintendo Systems
+
+### NES / Famicom
+
+**Chips:** [2A03](/chips/console/nes)
+
+The Nintendo Entertainment System's integrated sound processor.
+
+- 2 pulse wave channels with sweep
+- 1 triangle wave channel
+- 1 noise channel  
+- 1 DPCM sample channel
+
+### Famicom with Konami VRC6
+
+**Chips:** [2A03](/chips/console/nes) + [VRC6](/chips/console/vrc6)
+
+Konami's expansion chip adds extra pulse and sawtooth channels.
+
+- 2 additional pulse channels with finer duty control
+- 1 sawtooth channel
+
+### Famicom with Konami VRC7
+
+**Chips:** [2A03](/chips/console/nes) + [VRC7](/chips/console/vrc7)
+
+Adds 6 channels of FM synthesis to the Famicom.
+
+- **VRC7**: Customized YM2413 OPLL variant
+- 6 FM channels with preset and custom instruments
+
+### Famicom with MMC5
+
+**Chips:** [2A03](/chips/console/nes) + [MMC5](/chips/console/mmc5)
+
+Nintendo's own expansion chip for games like Castlevania III (Japanese version).
+
+- 2 additional pulse channels
+- 1 PCM channel
+- Can also expand 2A03's capabilities
+
+### Famicom with Sunsoft 5B
+
+**Chips:** [2A03](/chips/console/nes) + [5B](/chips/square/ay8910)
+
+Uses an AY-3-8910-compatible chip for extra square wave channels.
+
+- 3 square wave channels
+- 1 noise channel
+- Hardware envelope control
+
+### Famicom with Namco 163
+
+**Chips:** [2A03](/chips/console/nes) + [N163](/chips/console/n163)
+
+Namco's wavetable expansion with configurable channel count.
+
+- 1 to 8 wavetable channels (more channels = lower quality per channel)
+- Custom waveforms
+
+### Famicom Disk System
+
+**Chips:** [2A03](/chips/console/nes) + [FDS](/chips/console/fds)
+
+The Disk System's wavetable chip adds unique capabilities.
+
+- 1 wavetable channel with modulation
+- 64-sample waveforms
+- Hardware volume envelope and sweep
+
+## Handheld Consoles
+
+### Game Boy
+
+**Chips:** [Game Boy](/chips/console/game-boy)
+
+Nintendo's legendary handheld sound.
+
+- 2 pulse channels with sweep
+- 1 wavetable channel (32 samples)
+- 1 noise channel
+- Hardware panning (stereo)
+
+### Game Boy Advance
+
+**Chips:** [Game Boy Advance](/chips/console/game-boy-advance)
+
+The GBA could run in GB compatibility mode or use its PCM hardware.
+
+- 2 PCM channels
+- 4 wavetable channels  
+- Backward compatible with Game Boy sound
+- Hardware panning and mixing
+
+### Game Gear
+
+**Chips:** [SN76489](/chips/square/sn76489) (Game Gear variant)
+
+Same as Master System but with hard-panned stereo.
+
+### Neo Geo Pocket
+
+**Chips:** [T6W28](/chips/square/t6w28) + [DAC](/chips/modern/dac)
+
+SNK's handheld uses a PSG derivative.
+
+- 3 square wave channels
+- 1 noise channel
+- 1 DAC for samples
+
+## Home Computers
+
+### Commodore 64 (6581 SID)
+
+**Chips:** [MOS 6581](/chips/computer/c64)
+
+The C64's legendary SID chip is a true analog synthesizer.
+
+- 3 oscillators with 4 waveforms each
+- Ring modulation and oscillator sync
+- Multi-mode resonant filter
+- ADSR envelopes
+
+### Commodore 64 (8580 SID)
+
+**Chips:** [MOS 8580](/chips/computer/c64)
+
+Later C64 models used the improved 8580 revision.
+
+- Same features as 6581
+- More stable filter response
+- Fixed waveform mixing
+
+### Commodore VIC-20
+
+**Chips:** [VIC](/chips/computer/vic20)
+
+The VIC-20's simpler sound chip.
+
+- 3 square wave channels
+- 1 noise channel
+
+### Amiga
+
+**Chips:** [Amiga Paula](/chips/sample/amiga)
+
+The Amiga revolutionized computer audio with 4-channel PCM.
+
+- 4 independent 8-bit PCM channels
+- Hardware panning (left/right)
+- Sample playback up to 28 kHz
+
+### MSX
+
+**Chips:** [AY-3-8910](/chips/square/ay8910)
+
+Most MSX computers used the General Instrument PSG.
+
+- 3 square wave channels
+- 1 noise channel
+- Hardware envelope generator
+
+### MSX + SCC
+
+**Chips:** [YM2149(F)](/chips/square/ay8910) + [SCC](/chips/wavetable/scc)
+
+Konami's Sound Creative Chip cartridge expansion.
+
+- **SCC**: 5-channel wavetable synthesis
+- Custom 32-sample waveforms
+- Works alongside the standard PSG
+
+## SNES
+
+**Chips:** [SNES](/chips/sample/snes)
+
+The Super Nintendo's SPC700 + DSP combination.
+
+- 8-channel ADPCM sample playback
+- Hardware ADSR envelopes
+- Built-in reverb, echo, and pitch modulation
+- Sample compression (BRR format)
+
+## PC Engine / TurboGrafx-16
+
+**Chips:** [HuC6280](/chips/wavetable/huc6280)
+
+NEC's console featured advanced wavetable synthesis.
+
+- 6 wavetable channels
+- 32-sample waveforms
+- Per-channel panning
+- Hardware LFO
+
+## Atari Systems
+
+### Atari 2600/7800
+
+**Chips:** [TIA](/chips/computer/tia)
+
+The Atari 2600's Television Interface Adaptor.
+
+- 2 channels with 16 different waveforms
+- Simple but distinctive sound
+
+### Atari 800
+
+**Chips:** [POKEY](/chips/computer/pokey)
+
+The Atari 8-bit computer's sound chip.
+
+- 4 channels with various waveforms
+- High-pass filters
+- Two-tone mode for richer sounds
+
+## Arcade Systems
+
+### Arcade (YM2151 and SegaPCM)
+
+**Chips:** [YM2151](/chips/fm/ym2151-opm) + [SegaPCM](/chips/sample/segapcm)
+
+Common Sega arcade configuration.
+
+- **YM2151**: 8-channel FM synthesis
+- **SegaPCM**: 16-channel PCM samples
+
+### Capcom CPS-1
+
+**Chips:** [YM2151](/chips/fm/ym2151-opm) + [MSM6295](/chips/sample/msm6295)
+
+Capcom's first arcade board.
+
+- **YM2151**: 8-channel FM
+- **MSM6295**: 4-channel ADPCM
+
+### Capcom CPS-2 (QSound)
+
+**Chips:** [QSound](/chips/sample/qsound)
+
+Capcom's proprietary surround sound system.
+
+- 16 PCM channels
+- Simulated 3D audio positioning
+- Pan and echo effects
+
+### Neo Geo
+
+**Chips:** [YM2610](/chips/fm/ym2610-opnb)
+
+SNK's arcade and home console system.
+
+- 4 FM channels
+- 3 SSG channels (AY-3-8910 compatible)
+- 7 ADPCM channels (ADPCM-A)
+- 1 ADPCM-B channel with interpolation
+
+### Neo Geo (extended channel 2)
+
+Same as above but with extended channel mode enabled for the FM section, allowing independent operator control.
+
+## PC Systems
+
+### PC + Sound Blaster Pro
+
+**Chips:** [YM3812](/chips/fm/ym3812-opl2) × 2 + [DAC](/chips/modern/dac) + [PC Speaker](/chips/computer/pcspkr)
+
+The classic Sound Blaster Pro configuration.
+
+- **2× YM3812**: Dual OPL2 chips for stereo
+- **DAC**: PCM sample playback
+- **PC Speaker**: Backward compatibility
+
+### Sharp X68000
+
+**Chips:** [YM2151](/chips/fm/ym2151-opm) + [MSM6258](/chips/sample/msm6258)
+
+Japanese home computer with arcade-quality sound.
+
+- **YM2151**: 8-channel FM
+- **MSM6258**: ADPCM sample playback
+
+## Konami Systems
+
+### Konami Bubble System
+
+**Chips:** [AY-3-8910](/chips/square/ay8910) × 2 + [Konami WSG](/chips/wavetable/namco-wsg)
+
+Konami's early arcade hardware.
+
+- **2× AY-3-8910**: 6 square wave + 2 noise channels total
+- **WSG**: Wavetable synthesis
+
+## Modern Systems
+
+### Commander X16 (VERA only)
+
+**Chips:** [VERA](/chips/modern/vera)
+
+The Commander X16 retro computer's sound chip.
+
+- 16 channels of PSG or PCM
+- Flexible routing and configuration
+- Modern design with vintage spirit
+
+## Configuring Systems
+
+After selecting a system preset:
+
+1. **View chip configuration**: Open the **Chip Manager** window
+2. **Adjust settings**: Change clock rates, chip variants, or special modes
+3. **Add more chips**: Mix and match chips from different systems
+4. **Save as preset**: Create your own custom system configurations
+
+<CardGroup cols={2}>
+  <Card title="Chip Manager" icon="sliders" href="/advanced/chip-manager">
+    Configure and manage sound chips
+  </Card>
+  <Card title="Chip Overview" icon="microchip" href="/chips/overview">
+    Browse all supported sound chips
+  </Card>
+  <Card title="Instruments" icon="guitar" href="/instruments/overview">
+    Create instruments for your chips
+  </Card>
+  <Card title="Pattern Effects" icon="wand-magic-sparkles" href="/patterns/effects">
+    Learn chip-specific effects
+  </Card>
+</CardGroup>

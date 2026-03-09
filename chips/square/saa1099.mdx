@@ -1,0 +1,41 @@
+---
+title: Philips SAA1099
+description: Documentation for the SAA1099 sound chip used in the Game Blaster and SAM Coupé
+---
+
+This was used by the Game Blaster and SAM Coupé. It's pretty similar to the AY-3-8910, but has stereo sound, twice the channels and two envelopes, both of which are highly flexible.
+
+The envelopes work like this:
+
+- An instrument with envelope settings is placed on channel 2 or channel 5
+- An instrument that is used as an "envelope output" is placed on channel 3 or channel 6 (you may want to disable wave output on the output channel)
+
+## Effects
+
+- `10xy`: **Set channel mode.**
+  - `x` toggles noise.
+  - `y` toggles square.
+  - This effect affects either the first 3 or last 3 channels, depending on where it is placed.
+- `11xx`: **Set noise frequency.**
+  - This effect affects either the first 3 or last 3 channels, depending on where it is placed.
+- `12xx`: **Setup envelope.** This is a bitmask.
+  - Bit 7 toggles the envelope.
+  - Bit 5 toggles whether to use a fixed frequency or lock to the frequency of channel 2 or 5.
+  - Bit 4 sets the envelope resolution.
+  - Bits 1 to 3 set the envelope shape:
+    - `000`: always off
+    - `001`: always on
+    - `010`: down
+    - `011`: down loop (saw)
+    - `100`: up down
+    - `101`: up down loop (triangle)
+    - `110`: up then off
+    - `111`: up loop (reverse saw)
+  - Bit 0 sets whether the right output will mirror the left one.
+  - This effect affects either the first 3 or last 3 channels, depending on where it is placed.
+
+## Chip Configuration
+
+The following options are available in the Chip Manager window:
+
+- **Clock rate**: Sets the rate at which the chip will run.

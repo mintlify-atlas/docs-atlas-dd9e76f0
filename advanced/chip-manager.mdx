@@ -1,0 +1,66 @@
+---
+title: Chip Manager
+description: Add, remove, and configure sound chips in your module
+---
+
+The **chip manager** window allows you to manage chips, including adding, changing, moving or removing them.
+
+![chip manager](/images/8-advanced/chip-manager.png)
+
+## Global Options
+
+<ParamField path="Preserve channel order" type="checkbox" default="false">
+  Make existing pattern data stay in place even when chips are rearranged. When turned off, pattern data will be arranged to match (the default, and usually desired behavior).
+</ParamField>
+
+<ParamField path="Clone channel data" type="checkbox" default="false">
+  When cloning chips, also copy patterns, pattern names, channel names and other parameters to the clone.
+</ParamField>
+
+<ParamField path="Clone at end" type="checkbox" default="false">
+  Instead of inserting the clone directly after the cloned chip, add it to the end.
+</ParamField>
+
+## Channel LEDs
+
+Each chip shows an "LED" row with segments corresponding to its channels. They light up when a new note plays!
+
+## Chip Controls
+
+<CardGroup cols={2}>
+  <Card title="Move Chip" icon="arrows-up-down">
+    ![crossed-arrows](/images/8-advanced/chip-manager-move.png)
+    
+    Click and drag to reorder chips.
+  </Card>
+  
+  <Card title="Clone Chip" icon="copy">
+    ![two pages](/images/8-advanced/chip-manager-clone.png)
+    
+    Click to duplicate a chip with its settings.
+  </Card>
+  
+  <Card title="Change Chip" icon="eject">
+    ![eject](/images/8-advanced/chip-manager-change.png)
+    
+    Click to replace a chip with a different one. This displays the chip selector.
+  </Card>
+  
+  <Card title="Remove Chip" icon="x">
+    ![X](/images/8-advanced/chip-manager-remove.png)
+    
+    Click to remove a chip from the module.
+  </Card>
+</CardGroup>
+
+## Chip Configuration
+
+Click the ![chevron](/images/8-advanced/chip-manager-edit.png) to the right of the LEDs to configure a chip. This allows you to change chip options such as:
+
+- Clock rate
+- Chip type/variant
+- Other chip-specific settings
+
+<Info>
+  Refer to [each chip's documentation](/chips/introduction) for more information on chip-specific options.
+</Info>

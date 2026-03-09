@@ -1,0 +1,69 @@
+---
+title: PC Speaker
+description: 40 years of one square beep - and still going!
+---
+
+40 years of one square beep - and still going! Single channel, no volume control...
+
+## Real Output
+
+So far this is the only chip in Furnace which has a real hardware output option.
+
+To enable it, select **File > Configure Chip... > PC Speaker > Use system beeper**.
+
+**Note**: This will only work on Linux as Windows does not provide any user-space APIs to address the PC speaker directly!
+
+### Output Methods
+
+You may configure the output method in **Settings > Emulation > PC Speaker strategy**:
+
+- **evdev SND_TONE**: Uses input events to control the beeper
+  - Requires write permission to `/dev/input/by-path/platform-pcspkr-event-spkr`
+  - Not 100% frequency-accurate as SND_TONE demands frequencies but Furnace uses raw timer periods
+
+- **KIOCSOUND on /dev/tty1**: Sends the KIOCSOUND ioctl to control the beeper
+  - May require running Furnace as root
+
+- **/dev/port**: Writes to `/dev/port` to control the beeper
+  - Requires read/write permission to `/dev/port`
+
+- **KIOCSOUND on standard output**: Sends the KIOCSOUND ioctl to control the beeper
+  - Requires running Furnace on a TTY
+
+- **outb()**: Uses the low-level kernel port API to control the beeper
+  - Requires running Furnace as root, or granting CAP_SYS_RAWIO: `sudo setcap cap_sys_rawio=ep ./furnace`
+
+### Important Warnings
+
+Real hardware output only works on BIOS/UEFI (non-Mac) x86-based machines! Attempting this on any other device **will not work**, or may even brick the device (if using `/dev/port` or `outb()`)!
+
+You also need the beeper to be present in your machine. Some laptops connect the beeper output to built-in speakers (or audio jack), and some don't do this at all.
+
+## Effects
+
+Ha! Effects...
+
+## ROM Export
+
+Two ROM export options exist:
+
+### iPod .tone alarm
+With the iPod in disk mode, drag the export file into the `iPod_Control/Tones` directory.
+
+### GRUB_INIT_TUNE
+Use with the GRUB bootloader:
+- Add to `/etc/default/grub`: `GRUB_INIT_TUNE="text"` (replace "text" with exported content)
+- Then regenerate GRUB config
+- **Export binary file**: Creates a binary file instead of text. In the GRUB shell or config, use the `play` command followed by the exported file's name.
+
+## Chip Configuration
+
+**Clock rate**: Sets the rate at which the chip will run
+
+**Speaker type**: Select which speaker to use:
+- **Unfiltered**: Raw square wave
+- **Cone**: Filter to simulate the sound of a cone speaker
+- **Piezo**: Simulate the tiny speaker present in most PCs from the 2000s
+- **Use system beeper**: Use the actual PC speaker in your machine for output (Linux only)
+
+**Reset phase on frequency change**: Reset phase every time frequency changes. Many modern motherboards do this.

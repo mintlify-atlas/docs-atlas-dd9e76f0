@@ -1,0 +1,55 @@
+---
+title: "Game Boy"
+description: "Sound chip from Nintendo's iconic handheld console"
+---
+
+The Game Boy is one of the most successful portable game systems ever made.
+
+It has stereo sound, two pulse channels, a wave channel and a noise channel.
+
+## Channel Configuration
+
+- **2 pulse channels** with configurable duty cycle
+- **1 wave channel** for custom waveforms
+- **1 noise channel** with configurable length
+- **Stereo output**
+
+## Effects
+
+| Effect | Description |
+|--------|-------------|
+| `10xx` | **Change wave** |
+| `11xx` | **Set noise length**<br/>`0`: Long<br/>`1`: Short |
+| `12xx` | **Set duty cycle**<br/>`0`: 12.5%<br/>`1`: 25%<br/>`2`: 50%<br/>`3`: 75% |
+| `13xy` | **Setup sweep** (pulse 1 only)<br/>`x`: Time<br/>`y`: Shift<br/>Set to `0` to disable |
+| `14xx` | **Set sweep direction**<br/>`0`: Up<br/>`1`: Down |
+
+## Zombie Mode
+
+The Game Boy's envelope hardware has a bug that can be triggered to cause the volume to step up or down only on software command. Furnace uses the same method to trigger it as [LSDJ](https://www.littlesounddj.com/).
+
+Without this technique, changing the volume directly on a note (such as volume macros do) would cause a phase reset each time, causing significant popping sounds. Unfortunately, only a few emulators emulate the "zombie mode" bug properly.
+
+## Chip Configuration
+
+The following options are available in the Chip Manager window:
+
+- **Disable anti-click**: Waveform switching requires a phase reset, which may cause clicks. Furnace uses a wave-position predicting algorithm to minimize these clicks. Enable this option to disable it.
+- **Chip revision**: Sets the chip model to use. Most of these lack audible difference, but Game Boy Advance fixed the wave channel's inversion.
+- **Wave channel orientation**: Allows you to set how wave data is written
+  - **In Game Boy:**
+    - **Exact data**: Wave data is written as-is. It will appear inverted in the output
+    - **Exact output**: Wave data is inverted so it appears correctly in the output
+  - **In Game Boy Advance:**
+    - **Normal**: Wave data is written as-is
+    - **Inverted**: Guess!
+- **Pretty please**: Only for compatibility with Synchronize.dmf. Do not use.
+
+## Instrument Editor
+
+This chip uses the Game Boy instrument editor.
+
+## Links
+
+- [Gameboy sound hardware](https://gbdev.gg8.se/wiki/articles/Gameboy_sound_hardware) - Detailed technical information
+- [GameBoy Sound Table](http://www.devrs.com/gb/files/sndtab.html) - Note frequency table

@@ -1,0 +1,26 @@
+---
+title: Konami K007232
+description: Documentation for the K007232 2-channel PCM sound chip
+---
+
+A 2-channel PCM sound chip from Konami which was used in some of their 1986-1990 arcade boards.
+
+Its sample format is unique; the topmost bit is the end marker, and the low 7 bits are used for generating sound (unsigned format).
+
+It has 7 bit digital output per each channel and no volume register on chip, so it needs external logic to control channel volume.
+
+## Effects
+
+Nothing.
+
+Yeah.
+
+## Info
+
+Maximum sample length is 131071 samples.
+
+## Chip Configuration
+
+The following options are available in the Chip Manager window:
+
+- **Stereo**: Enable use of panning effects.

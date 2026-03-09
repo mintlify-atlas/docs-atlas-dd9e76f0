@@ -1,0 +1,236 @@
+---
+title: Sample Editor
+description: Edit and process samples using Furnace's comprehensive sample editor
+---
+
+You can edit your samples in Furnace's sample editor, which can be accessed by clicking on **Window** then **Sample Editor**, or by double-clicking a sample in the sample list.
+
+In the sample editor, you can modify sample data including volume, sample rate, filtering, and much more.
+
+![Sample Editor](/images/sample/sample-editor.png)
+
+## Main Controls
+
+### Top Bar
+
+- **Sample slot dropdown**: Select which sample to edit
+- **Open**: Replaces current sample
+  - Right-clicking brings up a menu:
+    - **Import raw...**: Choose format of the selected file
+    - **Import raw (replace)...**: Same as above, but replaces the currently selected sample
+- **Save**: Saves current sample to disk
+  - Right-clicking brings up a menu:
+    - **Save raw...**: Saves the sample as raw data
+- **Name**: Name in sample list
+
+### Info Section
+
+- **Button to left of Info**: Collapses and expands the info section
+- **Type**: Sample format
+  - Only 8-bit and 16-bit PCM samples are editable
+  - Selecting a format converts the sample data
+
+#### Format-Specific Options
+
+<AccordionGroup>
+  <Accordion title="BRR emphasis">
+    Boosts higher frequencies to compensate for the SNES low-pass filter.
+    - Should not be enabled for BRR-type samples
+    - Only appears when applicable
+  </Accordion>
+  
+  <Accordion title="8-bit dither">
+    Applies dithering to samples meant to play back at 8-bit resolution.
+    - Reduces quantization noise
+    - Only appears when applicable
+  </Accordion>
+  
+  <Accordion title="No BRR filters">
+    When encoding to BRR, only use a "4-bit mode" with block filter set to 0.
+    - This allows usage of sample offset effects on SNES
+    - Only appears when applicable
+  </Accordion>
+</AccordionGroup>
+
+### Tuning
+
+- **Hz**: Base frequency of sample played at `C-4`
+- **Note**: Note corresponding to Hz
+- **Fine**: Fine tuning. Ranges from -64 to 63, which maps from -1 to almost +1 semitone
+
+### Loop Settings
+
+- **Loop**: Enable or disable sample loop. Only on supported chips
+- **Mode**: Direction of loop. Backward and ping pong loops are only natively available on some chips
+- **Start**: Start of loop. If the sample is on a chip that limits loop points to specific values, hovering over this will highlight them in the editor
+- **End**: End of loop. Similarly, hovering will highlight valid loop points
+
+### Chip Assignment
+
+- **Chips**: Set assignment to chips and sample banks
+  - Sample will only be uploaded to selected chips
+  - Columns correspond to chips in use
+  - Rows correspond to sample banks
+
+## Editing Tools
+
+![Sample Editor Button Bar](/images/sample/sample-editor-buttons.png)
+
+### Edit Modes
+
+- **Edit mode: Select**: Cursor selects portion of sample
+- **Edit mode: Draw**: Cursor draws over wave
+
+### Resize and Resample
+
+<AccordionGroup>
+  <Accordion title="Resize">
+    Stretches sample. Pops up a dialog to type new length.
+    - Changes length without changing pitch
+    - No interpolation - may cause artifacts
+  </Accordion>
+  
+  <Accordion title="Resample">
+    Stretches sample with interpolation. Pops up a dialog box:
+    - **Rate**: New sample rate
+    - **Length**: New sample length
+    - **Factor**: Multiplier of original sample rate
+    - **0.5x**: Halves sample rate
+    - **==**: Returns to original sample rate
+    - **2.0x**: Doubles sample rate
+    - **Filter**: Selects interpolation filter for resampling
+  </Accordion>
+</AccordionGroup>
+
+### History
+
+- **Undo**: Undoes previous edit
+- **Redo**: Redoes undone edit
+
+### Processing Tools
+
+<Tabs>
+  <Tab title="Volume">
+    - **Amplify/Offset**: Change amplitude or DC offset of selection
+      - **Volume**: Amplifies selection
+      - **DC Offset**: Shifts selection up (positive) or down (negative)
+    - **Normalize**: Adjusts amplitude of selection to maximum without clipping
+    - **Fade in**: Ramps amplitude of selection from 0 to original
+    - **Fade out**: Ramps amplitude of selection from original to 0
+  </Tab>
+  
+  <Tab title="Silence">
+    - **Insert silence**: Inserts silence. Pops up a dialog to type length
+    - **Apply silence**: Reduces amplitude of selection to 0
+  </Tab>
+  
+  <Tab title="Edit">
+    - **Delete**: Removes selection
+    - **Trim**: Removes all but selection
+    - **Reverse**: Reverses direction of selection
+    - **Invert**: Flips selection "vertically"
+    - **Signed/unsigned exchange**: Reinterprets selection data as being of the opposite sign
+      - If a sample sounds fine elsewhere but is distorted on import, it may have been interpreted as signed when it should be unsigned, or vice versa; this will correct that
+  </Tab>
+</Tabs>
+
+### Apply Filter
+
+Filters the selection. Pops up a dialog box:
+
+- **Sweep (2 frequencies)**: If checked, the "Frequency" slider is replaced with "From" and "To" sliders, and the filter cutoff sweeps between the two
+  - **Frequency**: Filter cutoff frequency
+  - **From**: Filter cutoff frequency at start of selection
+  - **To**: Filter cutoff frequency at end of selection
+- **Resonance**: Emphasizes frequencies around filter cutoff
+- **Power**: Number of times resonance is applied
+- **Low-pass**: Amount to attenuate everything above cutoff
+- **Band-pass**: Amount to attenuate everything outside cutoff
+- **High-pass**: Amount to attenuate everything below cutoff
+
+### Crossfade Loop Points
+
+Applies a "fade" between the loop's starting point and the end.
+
+- **Number of samples**: How many samples in the loop region to take into account for crossfade
+- **Linear to Equal power**: The curve used to crossfade
+
+<Tip>
+Use crossfade loop points to eliminate clicks and pops in looping samples. This creates a smooth transition from the loop end to the loop start.
+</Tip>
+
+### Preview and Export
+
+- **Preview sample**: Plays sample at base frequency
+- **Stop sample preview**: Stops preview
+- **Create instrument from sample**: Creates a new instrument with its sample set to the current sample
+- **Zoom**: Shows and sets sample view zoom level
+- **Zoom mode**: Switches between:
+  - **Auto**: Entire sample fits in window
+  - **100%**: Each horizontal pixel represents one sample point
+
+## Sample Viewer
+
+The waveform display in the center of the editor is interactive:
+
+### Mouse Controls
+
+- **Left-click and drag**: Select a region of the sample
+- **Right-click**: Display a context menu
+
+### Context Menu
+
+- **Cut**: Puts the selection in the sample clipboard and deletes it from the sample
+- **Copy**: Copies the selection into the sample clipboard
+- **Paste**: Inserts the sample clipboard at the start of the selection
+- **Paste (replace)**: Replaces the selection with the sample clipboard
+- **Paste (mix)**: Mixes the sample clipboard into the existing sample, beginning at the start of the selection
+- **Set loop to selection**: Changes loop region to match selection
+- **Create wavetable from selection**: Copies the selection into a new wavetable entry
+- **Copy selection to new sample**: Copies the selection into a new sample
+
+## Bottom Status Bar
+
+- **Select**: Set selection start and end positions. Total selection length will be shown next to them
+- Cursor position and sample value
+- Loop size in samples and bytes
+
+## Workflow Tips
+
+<Steps>
+  <Step title="Import and prepare">
+    Import your sample and check its basic properties (sample rate, bit depth).
+  </Step>
+  
+  <Step title="Trim unnecessary audio">
+    Select and delete any silence or unwanted audio at the start or end.
+  </Step>
+  
+  <Step title="Normalize">
+    Use Normalize to maximize volume without clipping.
+  </Step>
+  
+  <Step title="Set loop points">
+    For sustained sounds, carefully set loop start and end points. Use zoom to find good zero-crossings.
+  </Step>
+  
+  <Step title="Crossfade if needed">
+    If the loop has a click, use Crossfade Loop Points to smooth it out.
+  </Step>
+  
+  <Step title="Adjust tuning">
+    Set the base frequency (Hz) or note so the sample plays at the correct pitch.
+  </Step>
+  
+  <Step title="Convert format">
+    If needed, convert to the appropriate format for your target chip (e.g., BRR for SNES).
+  </Step>
+  
+  <Step title="Create instrument">
+    Use "Create instrument from sample" to make it ready for use in patterns.
+  </Step>
+</Steps>
+
+<Warning>
+Always keep a backup of your original samples before processing. Some operations like format conversion and heavy filtering cannot be perfectly undone.
+</Warning>

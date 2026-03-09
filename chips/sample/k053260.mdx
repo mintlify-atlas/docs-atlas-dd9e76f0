@@ -1,0 +1,22 @@
+---
+title: Konami K053260
+description: Documentation for the K053260 4-channel sample-based sound chip
+---
+
+This chip is a sample-based chip that featured in a number of Konami arcade games, notably _Sunset Riders_ and _Teenage Mutant Ninja Turtles: Turtles in Time_. It has four channels of audio, 12-bit pitch resolution and stereo output, and can access up to 2MB of samples in 8-bit PCM or 4-bit ADPCM formats.
+
+## Effects
+
+- `DFxx`: **Set sample playback direction.**
+  - `0` is normal.
+  - `1` is reverse.
+
+## Info
+
+Maximum sample length is 65535, and loop points are ignored; samples may only loop over the entire sample.
+
+## Chip Configuration
+
+The following options are available in the Chip Manager window:
+
+- **Clock rate**: Sets the rate at which the chip will run.

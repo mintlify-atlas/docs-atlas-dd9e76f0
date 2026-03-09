@@ -1,0 +1,43 @@
+---
+title: "Konami VRC6"
+description: "Popular Famicom sound expansion chip"
+---
+
+The most popular expansion chip to the Famicom's sound system.
+
+The chip has 2 pulse wave channels and one sawtooth channel.
+
+Volume register is 4-bit for pulse wave and 6-bit for sawtooth, but sawtooth output is corrupted when volume register value is too high. Because this register is actually an 8-bit accumulator, its output may wrap around.
+
+For that reason, the sawtooth channel has its own instrument type. Setting volume macro and/or pattern editor volume setting too high (above 42/2A) may distort the waveform.
+
+Pulse wave duty cycle is 8-level. It can be ignored and it has potential for DAC at this case: volume register in this mode is DAC output and it can be PCM playback through this mode. Furnace supports this routine for PCM playback, but it consumes a lot of CPU time in real hardware (even if conjunction with VRC6's integrated IRQ timer).
+
+## Channel Configuration
+
+- **2 pulse wave channels**
+  - 4-bit volume
+  - 8-level duty cycle
+  - DAC/PCM playback capable
+- **1 sawtooth channel**
+  - 6-bit volume
+  - Dedicated instrument type
+  - Volume distortion above 42/2A
+
+## Effects
+
+These effects are only effective in the pulse channels:
+
+| Effect | Description |
+|--------|-------------|
+| `12xx` | **Set duty cycle**<br/>Range: `0-7` |
+
+## Chip Configuration
+
+The following options are available in the Chip Manager window:
+
+- **Clock rate**: Sets the rate at which the chip will run
+
+## Instrument Editor
+
+This chip uses the VRC6 and VRC6 (saw) instrument editors.

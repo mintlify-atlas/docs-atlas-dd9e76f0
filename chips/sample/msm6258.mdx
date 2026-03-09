@@ -1,0 +1,37 @@
+---
+title: OKI MSM6258
+description: Documentation for the MSM6258 single-channel ADPCM sound chip
+---
+
+A single-channel ADPCM sound source developed by OKI. It allows max sample rate of 15.6 KHz... with no variable pitch. Most prominent use of this chip was Sharp X68000 computer, where it was paired with Yamaha YM2151.
+
+Furnace's implementation is MSM6258V, a CPU driven variant that is unlimited by amount of sample data, being able to be fed from the system's RAM.
+
+## Effects
+
+- `20xx`: **Set frequency divider (0 to 2).**
+  - `0`: /512
+  - `1`: /768
+  - `2`: /1024
+- `21xx`: **Select clock rate.**
+  - `0`: Full
+  - `1`: Half
+
+## Chip Configuration
+
+MSM6258 is an extremely basic ADPCM sound codec. It has no variable frequency rate; it depends on clock rate of a chip itself. Furnace supports the following rates:
+
+| Clock rate | Sampling rate |
+|------------|---------------|
+| 4 MHz | 7812 Hz |
+| 4.096 MHz | 8000 Hz |
+| 8 MHz | 15625 Hz |
+| 8.192 MHz | 16000 Hz |
+
+The following options are available in the Chip Manager window:
+
+- **Clock rate**: Sets the rate at which the chip will run.
+
+## Info
+
+When exporting to VGM, make sure that "direct stream mode" is disabled (unchecked) in the VGM export settings.

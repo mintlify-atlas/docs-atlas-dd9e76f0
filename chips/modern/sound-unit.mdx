@@ -1,0 +1,88 @@
+---
+title: tildearrow Sound Unit
+description: A fantasy sound chip for the specs2 fantasy computer
+---
+
+A fantasy sound chip, used in the specs2 fantasy computer designed by tildearrow.
+
+## Capabilities
+
+- 8 channels of either waveform or sample
+- Stereo sound
+- 8 waveforms (pulse, saw, sine, triangle, noise, periodic noise, XOR sine and XOR triangle)
+- 128 widths for the pulse wave
+- Per-channel resonant filter
+- Ring modulation
+- Volume, frequency and cutoff sweep units (per-channel)
+- Phase reset timer (per-channel)
+
+## Effects
+
+- `10xx`: **Set waveform**
+  - `0`: Pulse wave
+  - `1`: Sawtooth
+  - `2`: Sine wave
+  - `3`: Triangle wave
+  - `4`: Noise
+  - `5`: Periodic noise
+  - `6`: XOR sine
+  - `7`: XOR triangle
+
+- `12xx`: **Set pulse width** (range: `0` to `7F`)
+
+- `13xx`: **Set resonance of filter** (range: `0` to `FF`)
+  - Despite what the internal effects list says (`0` to `F`), you can use `0` to `FF` (255)
+
+- `14xx`: **Set filter mode and ringmod**
+  - Bit 0: Ring mod
+  - Bit 1: Low pass
+  - Bit 2: High pass
+  - Bit 3: Band pass
+
+- `15xx`: **Set frequency sweep period low byte**
+- `16xx`: **Set frequency sweep period high byte**
+- `17xx`: **Set volume sweep period low byte**
+- `18xx`: **Set volume sweep period high byte**
+- `19xx`: **Set cutoff sweep period low byte**
+- `1Axx`: **Set cutoff sweep period high byte**
+- `1Bxx`: **Set frequency sweep boundary**
+- `1Cxx`: **Set volume sweep boundary**
+- `1Dxx`: **Set cutoff sweep boundary**
+- `1Exx`: **Set phase reset period low byte**
+- `1Fxx`: **Set phase reset period high byte**
+
+- `20xx`: **Toggle frequency sweep**
+  - Bit 0-6: Speed
+  - Bit 7: Up direction
+
+- `21xx`: **Toggle volume sweep**
+  - Bit 0-4: Speed
+  - Bit 5: Up direction
+  - Bit 6: Loop
+  - Bit 7: Alternate
+
+- `22xx`: **Toggle cutoff sweep**
+  - Bit 0-6: Speed
+  - Bit 7: Up direction
+
+- `4xxx`: **Set cutoff** (range: `0` to `FFF`)
+
+## Chip Configuration
+
+**CPU rate**: Sets the rate at which the chip will run
+
+**Sample memory**: Sets the amount of memory available for samples
+
+**DAC resolution**: Sets output resolution
+
+**Enable echo**: Enables echo effect
+
+**Swap echo channels**: Puts left into right and vice-versa
+
+**Echo delay**: Set echo time
+
+**Echo resolution**: Set echo resolution (sacrifices quality for time)
+
+**Echo feedback**: Controls echo feedback amount
+
+**Echo volume**: Controls echo output volume

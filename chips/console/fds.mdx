@@ -1,0 +1,44 @@
+---
+title: "Famicom Disk System"
+description: "NES/Famicom expansion device with wavetable and FM capabilities"
+---
+
+The Famicom Disk System is an expansion device for the Famicom (known as NES outside Japan), a popular console from the '80s. As its name implies, it allowed people to play games on specialized floppy disks that could be rewritten on vending machines, therefore reducing the cost of ownership and manufacturing.
+
+It also offers an additional **6-bit, 64-byte wavetable** sound channel with (somewhat limited) **FM capabilities**, which is what Furnace supports.
+
+## Channel Configuration
+
+- **1 wavetable channel**
+- **6-bit** resolution
+- **64-byte** waveforms
+- **FM modulation** capabilities
+
+## Effects
+
+| Effect | Description |
+|--------|-------------|
+| `10xx` | **Change wave** |
+| `11xx` | **Set modulation depth** |
+| `12xy` | **Set modulation speed high byte and toggle on/off**<br/>`x`: Toggle (value of `1` turns on the modulator)<br/>`y`: Speed |
+| `13xx` | **Set modulation speed low byte** |
+| `14xx` | **Set modulator position** |
+| `15xx` | **Set modulator wave**<br/>`xx` points to a wavetable. It should (preferably) have a height of 7 with values mapping to:<br/>• `0`: +0<br/>• `1`: +1<br/>• `2`: +2<br/>• `3`: +3<br/>• `4`: Reset<br/>• `5`: -3<br/>• `6`: -2<br/>• `7`: -1<br/>**Do not use this effect.** It only exists for compatibility reasons |
+| `16xy` | **Enable automatic modulation speed mode**<br/>In this mode the modulation speed is set to the channel's notes, multiplied by a fraction<br/>`x`: Numerator<br/>`y`: Denominator<br/>If `x` or `y` are 0 this will disable automatic modulation speed mode |
+
+## Frequency Modulation (FM)
+
+The FDS features a method of FM that changes the frequency of the playing note using a short looping table of 32 values. The modulation table is similar to DPCM in that it isn't a series of direct values, but deltas that determine the amount of change from the previous value.
+
+- Deltas range from **-3 to 3**. In the instrument editor, **-4** resets the modulation value to 0, meaning the note plays at its base frequency.
+- Modulation values are **7-bit**, ranging from **-64 to 63**; moving past those bounds will overflow to the other side (63 + 1 = -64).
+
+## Chip Configuration
+
+The following options are available in the Chip Manager window:
+
+- **Clock rate**: Sets the rate at which the chip will run
+
+## Instrument Editor
+
+This chip uses the FDS instrument editor.

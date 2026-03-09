@@ -1,0 +1,81 @@
+---
+title: "NES (Nintendo Entertainment System)"
+description: "Sound chip from the iconic Nintendo Entertainment System / Famicom"
+---
+
+The console from Nintendo that plays Super Mario Bros. and helped revive the agonizing video game market in the US during mid-80s.
+
+Also known as Family Computer (Famicom), especially in Japan.
+
+The console is powered by the Ricoh 2A03, a CPU with sound generator built-in. It has five channels:
+- **First two channels**: Pulse wave with three different duty cycles
+- **Third channel**: Fixed-volume triangle channel
+- **Fourth channel**: Noise channel (can work in both pseudo-random and periodic modes)
+- **Fifth channel**: (D)PCM sample channel
+
+## Effects
+
+| Effect | Description |
+|--------|-------------|
+| `11xx` | **Write to delta modulation counter**<br/>Range: `00-7F`<br/>This may be used to attenuate the triangle and noise channels (see "non-linear mixing" below)<br/>Will not work if a sample is playing |
+| `12xx` | **Set duty cycle or noise mode**<br/>**Pulse channels** (`0-3`):<br/>• `0`: 12.5%<br/>• `1`: 25%<br/>• `2`: 50%<br/>• `3`: 75%<br/>**Noise channel** (`0-1`):<br/>• `0`: Long (15-bit LFSR, 32767-step)<br/>• `1`: Short (9-bit LFSR, 93-step) |
+| `13xy` | **Setup sweep up**<br/>`x`: Time<br/>`y`: Shift<br/>Set to `0` to disable |
+| `14xy` | **Setup sweep down**<br/>`x`: Time<br/>`y`: Shift<br/>Set to `0` to disable |
+| `15xx` | **Set envelope mode** (pulse and noise channels only)<br/>`0`: Envelope + length counter (volume = envelope duration)<br/>`1`: Length counter (volume = output volume)<br/>`2`: Looping envelope (volume = envelope duration)<br/>`3`: Constant volume (default, volume = output volume)<br/>You may need to apply a phase reset to make the envelope effective |
+| `16xx` | **Set length counter**<br/>See table below for possible values<br/>This will trigger phase reset |
+| `17xx` | **Set frame counter mode**<br/>`0`: 4-step (NTSC: 120Hz sweeps/lengths, 240Hz envelope)<br/>`1`: 5-step (NTSC: 96Hz sweeps/lengths, 192Hz envelope) |
+| `18xx` | **Set PCM channel mode**<br/>`00`: PCM (software)<br/>`01`: DPCM (hardware)<br/>In DPCM mode, samples will sound muffled and available pitches are limited |
+| `19xx` | **Set triangle linear counter**<br/>`00-7F`: Set the counter<br/>`80+`: Halt it |
+| `20xx` | **Set DPCM frequency** (DPCM mode only)<br/>See table below for possible values |
+
+<Warning>
+Short noise may sound very different depending on its initial LFSR state. More info can be found at [NESdev](https://forums.nesdev.org/viewtopic.php?t=11535).
+</Warning>
+
+## Non-Linear Mixing
+
+The triangle, noise, and PCM channels are mixed together non-linearly such that the level of the DMC (the "delta modulation counter", representing the PCM channel's amplitude) inversely affects the volume of the others. This can be intentionally used with effect `11xx` to hold the DMC at a level that lowers the volume of the triangle channel in a controlled fashion; at maximum DMC level (`117F`) the triangle plays at about 57% of full volume.
+
+## DPCM Samples
+
+Due to hardware limitations:
+- A loop in a DPCM sample must start on a multiple of **512 samples** (512, 1024, 1536...)
+- Loop length must be a multiple of **128 plus 8 samples** (136, 264, 392...)
+
+NES DPCM only has **16 preset sample rates** (see DPCM frequency table below).
+
+## Envelope Mode
+
+Both pulse channels and the noise channel have a simple hardware envelope generator with two modes:
+- One that holds the volume at whatever the software sets
+- One that creates a downward ramp of volume starting from maximum and counting down to 0
+
+The volume range of the ramp can't be controlled (similar to the triangle wave). The envelope can be set to loop each time it reaches 0.
+
+## Frame Counter
+
+The frame counter is a global counter that controls the speed of hardware envelopes and sweeps. The resulting speed depends on both the chip's clock rate and whether it's set to 4-step or 5-step mode.
+
+## Length Counter
+
+Setting the length counter will automatically stop a note after the specified amount of time. See the length counter table below for effect values and their corresponding durations.
+
+## Chip Configuration
+
+The following options are available in the Chip Manager window:
+
+- **Clock rate**: Sets the rate at which the chip will run
+- **DPCM channel mode**: Allows you to set which mode to use for the DPCM channel
+  - **DPCM**: The default mode, playing 1-bit DPCM samples as supported by the hardware
+  - **PCM**: This mode provides crisper 7-bit samples by writing to the delta counter directly. Uses a lot of CPU time in console
+
+## Instrument Editor
+
+This chip uses the NES instrument editor.
+
+## Reference Tables
+
+For detailed frequency tables, length counter values, and short noise frequencies, please refer to:
+- [NESdev APU Noise](https://www.nesdev.org/wiki/APU_Noise)
+- [NESdev APU Length Counter](https://www.nesdev.org/wiki/APU_Length_Counter)
+- [NESdev APU DMC Pitch Table](https://www.nesdev.org/wiki/APU_DMC#Pitch_table)

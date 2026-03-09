@@ -1,0 +1,174 @@
+---
+title: Menu Bar
+description: Overview of the Furnace menu bar and its options
+---
+
+The menu bar allows you to select from five menus: file, edit, settings, window and help.
+
+## File
+
+- **New...**: opens the new song dialog to choose a system.
+  - Click a system name to create a new song with it.
+  - Some systems have several variants, which are inside a group.
+- **Open...**: opens the file picker, allowing you to select a song to open.
+  - See [file formats](formats) for a list of formats Furnace is able to open.
+- **Open recent**: contains a list of the songs you've opened before.
+  - **Clear history**: erases the file history.
+- **Save**: saves the current song.
+  - Opens the file picker if this is a new song, or a backup.
+- **Save as...**: opens the file picker, allowing you to save the song under a different name.
+- **Export...**: allows you to export your song into other formats, such as audio files, VGM and more. See the [export](export) page for more information.
+- **Manage chips**: opens the [Chip Manager](/advanced/chip-manager) dialog.
+- **Restore backup**: restores a previously saved backup.
+  - Furnace keeps up to 5 backups of a song.
+  - The backup directory is located in:
+    - Windows: `%USERPROFILE%\AppData\Roaming\furnace\backups`
+    - macOS: `~/Library/Application Support/Furnace/backups`
+    - Linux/other: `~/.config/furnace/backups`
+  - This directory grows in size as you use Furnace. Remember to delete old backups periodically to save space.
+  - **Do NOT rely on the backup system as auto-save!** You should save a restored backup because Furnace will not save backups of backups.
+- **Exit**: closes Furnace.
+
+## Edit
+
+- **...**: does nothing except prevent accidental clicks on later menu items if the menu is too tall to fit on the program window.
+- **Undo**: reverts the last action.
+- **Redo**: repeats what you undid previously.
+- **Cut**: moves the current selection in the pattern view to clipboard.
+- **Copy**: copies the current selection in the pattern view to clipboard.
+- **Paste**: inserts the clipboard's contents in the cursor position.
+  - You may be able to paste from OpenMPT as well.
+- **Paste special...**: variants of the paste feature.
+  - **Paste mix**: inserts the clipboard's contents in the cursor position, but does not erase the occupied region.
+  - **Paste mix (background)**: does the same thing as paste mix, but doesn't alter content which is already there.
+  - **Paste with ins (foreground)**: same thing as paste mix, but changes the instrument.
+  - **Paste with ins (background)**: same thing as paste mix (background), but changes the instrument.
+  - **Paste flood**: inserts the clipboard's contents in the cursor position, and repeats until it hits the end of a pattern.
+  - **Paste overflow**: paste, but it will keep pasting even if it runs over another pattern.
+- **Delete**: clears the contents in the selection.
+- **Select all**: changes the selection so it covers a larger area.
+  - If the selection is wide, it will select the rows in a column.
+  - If the selection is tall, it will select the entire column.
+  - If a column is already selected, it will select the entire channel.
+  - If a channel is already selected, it will select the entire pattern.
+- **Operation mask**: toggles which columns will be affected by the listed operations. [More information here.](/advanced/operation-mask)
+- **Input latch**: determines which data are placed along with a note. [More information here.](/advanced/input-latch)
+- **Note/octave up/down**: transposes notes in the current selection.
+- **Values up/down**: changes values in the current selection by ±1 or ±16.
+- **Transpose**: transpose notes or change values by a specific amount.
+- **Interpolate**: fills in gaps in the selection by interpolation between values.
+- **Change instrument...**: changes the instrument number in a selection.
+- **Gradient/fade...**: replace the selection with a "gradient" that goes from the beginning of the selection to the end.
+  - Does not affect the note column.
+  - **Nibble mode**: when enabled, the fade will be per-nibble (0 to F) rather than per-value (00 to FF).
+    - Use for effects like `04xy` (vibrato).
+- **Scale...**: scales values in the selection by a specific amount.
+  - Use to change volume in a selection for example.
+- **Randomize**: replaces the selection with random values.
+  - Does not affect the note column.
+  - **Nibble mode**: when enabled, the randomization will be per-nibble (0 to F) rather than per-value (00 to FF).
+  - **Set effect:**: only appears when the selection includes an effect column. If enabled, an input box will appear. Instead of being randomized, all effect types in the selection will be changed to the value entered.
+- **Invert values**: `00` becomes `FF`, `01` becomes `FE`, `02` becomes `FD` and so on.
+- **Flip selection**: flips the selection so it is backwards.
+- **Collapse/expand amount**: allows you to specify how much to collapse/expand in the next two menu items.
+- **Collapse**: shrinks the selected contents.
+- **Expand**: expands the selected contents.
+- **Collapse pattern**: same as collapse, but affects the entire pattern.
+- **Expand pattern**: same as expand, but affects the entire pattern.
+- **Collapse song**: same as collapse, but affects the entire song.
+  - It also changes speeds and pattern length to compensate.
+- **Expand song**: same as expand, but affects the entire song.
+  - It also changes speeds and pattern length to compensate.
+- **Find/replace**: shows [the Find/Replace window](/advanced/find-replace).
+- **Clear...**: opens a window that allows you to mass-delete things like songs, unused instruments, and the like.
+
+## Settings
+
+- **Full screen**: expands the Furnace window so it covers your screen.
+- **Lock layout**: prevents you from dragging/resizing docked windows, or docking more.
+- **Pattern visualizer**: toggles pattern view particle effects when the song plays.
+- **Reset layout**: resets the workspace to its defaults.
+- **User systems...**: shows the User Systems window. This is detailed in [the User Systems documentation](/advanced/user-systems).
+- **Settings...**: shows the Settings window. These are detailed in [the Settings documentation](settings).
+
+## Window
+
+All these menu items show or hide their associated windows.
+
+### Song
+
+- **[Song comments](/advanced/comments)**
+- **[Song information](song-info)**
+- **[Subsongs](song-info#subsongs)**
+- **[Channels](/advanced/channels)**
+- **[Chip manager](/advanced/chip-manager)**
+- **[Orders](orders)**
+- **[Pattern](/pattern/overview)**
+- **[Pattern manager](/advanced/pattern-manager)**
+- **[Mixer](/advanced/mixer)**
+- **[Compatibility flags](/advanced/compatibility-flags)**
+
+### Assets
+
+- **[Instruments](/instrument/overview)**
+- **[Samples](/sample/overview)**
+- **[Wavetables](/wavetable/overview)**
+- **[Instrument editor](/instrument/overview)**
+- **[Sample editor](/sample/overview)**
+- **[Wavetable editor](/wavetable/overview)**
+
+### Visualizers
+
+- **[Oscilloscope](/advanced/oscilloscope)**
+- **[Oscilloscope (per-channel)](/advanced/channel-oscilloscope)**
+- **[Oscilloscope (X-Y)](/advanced/xy-oscilloscope)**
+- **Volume meter**
+- **[Tuner](/advanced/tuner)**
+- **[Spectrum](/advanced/spectrum)**
+
+### Tempo
+
+- **[Clock](/advanced/clock)**
+- **[Grooves](/advanced/grooves)**
+- **[Speed](song-info#speed)**
+
+### Debug
+
+- **[Log viewer](/advanced/log-viewer)**
+- **[Register view](/advanced/register-view)**
+- **[Statistics](/advanced/statistics)**
+- **[Memory composition](/advanced/memory-composition)**
+
+### Other
+
+- **[Effect list](/pattern/effects)**
+- **[Play/edit controls](play-edit-controls)**
+- **[Piano/input pad](/advanced/piano)**
+- **[Reference music player](/advanced/reference-music-player)**
+- **[Multi-ins setup](/advanced/multi-instrument)**
+
+## Help
+
+- **Online manual**: opens the online manual in your default browser.
+  - The online manual is frequently updated to match Furnace's development; it may contain material that doesn't apply to the most recent stable release.
+- **Effect list**: displays the [effect list](/pattern/effects).
+- **Debug menu**: this menu contains various debug utilities.
+  - Unless you are working with the Furnace codebase, it's not useful.
+- **Inspector**: this option shows the Dear ImGui Metrics/Debugger window.
+  - Unless you are working with the Furnace codebase, it's not useful.
+- **Panic**: this resets all chips while the song is playing, effectively silencing everything.
+- **Welcome screen**: displays the welcome screen that appears when Furnace is first run.
+- **About...**: displays the About screen.
+
+## Status Information
+
+At the end of the menu bar, more information may be shown:
+
+- During editing, information about the data under the cursor will be shown here:
+  - Note or note modifier.
+  - Instrument number and name.
+  - Volume in decimal, hex, and percentage.
+  - Effect type and description.
+- During playback, these values will be displayed:
+  - `speed/groove @ tick rate (BPM) | order | row | elapsed time`
+- If any changes or edits have been made but not yet saved, "modified" will appear.

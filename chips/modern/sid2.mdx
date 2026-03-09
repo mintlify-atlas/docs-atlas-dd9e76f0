@@ -1,0 +1,73 @@
+---
+title: SID2
+description: A fictional improved SID chip by LTVA
+---
+
+A fictional chip created by LTVA. The idea is to fix [SID](c64.md) flaws and add more features, but not too much.
+
+Unlike SID, it has per-channel volume control, better ADSR envelope which doesn't have bugs, more waveform mixing modes and the ability to play tonal noise waves.
+
+Each channel now has its own independent filter. Filter cutoff and resonance ranges were extended, as well as the frequency; finally, the chip can hit a B-7 note with default clock speed!
+
+## Effects
+
+- `10xx`: **Change wave** (lower 4 bits specify the wave)
+  - Bit 0: Triangle
+  - Bit 1: Saw
+  - Bit 2: Pulse
+  - Bit 3: Noise
+
+- `11xx`: **Set resonance** (range: `00` to `FF`)
+
+- `12xx`: **Set filter mode**
+  - `00`: Filter off
+  - `01`: Low pass
+  - `02`: Band pass
+  - `03`: Low+band pass
+  - `04`: High pass
+  - `05`: Band reject/stop/notch
+  - `06`: High+band pass
+  - `07`: All pass
+
+- `13xx`: **Disable envelope reset for this channel**
+
+- `14xy`: **Reset cutoff**
+  - `x` ≠ 0: On new note
+  - `y` ≠ 0: Now
+  - Not necessary if instrument's cutoff macro is absolute
+
+- `15xy`: **Reset duty cycle**
+  - `x` ≠ 0: On new note
+  - `y` ≠ 0: Now
+  - Not necessary if instrument's duty macro is absolute
+
+- `16xy`: **Change additional parameters**
+  - `x` selects parameter:
+    - `0`: Attack (`y` from `0` to `F`)
+    - `1`: Decay (`y` from `0` to `F`)
+    - `2`: Sustain (`y` from `0` to `F`)
+    - `3`: Release (`y` from `0` to `F`)
+    - `4`: Ring modulation (`y` is `0` or `1`)
+    - `5`: Oscillator sync (`y` is `0` or `1`)
+    - `6`: Filter mode (`y` is `0` to `7`)
+    - `7`: Waveform mix mode (`y` is `0` to `3`)
+    - `8`: Noise mode (`y` is `0` to `3`)
+    - `9`: Phase reset (`y` is discarded)
+    - `A`: Envelope key on/off (`y` is `0` (release) or `1` (restart))
+    - `B`: Filter on/off (`y` is `0` (disable) or `1` (enable))
+
+- `17xx`: **Pulse width slide up**
+  - `xx` is speed; `00` stops the slide
+
+- `18xx`: **Pulse width slide down**
+  - `xx` is speed; `00` stops the slide
+
+- `19xx`: **Filter cutoff slide up**
+  - `xx` is speed; `00` stops the slide
+
+- `1Axx`: **Filter cutoff slide down**
+  - `xx` is speed; `00` stops the slide
+
+- `3xxx`: **Set duty cycle** (range: `000` to `FFF`)
+
+- `4xxx`: **Set cutoff** (range: `000` to `FFF`)

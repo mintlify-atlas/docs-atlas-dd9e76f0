@@ -1,0 +1,65 @@
+---
+title: Mixer
+description: Control volume, panning, and audio routing
+---
+
+The "Mixer" dialog provides options for overall sound mixing.
+
+## Mixer Tab
+
+![mixer dialog on mixer tab](/images/8-advanced/mixer-mixer.png)
+
+### Master Volume
+
+**Master Volume** controls the overall mix output level.
+
+### Per-Chip Controls
+
+Each chip has several mixing options:
+
+<ParamField path="Invert" type="checkbox">
+  Inverts the output wave.
+</ParamField>
+
+<ParamField path="Volume" type="slider">
+  Controls the chip's volume relative to other chips.
+</ParamField>
+
+<ParamField path="Panning" type="slider">
+  Left-right balance.
+</ParamField>
+
+<ParamField path="Fade" type="slider">
+  Front-rear balance. Only useful for setups with four or more speakers.
+</ParamField>
+
+<Note>
+  Settings for the mixer display can be found in Settings > Appearance near the bottom.
+</Note>
+
+## Patchbay Tab
+
+![mixer dialog on patchbay tab](/images/8-advanced/mixer-patchbay.png)
+
+The patchbay allows advanced audio routing between chips and outputs.
+
+### Patchbay Options
+
+<ParamField path="Automatic patchbay" type="checkbox" default="true">
+  Make appropriate connections when adding, removing, or changing chips and chip settings.
+</ParamField>
+
+<ParamField path="Display hidden ports" type="checkbox" default="false">
+  Shows all available connection ports. The "System" unit actually has 16 ports; 1 maps to the left channel, and 2 maps to the right.
+</ParamField>
+
+<ParamField path="Display internal" type="checkbox" default="false">
+  Shows two additional units, one for sample previews and one for the metronome sound.
+</ParamField>
+
+### Using the Patchbay
+
+The graph shows each existing unit along with their outputs, inputs, and the "patch cables" connecting them.
+
+- **Create connections**: Drag between an output and an input
+- **Disconnect all**: Right-click on a unit to disconnect all patches from that unit

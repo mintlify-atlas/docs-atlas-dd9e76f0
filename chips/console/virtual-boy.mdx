@@ -1,0 +1,56 @@
+---
+title: "Virtual Boy"
+description: "Nintendo's stereoscopic 3D portable console sound chip"
+---
+
+A "portable" video game console made by Nintendo in the '90s.
+
+It supposedly was the beginning of virtual reality... nah, instead it failed to sell well because you use it for 15 minutes and then you get a headache.
+
+Its sound generation chip is called Virtual Sound Unit (VSU), a wavetable chip that is a lot like PC Engine, but unlike that, the waves are twice as tall, it doesn't go too low in terms of frequency (~D-2), and the last channel (yep, it has 6 channels) is a noise one.
+
+Additionally, channel 5 offers a modulation/sweep unit. The former is similar to FDS' but has much reduced speed control.
+
+## Channel Configuration
+
+- **5 wavetable channels**
+- **1 noise channel** (channel 6)
+- Channel 5 has **modulation/sweep** capabilities
+- Waveforms are twice as tall as PC Engine
+
+## Effects
+
+| Effect | Description |
+|--------|-------------|
+| `10xx` | **Set waveform** |
+| `11xx` | **Set noise length** (noise channel only)<br/>Range: `0-7` |
+| `12xy` | **Setup envelope**<br/>`x`: Enable/loop<br/>• `0`: Disabled<br/>• `1`: Enabled<br/>• `3`: Enabled and loop<br/>`y`: Speed and direction<br/>• `0-7`: Down<br/>• `8-F`: Up |
+| `13xy` | **Setup sweep** (channel 5 only)<br/>`x`: Speed (`0` and `8` are "speed 0" - sweep is ineffective)<br/>`y`: Shift (`0-7`, `8+` will mute the channel) |
+| `14xy` | **Setup modulation** (channel 5 only)<br/>`x`: Enable/loop<br/>• `0`: Disabled<br/>• `1`: Enabled<br/>• `3`: Enabled and loop<br/>`y`: Speed (`0` and `8` are "speed 0" - modulation is ineffective) |
+| `15xx` | **Set modulation wave**<br/>`xx` points to a wavetable (range: `0-FF`)<br/>This is an alternative to setting the modulation wave through the instrument |
+
+<Warning>
+**Hardware Bug:** If the envelope or modulation ends, you will not be able to trigger another envelope/modulation until you reset the channel's phase! Setting a phase reset macro at the beginning will do.
+</Warning>
+
+## Channel Status Icons
+
+When channel status is enabled in the pattern view, the following icons are displayed:
+
+- **Envelope off**: Hardware envelope is disabled or running OK
+- **Envelope warning**: Hardware envelope has finished - attempting to write a new envelope won't work without phase reset!
+- **Envelope error**: Can't start hardware envelope - please reset phase
+
+## Chip Configuration
+
+The following options are available in the Chip Manager window:
+
+- **Waveform storage mode**: Selects how waveforms will be loaded
+  - **Static**: Loads the first 5 waves only
+  - **Dynamic**: Allows switching between more than 5 waves, but loading a new wave forces all channels off and back on again, usually with an audible click
+    - **Disable anti-phase-reset**: Disables the workaround to a phase reset that occurs on all channels when the waveform of any channel is changed
+    - **I don't care about hardware**: Ignores the 5-wave limitation and allows dynamic waveforms without channel resets or clicking. _Note:_ This is not hardware accurate!
+
+## Instrument Editor
+
+This chip uses the Virtual Boy instrument editor.

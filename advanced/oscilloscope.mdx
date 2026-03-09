@@ -1,0 +1,160 @@
+---
+title: Oscilloscope
+description: Visualize audio output with oscilloscope views
+---
+
+Furnace provides two types of oscilloscope views for visualizing audio output: a global oscilloscope and per-channel oscilloscopes.
+
+## Global Oscilloscope
+
+The Oscilloscope shows the audio output as a waveform.
+
+![oscilloscope view](/images/8-advanced/osc.png)
+
+### Controls
+
+Right-clicking on the oscilloscope toggles adjustment sliders:
+
+<ParamField path="Waveform height" type="slider">
+  Controls the vertical zoom of the waveform display.
+</ParamField>
+
+<ParamField path="Window size" type="slider">
+  Sets how much of the output to display in milliseconds.
+</ParamField>
+
+## Oscilloscope (Per-Channel)
+
+The "Oscilloscope (per-channel)" window displays several oscilloscope views (one per channel).
+
+![oscilloscope per-channel configuration view](/images/8-advanced/chanosc.png)
+
+Right-clicking the view will display the configuration view shown above.
+
+### Configuration Options
+
+<ParamField path="Columns" type="number">
+  Sets the amount of columns for the oscilloscope views.
+</ParamField>
+
+<ParamField path="Size (ms)" type="number">
+  Sets how much of a channel's output is captured for the oscilloscope view.
+</ParamField>
+
+<ParamField path="Automatic columns" type="checkbox">
+  Sets the number of columns based on the number of channels.
+</ParamField>
+
+<ParamField path="Center waveform" type="checkbox">
+  When enabled, the displayed waveforms will be centered horizontally using an auto-correlation algorithm.
+</ParamField>
+
+<ParamField path="Randomize phase on note" type="checkbox">
+  Randomizes the phase position when a new note is triggered.
+</ParamField>
+
+<ParamField path="DC offset correction" type="select">
+  Controls the algorithm that centers the waveform vertically.
+  
+  - **Off**: No correction
+  - **Normal**: Default setting
+  - **High**: Stronger correction
+</ParamField>
+
+<ParamField path="Amplitude" type="slider">
+  Scales amplitude for all oscilloscope views.
+</ParamField>
+
+<ParamField path="Line size" type="slider">
+  Controls line thickness.
+</ParamField>
+
+### Color Options
+
+<ParamField path="Gradient" type="checkbox">
+  Enables gradient coloring instead of a single color. See the gradient section below for more information.
+  
+  - If disabled: A single color selector will be displayed
+  - If enabled: Access the gradient configuration view
+</ParamField>
+
+<ParamField path="Set to channel color" type="button">
+  Uses the channel's configured color for the waveform.
+</ParamField>
+
+### Text Format
+
+This allows you to display text on each oscilloscope view using format codes:
+
+| Code | Description                           |
+|------|---------------------------------------|
+| `%c` | Channel name                          |
+| `%C` | Channel short name                    |
+| `%d` | Channel number (starting from 0)      |
+| `%D` | Channel number (starting from 1)      |
+| `%n` | Channel note                          |
+| `%i` | Instrument name                       |
+| `%I` | Instrument number (decimal)           |
+| `%x` | Instrument number (hex)               |
+| `%s` | Chip name                             |
+| `%p` | Chip part number                      |
+| `%S` | Chip ID                               |
+| `%v` | Volume (decimal)                      |
+| `%V` | Volume (percentage)                   |
+| `%b` | Volume (hex)                          |
+| `%l` | New line                              |
+| `%%` | Percent sign                          |
+
+Click **OK** to return to the main view.
+
+## Gradient Configuration
+
+![oscilloscope per-channel gradient configuration view](/images/8-advanced/chanosc-gradient.png)
+
+When enabling the Gradient setting, a gradient view is displayed in which circular "points" can be placed. Each point adds a color spot. The resulting image is used to look up the waveform's color as determined by each axis.
+
+### Gradient Controls
+
+<Steps>
+  <Step title="Add Point">
+    Right-click to place a point on the gradient.
+  </Step>
+  
+  <Step title="Edit Point">
+    Left-click on a point to change its color:
+    - A color picker is displayed
+    - **Distance**: The size of the circle
+    - **Spread**: The size of the solid center of the circle (increasing it fills more of the circle with the color)
+  </Step>
+  
+  <Step title="Delete Point">
+    Middle-click on a point to delete it.
+  </Step>
+</Steps>
+
+### Gradient Options
+
+<ParamField path="Background" type="select">
+  Sets the gradient's background color.
+  
+  - **Solid color**: Chooses a color to apply to all oscilloscopes
+  - **Channel color**: Automatically uses the color of the channel the oscilloscope belongs to
+</ParamField>
+
+<ParamField path="X Axis" type="select">
+  Determines what the horizontal axis maps to.
+</ParamField>
+
+<ParamField path="Y Axis" type="select">
+  Determines what the vertical axis maps to.
+  
+  Available options for both axes:
+  - **None (0%)**: Always left or bottom
+  - **None (50%)**: Always center
+  - **None (100%)**: Always right or top
+  - **Frequency**: Changes color with frequency
+  - **Volume**: Changes color with volume
+  - **Channel**: Changes color based on channel number (first channel is 0% and last is 100%)
+  - **Brightness**: Currently does nothing
+  - **Note Trigger**: Changes color when a new note is played
+</ParamField>

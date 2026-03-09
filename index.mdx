@@ -1,97 +1,144 @@
 ---
-title: "Introduction"
-description: "Welcome to the new home for your documentation"
+title: "Furnace"
+description: "The biggest multi-system chiptune tracker ever made"
 ---
 
-## Setting up
+<div style={{
+  background: 'linear-gradient(135deg, #1a1a1a 0%, #2d2d2d 100%)',
+  padding: '60px 40px',
+  borderRadius: '0px',
+  marginBottom: '40px',
+  border: '1px solid #2c2c2c'
+}}>
+  <h1 style={{
+    fontSize: '48px',
+    fontWeight: '700',
+    color: '#d9d9d9',
+    marginBottom: '20px',
+    fontFamily: 'Inter'
+  }}>
+    Furnace
+  </h1>
+  <p style={{
+    fontSize: '20px',
+    color: '#c8c8c8',
+    marginBottom: '30px',
+    maxWidth: '800px'
+  }}>
+    A multi-system chiptune tracker compatible with DefleMask modules, supporting 200+ sound chip configurations for retro music creation.
+  </p>
+  <div style={{ display: 'flex', gap: '16px', flexWrap: 'wrap' }}>
+    <a href="/quickstart" style={{
+      background: '#1a73e8',
+      color: '#ffffff',
+      padding: '12px 24px',
+      borderRadius: '4px',
+      textDecoration: 'none',
+      fontWeight: '600',
+      display: 'inline-block'
+    }}>
+      Get Started
+    </a>
+    <a href="https://github.com/tildearrow/furnace" style={{
+      background: 'transparent',
+      color: '#8ab4f8',
+      padding: '12px 24px',
+      borderRadius: '4px',
+      textDecoration: 'none',
+      fontWeight: '600',
+      display: 'inline-block',
+      border: '1px solid #8ab4f8'
+    }}>
+      View on GitHub
+    </a>
+  </div>
+</div>
 
-Get your documentation site up and running in minutes.
+## Key Features
 
-<Card
-  title="Start here"
-  icon="rocket"
-  href="/quickstart"
-  horizontal
->
-  Follow our three step quickstart guide.
-</Card>
-
-## Make it yours
-
-Design a docs site that looks great and empowers your users.
-
-<Columns cols={2}>
-  <Card
-    title="Edit locally"
-    icon="pen-to-square"
-    href="/development"
-  >
-    Edit your docs locally and preview them in real time.
+<CardGroup cols={2}>
+  <Card title="200+ Sound Chip Presets" icon="microchip">
+    Mix and match from over 200 ready-to-use presets spanning computers, game consoles, and arcade boards — or create your own with up to 32 chips or 128 channels.
   </Card>
-  <Card
-    title="Customize your site"
-    icon="palette"
-    href="/essentials/settings"
-  >
-    Customize the design and colors of your site to match your brand.
+  <Card title="Pattern-Based Composition" icon="table">
+    Compose music using the classic tracker interface with pattern-based sequencing, offering precise control over every note and effect.
   </Card>
-    <Card
-    title="Set up navigation"
-    icon="map"
-    href="/essentials/navigation"
-  >
-    Organize your docs to help users find what they need and succeed with your product.
+  <Card title="DefleMask Compatible" icon="file-import">
+    Load and save .dmf modules from all DefleMask versions, plus .dmp instruments and .dmw wavetables for seamless workflow integration.
   </Card>
-  <Card
-    title="API documentation"
-    icon="terminal"
-    href="/api-reference/introduction"
-  >
-    Auto-generate API documentation from OpenAPI specifications.
+  <Card title="Multiple Export Formats" icon="file-export">
+    Export your compositions to VGM, ZSM, TIunA, SAP, or audio files (WAV, MP3, FLAC, OGG) for playback on real hardware or digital distribution.
   </Card>
-</Columns>
+</CardGroup>
 
-## Create beautiful pages
+## Supported Sound Chips
 
-Everything you need to create world-class documentation.
+Furnace provides emulation for a vast array of sound chips, organized by category:
 
-<Columns cols={2}>
-  <Card
-    title="Write with MDX"
-    icon="pen-fancy"
-    href="/essentials/markdown"
-  >
-    Use MDX to style your docs pages.
+<CardGroup cols={3}>
+  <Card title="FM Synthesis" icon="waveform" href="/chips/fm/ym2612-opn2">
+    Yamaha OPM, OPN, OPNA, OPNB, OPN2, OPLL, OPZ, OPL, OPL2, OPL3, OPL4, and ESFM
   </Card>
-  <Card
-    title="Code samples"
-    icon="code"
-    href="/essentials/code"
-  >
-    Add sample code to demonstrate how to use your product.
+  <Card title="Square Wave" icon="square" href="/chips/square/ay8910">
+    AY-3-8910, AY8930, SN76489, SAA1099, MSM5232
   </Card>
-  <Card
-    title="Images"
-    icon="image"
-    href="/essentials/images"
-  >
-    Display images and other media.
+  <Card title="Sample-Based" icon="record-vinyl" href="/chips/sample/amiga">
+    Amiga, SNES, SegaPCM, QSound, YMZ280B, and more
   </Card>
-  <Card
-    title="Reusable snippets"
-    icon="recycle"
-    href="/essentials/reusable-snippets"
-  >
-    Write once and reuse across your docs.
+  <Card title="Wavetable" icon="water" href="/chips/wavetable/huc6280">
+    HuC6280, Namco WSG, SCC, WonderSwan, X1-010
   </Card>
-</Columns>
+  <Card title="Console Chips" icon="gamepad" href="/chips/console/nes">
+    NES, Game Boy, GBA, Virtual Boy, NDS, and expansions
+  </Card>
+  <Card title="Computer Chips" icon="computer" href="/chips/computer/c64">
+    C64, VIC-20, Atari, MSX, ZX Spectrum, and more
+  </Card>
+</CardGroup>
 
-## Need inspiration?
+## Advanced Features
 
-<Card
-  title="See complete examples"
-  icon="stars"
-  href="https://mintlify.com/customers"
->
-  Browse our showcase of exceptional documentation sites.
-</Card>
+<CardGroup cols={2}>
+  <Card title="Wavetable Synthesizer" icon="sliders">
+    Create complex sounds with the built-in wavetable synthesizer — provide up to two wavetables, select an effect, and let the synth generate unique waveforms.
+  </Card>
+  <Card title="FM Macros" icon="pen-ruler">
+    Program sophisticated FM synthesis patches with macro editing for precise control over operators, envelopes, and modulation.
+  </Card>
+  <Card title="Per-Channel Oscilloscope" icon="chart-line">
+    Visualize audio output with per-channel oscilloscope views, complete with waveform centering and gradient display options.
+  </Card>
+  <Card title="MIDI Input Support" icon="piano">
+    Connect MIDI devices for real-time note input and control, making composition faster and more intuitive.
+  </Card>
+</CardGroup>
+
+## Quality Emulation
+
+Furnace uses industry-standard emulation cores for accurate sound reproduction:
+
+- **Nuked** - Cycle-accurate Yamaha FM chip emulation
+- **MAME** - Multi Arcade Machine Emulator cores
+- **SameBoy** - Highly accurate Game Boy emulation
+- **Mednafen PCE** - PC Engine / TurboGrafx-16 emulation
+- **NSFplay, puNES** - NES and expansion chip emulation
+- **reSID, reSIDfp** - Commodore 64 SID emulation
+- **Stella** - Atari 2600 TIA emulation
+- **ymfm, vgsound_emu** - Modern FM synthesis cores
+
+## Get Started
+
+<CardGroup cols={2}>
+  <Card title="Quickstart Guide" icon="rocket" href="/quickstart">
+    Get up and running with Furnace in minutes — learn the interface and compose your first chiptune.
+  </Card>
+  <Card title="Sound Chips Reference" icon="book" href="/chips/overview">
+    Explore the complete reference for all supported sound chips, organized by category and system.
+  </Card>
+  <Card title="Frequently Asked Questions" icon="circle-question" href="/faq">
+    Find answers to common questions about installation, workflow, and troubleshooting.
+  </Card>
+  <Card title="Community & Support" icon="users" href="https://github.com/tildearrow/furnace/discussions">
+    Join the community discussions or get help on the official Discord server.
+  </Card>
+</CardGroup>

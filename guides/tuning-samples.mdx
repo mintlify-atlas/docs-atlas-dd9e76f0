@@ -1,0 +1,76 @@
+---
+title: Tuning Samples
+description: How to properly tune and transpose samples in Furnace
+---
+
+Loading a new sample into Furnace is easy, but getting it transposed and tuned to match the song can be tricky at first.
+
+## Understanding Sample Tuning
+
+<Warning>
+  It's important to remember that the "Hz" and "Note" as shown in the sample editor are unrelated to the note heard in the sample itself. A sample shown as having a "Note" of C-4 will use a sample rate of 4181, even though it may contain a note played at a different pitch than C.
+</Warning>
+
+## Tuning Process
+
+For this example, we'll use a sample of a note played at E and recorded at 22050Hz.
+
+<Steps>
+  <Step title="Create Instrument">
+    If needed, use the "Create instrument from sample" button to make an instrument to use in the track.
+  </Step>
+  
+  <Step title="Calculate Semitone Difference">
+    Calculate the semitone difference in Hz between the note your recorded sample is playing and C.
+    
+    In this example, the nearest C is 4 semitones down from E.
+  </Step>
+  
+  <Step title="Adjust Note Value">
+    Set "Note" to 4 semitones lower than it shows.
+    
+    In this case, it starts at `F-6`, so set it to `C#6`.
+    
+    **Alternative method**: Use a pitch calculator like [Semitone Calculator](https://www.omnicalculator.com/other/semitone):
+    - Input Frequency 1 as 22050Hz
+    - Input -4 semitones
+    - Receive a Frequency 2 of 17501.10Hz
+    - Enter that value into "Hz"
+  </Step>
+  
+  <Step title="Test and Fine-Tune">
+    Now, using the "Preview sample" button should play the note at C. Entering an E in the pattern will now play it at or near E.
+    
+    If the sample still sounds out of tune, adjust "Hz" or "Fine" to bring it in line.
+  </Step>
+</Steps>
+
+## Finding Sample Frequency
+
+To find the frequency of a note:
+
+1. Open the tuner (Window > Visualizers > Tuner)
+2. When sound is played, the tuner will continually update to show the note closest to it
+3. This corresponds to the highest peak shown in the spectrum analyzer (Window > Visualizers > Spectrum)
+
+<Info>
+  See the [Tuner](/advanced/tuner) documentation for more information on using the tuner.
+</Info>
+
+## Troubleshooting
+
+### Notes Sound "Capped"
+
+If notes seem "capped" (for example, playing anything over D-6 sounds like a D-6), those notes exceed the maximum sample playback rate for the chip.
+
+<Warning>
+  The only solution is to use "Resample" to change the sample to a lower rate.
+</Warning>
+
+### Samples Out of Tune in Pattern
+
+If samples sound fine in the editor but out of tune when used in the track, there may be limitations on available playback rates.
+
+<Info>
+  Check the [chip's documentation](/chips/introduction) for details on sample playback limitations.
+</Info>

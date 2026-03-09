@@ -1,0 +1,158 @@
+---
+title: Basic Concepts and Terms
+description: Understand the fundamental concepts and terminology used in Furnace tracker
+---
+
+This page introduces the core concepts you'll encounter when using Furnace. Understanding these terms will help you navigate the documentation and use the tracker effectively.
+
+## Core Terminology
+
+- A **song** (also called **module**) is a file for a tracker that contains at least one **subsong**.
+- Each Furnace song involves at least one **chip**, an emulation of a specific audio processor.
+
+## Tracking
+
+The **pattern view** is similar to a spreadsheet that displays the following:
+
+<AccordionGroup>
+  <Accordion title="Channels">
+    Each labeled column represents a **channel** of sound provided by the chips in use. Within a channel, only one note can play at a time.
+  </Accordion>
+  
+  <Accordion title="Notes">
+    Each **note** starts a sound playing. Notes are the fundamental building blocks of your music.
+  </Accordion>
+  
+  <Accordion title="Instruments">
+    Each note is assigned an **instrument** which describes what it will sound like. Instruments define the timbral characteristics of sounds.
+  </Accordion>
+  
+  <Accordion title="Effects">
+    An **effect** is a command that changes some aspect of playback. It can alter note pitch, volume, timing, and more.
+  </Accordion>
+  
+  <Accordion title="Macros">
+    An instrument **macro** is an automated sequence of effects that applies to every note of that instrument. Macros are incredibly powerful for creating dynamic sounds.
+  </Accordion>
+  
+  <Accordion title="Playhead">
+    During playback, the **playhead** moves down, scrolling through the pattern view, triggering the notes that it encounters.
+  </Accordion>
+</AccordionGroup>
+
+## Structure
+
+The **order list** is a smaller spreadsheet showing the overall song structure:
+
+```
+Order List (simplified view)
+┌─────┬────┬────┬────┐
+│ Ord │ FM1│ FM2│ PSG│
+├─────┼────┼────┼────┤
+│  00 │ 00 │ 00 │ 00 │
+│  01 │ 01 │ 01 │ 01 │
+│  02 │ 00 │ 02 │ 00 │
+└─────┴────┴────┴────┘
+```
+
+### Understanding Orders and Patterns
+
+<Steps>
+  <Step title="Song Structure">
+    A song is made up of a list of **orders**.
+  </Step>
+  
+  <Step title="Orders">
+    An **order** is a set of numbered patterns used for each channel.
+  </Step>
+  
+  <Step title="Channel Patterns">
+    Each channel has its own unique list of patterns. Each **pattern** contains note and effect data for that channel only.
+  </Step>
+  
+  <Step title="Pattern Reuse">
+    Patterns may be used multiple times in the order list. Changing a pattern's data in one order will affect the same pattern used in other orders.
+  </Step>
+  
+  <Step title="Pattern Rows">
+    Each pattern is made of the same number of rows as seen in the tracker view.
+  </Step>
+  
+  <Step title="Playback Flow">
+    During playback, the playhead moves down through the pattern. When it reaches the end of the pattern view, it goes to the next order. If the last order is reached, it loops back to the beginning.
+  </Step>
+</Steps>
+
+<Note>
+Think of orders as a playlist and patterns as the actual musical segments. You can rearrange and reuse patterns without duplicating data.
+</Note>
+
+## Time
+
+Understanding how time works in Furnace is crucial for effective tracking:
+
+### Ticks
+
+A **tick** is the smallest measure of time to which all note, effect, and macro times are quantized. Ticks are the atomic unit of musical time in Furnace.
+
+### Rows and Speed
+
+During playback, each **row** lasts a number of ticks determined by the song's **speed** value(s).
+
+<Accordion title="Example: Speed and Timing">
+If your speed is set to 6:
+- Each row takes 6 ticks to complete
+- At 60Hz tick rate, this means 10 rows per second
+- This translates to 150 BPM
+
+If you change speed to 3:
+- Each row takes 3 ticks to complete
+- At 60Hz tick rate, this means 20 rows per second
+- This translates to 300 BPM
+</Accordion>
+
+## Sound
+
+Sound chips have different capabilities. Even within the same chip, each channel may have its own ways of making sound.
+
+### Sound Generation Methods
+
+<CardGroup cols={2}>
+  <Card title="Waveform Generators" icon="wave-sine">
+    Some channels use one or more waveform generators (sine, square, noise...) to build up a sound.
+  </Card>
+  
+  <Card title="FM Synthesis" icon="sliders">
+    **FM (frequency modulation)** channels use a number of generators called **operators** that can interact to make very complex sounds.
+  </Card>
+  
+  <Card title="Samples" icon="waveform">
+    Some channels use **samples** which are (usually) recordings of sounds, often with defined loop points to allow a note to sustain.
+  </Card>
+  
+  <Card title="Wavetables" icon="table">
+    Some channels use **wavetables**, which are very short samples of fixed length that automatically loop.
+  </Card>
+</CardGroup>
+
+## Quick Reference
+
+Here's a quick cheat sheet of the most important terms:
+
+| Term | Definition |
+|------|------------|
+| **Module/Song** | The complete Furnace file (.fur) |
+| **Channel** | A single column of musical data |
+| **Pattern** | Note and effect data for one channel |
+| **Order** | A row in the order list specifying which patterns to play |
+| **Note** | A musical pitch to play |
+| **Instrument** | Defines how a note sounds |
+| **Effect** | A command that modifies playback |
+| **Macro** | Automated effects within an instrument |
+| **Tick** | Smallest unit of time |
+| **Row** | A horizontal line in the pattern view |
+| **Playhead** | The current playback position |
+
+## Next Steps
+
+Now that you understand the basic concepts, you're ready to dive into the [quick start guide](/quickstart) or explore the interface documentation.

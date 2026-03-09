@@ -1,0 +1,88 @@
+---
+title: Yamaha YMF262 (OPL3)
+description: Advanced OPL with 18 channels, 4-op mode, and quad output
+---
+
+A series of FM sound chips which were very popular in DOS land. It was so popular that even Yamaha made a logo for it!
+
+Essentially a downgraded version of Yamaha's other FM chips, with only 2 operators per channel. However, it also had a drums mode, and later chips in the series added more waveforms (than just the typical sine) and even a 4-operator mode.
+
+The OPL3 (Yamaha YMF262) added 9 more channels, 4 more waveforms, rudimentary 4-operator mode (pairing up to 12 channels to make up to six 4-operator channels), quadraphonic output and some other things.
+
+## Effects
+
+- `10xx`: **set AM depth.** The following values are accepted:
+  - `0`: 1dB (shallow)
+  - `1`: 4.8dB (deep)
+  - This effect applies to all channels.
+- `11xx`: **set feedback of channel.**
+- `12xx`: **set operator 1 level.**
+- `13xx`: **set operator 2 level.**
+- `14xx`: **set operator 3 level.**
+  - Only in 4-op mode.
+- `15xx`: **set operator 4 level.**
+  - Only in 4-op mode.
+- `16xy`: **set multiplier of operator.**
+  - `x` is the operator (1-4; last 2 operators only in 4-op mode).
+  - `y` is the new MULT value.
+- `17xx`: **set vibrato depth.**
+  - `0`: normal
+  - `1`: double
+  - This effect applies to all channels.
+- `18xx`: **toggle drums mode.**
+  - `0` disables it and `1` enables it.
+  - Only in drums chip.
+- `19xx`: **set attack of all operators.**
+- `1Axx`: **set attack of operator 1.**
+- `1Bxx`: **set attack of operator 2.**
+- `1Cxx`: **set attack of operator 3.**
+  - Only in 4-op mode.
+- `1Dxx`: **set attack of operator 4.**
+  - Only in 4-op mode.
+- `2Axy`: **set waveform of operator.**
+  - `x` is the operator from 1 to 4; the last 2 operators only work in 4-op mode. A value of `0` means "all operators".
+  - `y` is the value.
+- `30xx`: **enable envelope hard reset.**
+  - This works by inserting a quick release and tiny delay before a new note.
+- `50xy`: **set AM of operator.**
+  - `x` is the operator from 1 to 4; the last 2 operators only work in 4-op mode. A value of `0` means "all operators".
+  - `y` determines whether AM is on.
+- `51xy`: **set SL of operator.**
+  - `x` is the operator from 1 to 4; the last 2 operators only work in 4-op mode. A value of `0` means "all operators".
+  - `y` is the value.
+- `52xy`: **set RR of operator.**
+  - `x` is the operator from 1 to 4; the last 2 operators only work in 4-op mode. A value of `0` means "all operators".
+  - `y` is the value.
+- `53xy`: **set VIB of operator.**
+  - `x` is the operator from 1 to 4; the last 2 operators only work in 4-op mode. A value of `0` means "all operators".
+  - `y` determines whether VIB is on.
+- `54xy`: **set KSL of operator.**
+  - `x` is the operator from 1 to 4; the last 2 operators only work in 4-op mode. A value of `0` means "all operators".
+  - `y` is the value.
+- `55xy`: **set SUS of operator.**
+  - `x` is the operator from 1 to 4; the last 2 operators only work in 4-op mode. A value of `0` means "all operators".
+  - `y` determines whether SUS is on.
+- `56xx`: **set DR of all operators.**
+- `57xx`: **set DR of operator 1.**
+- `58xx`: **set DR of operator 2.**
+- `59xx`: **set DR of operator 3.**
+  - Only in 4-op mode.
+- `5Axx`: **set DR of operator 4.**
+  - Only in 4-op mode.
+- `5Bxy`: **set KSR of operator.**
+  - `x` is the operator from 1 to 4; the last 2 operators only work in 4-op mode. A value of `0` means "all operators".
+  - `y` determines whether KSR is on.
+
+## Instrument Editor
+
+This chip uses the FM (OPL) instrument editor.
+
+When two channels are joined for 4-op mode, the channel bar will show `4OP` on a bracket tying them together.
+
+## Chip Configuration
+
+The following options are available in the Chip Manager window:
+
+- **Clock rate**: Sets the rate at which the chip will run.
+- **Chip type**: Sets the chip model. OPL3-L uses resampling.
+- **Compatible panning**: For compatibility with old Furnace.

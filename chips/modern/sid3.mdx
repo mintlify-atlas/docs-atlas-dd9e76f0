@@ -1,0 +1,193 @@
+---
+title: SID3
+description: An advanced fictional SID-like chip by LTVA
+---
+
+A fictional chip created by LTVA. The idea is to stay vaguely in the [SID](c64.md)-like category of chips, but add a lot of features and more channels.
+
+The chip has 6 synth channels and one channel capable of playing wavetable or streamed samples.
+
+## Synth Channel Features
+
+Each synth channel has:
+
+- **Two phase accumulator based oscillators**: One for tone and one for noise LFSR clocking
+  - Frequency range: 0.001Hz to ~15kHz at default clock speed
+
+- **5 waveform types** (can be enabled in any combination):
+  - Pulse (with 16-bit pulse width control)
+  - Triangle
+  - Sawtooth
+  - Noise
+  - Special wave (58 different types including all OPL3 and OPZ waveforms, their clipped versions, cubed variations, and more)
+
+- **Noise generation**: From 30-bit LFSR
+  - Like C64, eight bits form 8-bit noise signal
+  - Adjustable feedback (any bit can be feedback bit)
+  - Some configurations produce tonal noise that Furnace automatically detects and tunes
+  - 1-bit noise mode available for AY-style noise
+
+- **5 waveform mixing modes**:
+  - 8580 SID (combined waves; bitwise AND with noise and special wave)
+  - Bitwise AND
+  - Bitwise OR
+  - Bitwise XOR
+  - Sum of oscillators' signals
+
+- **Hard sync**: Each channel can have any other channel as sync source (even itself)
+
+- **Ring modulation**: Each channel can have any other channel as modulation source (even itself)
+  - Self-modulation effectively squares the signal
+
+- **Phase modulation**: Each channel can have any other channel as modulation source (even itself)
+  - Self-modulation creates feedback-like effect
+  - Channel output after filters is used as modulation source
+
+- **ADSR envelope** with sustain rate setting (decay speed during sustain phase)
+
+- **4 independent filters**:
+  - Each filter has its own cutoff, resonance, output volume, mode, on/off, and distortion
+  - Can be connected to channel's ADSR output
+  - Output can be routed to final channel output
+  - Full connection matrix between filter outputs and inputs
+  - Distortion: Asymmetrical with hyperbolic tangent (positive) and exponential (negative)
+  - Filters can be chained for flexible subtractive synthesis or increased slope (12 dB/octave per filter)
+  - Multiple modes can be selected simultaneously (e.g., low+high = bandstop/notch)
+
+- **Adjustable feedback**: Saves two previous outputs and adds them to accumulator before computing waveform
+
+- **Fine stereo panning control**
+
+- **Channel inversion**: Left and right signals can be inverted for "surround" sound
+
+ADSR, tone phase, and noise phase can all be reset. Noise LFSR is also reset to initial state on phase reset.
+
+## Wave Channel
+
+The wave channel has all the above features except waveform generation, feedback, and noise generator.
+
+## Effects
+
+- `1xxx`: **Set filter 1 cutoff** (range: `000` to `FFF`)
+- `2xxx`: **Set filter 2 cutoff** (range: `000` to `FFF`)
+- `3xxx`: **Set filter 3 cutoff** (range: `000` to `FFF`)
+- `4xxx`: **Set filter 4 cutoff** (range: `000` to `FFF`)
+- `5xxx`: **Set duty cycle** (range: `000` to `FFF`)
+
+- `60xx`: **Change wave** (lower 5 bits)
+  - Bit 0: Triangle
+  - Bit 1: Saw
+  - Bit 2: Pulse
+  - Bit 3: Noise
+  - Bit 4: Special wave
+
+- `61xx`: **Change special wave** (range: `00` to `39`)
+
+- `62xx`: **Modulation control** (lower 3 bits)
+  - Bit 0: Ring modulation
+  - Bit 1: Oscillator sync
+  - Bit 2: Phase modulation
+
+- `63xy`: **Reset duty cycle**
+  - `x` ≠ 0: On new note
+  - `y` ≠ 0: Now
+
+- `64xx`: **Set ring modulation source channel** (`00` to `07`, where `07` is self-modulation)
+- `65xx`: **Set hard sync source channel** (`00` to `06`)
+- `66xx`: **Set phase modulation source channel** (`00` to `06`)
+
+- `67xx`: **Set attack** (range: `00` to `FF`)
+- `68xx`: **Set decay** (range: `00` to `FF`)
+- `69xx`: **Set sustain level** (range: `00` to `FF`)
+- `6Axx`: **Set sustain rate** (range: `00` to `FF`)
+- `6Bxx`: **Set release** (range: `00` to `FF`)
+- `6Cxx`: **Set waveform mix mode** (range: `00` to `04`)
+
+- `6Dxx`: **Set noise LFSR feedback bits (low byte)** (range: `00` to `FF`)
+- `6Exx`: **Set noise LFSR feedback bits (medium byte)** (range: `00` to `FF`)
+- `6Fxx`: **Set noise LFSR feedback bits (high byte)** (range: `00` to `FF`)
+- `70xx`: **Set noise LFSR feedback bits (highest bits)** (range: `00` to `3F`)
+
+- `71xx`: **Set filter 1 resonance** (range: `00` to `FF`)
+- `72xx`: **Set filter 2 resonance** (range: `00` to `FF`)
+- `73xx`: **Set filter 3 resonance** (range: `00` to `FF`)
+- `74xx`: **Set filter 4 resonance** (range: `00` to `FF`)
+
+- `75xx`: **Set noise/wave channel mode** (range: `00` to `01`)
+  - Synth channels: `00` = normal noise, `01` = 1-bit noise
+  - Wave channel: `00` = wavetable, `01` = streamed PCM sample
+
+- `76xx`: **Set filter 1 output volume** (range: `00` to `FF`)
+- `77xx`: **Set filter 2 output volume** (range: `00` to `FF`)
+- `78xx`: **Set filter 3 output volume** (range: `00` to `FF`)
+- `79xx`: **Set filter 4 output volume** (range: `00` to `FF`)
+
+- `7Axx`: **Set filter 1 distortion** (range: `00` to `FF`)
+- `7Bxx`: **Set filter 2 distortion** (range: `00` to `FF`)
+- `7Cxx`: **Set filter 3 distortion** (range: `00` to `FF`)
+- `7Dxx`: **Set filter 4 distortion** (range: `00` to `FF`)
+
+- `7Exx`: **Set feedback** (range: `00` to `FF`)
+
+- `7Fxx`: **Channel inversion control** (lower 2 bits)
+  - Bit 0: Invert right channel
+  - Bit 1: Invert left channel
+
+- `A0xy`: **Set filter mode**
+  - `x`: Filter number (`0-3`)
+  - `y` (lower 3 bits):
+    - Bit 0: Low pass
+    - Bit 1: Band pass
+    - Bit 2: High pass
+
+- `A1xy`: **Set filter connection**
+  - `x`: Filter number (`0-3`)
+  - `y` (lower 2 bits):
+    - Bit 0: Connect filter input to channel's ADSR output
+    - Bit 1: Connect filter output to final channel output
+
+- `A2xy`: **Set filter connection matrix row**
+  - `x`: Filter number (`0-3`)
+  - `y` (lower 4 bits):
+    - Bit 0: Connect to filter 1 output
+    - Bit 1: Connect to filter 2 output
+    - Bit 2: Connect to filter 3 output
+    - Bit 3: Connect to filter 4 output
+
+- `A3xy`: **Enable filter**
+  - `x`: Filter number (`0-3`)
+  - `y`: `0` (disabled) or `1` (enabled)
+
+- `A4xx`: **Pulse width slide up** (`xx` is speed; `A400` stops)
+- `A5xx`: **Pulse width slide down** (`xx` is speed; `A500` stops)
+- `A6xx`: **Filter 1 cutoff slide up** (`xx` is speed; `A600` stops)
+- `A7xx`: **Filter 1 cutoff slide down** (`xx` is speed; `A700` stops)
+- `A8xx`: **Filter 2 cutoff slide up** (`xx` is speed; `A800` stops)
+- `A9xx`: **Filter 2 cutoff slide down** (`xx` is speed; `A900` stops)
+- `AAxx`: **Filter 3 cutoff slide up** (`xx` is speed; `AA00` stops)
+- `ABxx`: **Filter 3 cutoff slide down** (`xx` is speed; `AB00` stops)
+- `ACxx`: **Filter 4 cutoff slide up** (`xx` is speed; `AC00` stops)
+- `ADxx`: **Filter 4 cutoff slide down** (`xx` is speed; `AD00` stops)
+
+- `AExx`: **Tone phase reset** (`xx` is tick number)
+- `AFxx`: **Noise phase reset** (`xx` is tick number)
+- `B0xx`: **Envelope reset** (`xx` is tick number)
+
+- `B1xy`: **Filter cutoff scaling control**
+  - `x`: Filter number (`0-3`)
+  - `y` (lower 2 bits):
+    - Bit 0: Enable cutoff scaling
+    - Bit 1: Inverse cutoff scaling
+
+- `B2xy`: **Filter resonance scaling control**
+  - `x`: Filter number (`0-3`)
+  - `y` (lower 2 bits):
+    - Bit 0: Enable resonance scaling
+    - Bit 1: Inverse resonance scaling
+
+## Chip Configuration
+
+**Quarter clock speed**: Make chip run at quarter the default clock rate (1MHz is default)
+- Lowers CPU load almost 4 times
+- Filters may become unstable or have different timbre at high cutoff/resonance
+- Only affects playback mode; not applied when rendering to audio file

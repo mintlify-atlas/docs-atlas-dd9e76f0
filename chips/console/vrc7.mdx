@@ -1,0 +1,68 @@
+---
+title: "Konami VRC7"
+description: "FM synthesis expansion for Famicom (based on Yamaha OPLL)"
+---
+
+The VRC7 is a famous Konami expansion chip for the Famicom. Used in the Japan-only video game Lagrange Point, it was a cost reduction on top of the Yamaha YM2413 (OPLL)!
+
+Compared to the YM2413, the VRC7 has:
+- **6 channels** (instead of 9)
+- **No drums mode**
+- Custom patch set
+
+The VRC7 is based on the Yamaha YM2413/OPLL, a cost-reduced FM synthesis sound chip derived from the Yamaha YM3812 (OPL2).
+
+## Technical Specifications
+
+- **6 channels** of 2-operator FM synthesis
+- **1 user-definable patch** (this patch can be changed throughout the course of the song)
+- **15 pre-defined patches** (VRC7-specific) which can all be used at the same time
+- Support for **ADSR** on both the modulator and the carrier
+- **Sine and half-sine** based FM synthesis
+- **9 octave** note control
+- **4096 different frequencies** for channels
+- **16 unique volume levels** (NOTE: volume 0 is NOT silent)
+- Modulator and carrier **key scaling**
+- Built-in **hardware vibrato** support
+
+## Effects
+
+| Effect | Description |
+|--------|-------------|
+| `10xx` | **Change patch** |
+| `11xx` | **Set feedback of channel** |
+| `12xx` | **Set operator 1 level** |
+| `13xx` | **Set operator 2 level** |
+| `16xy` | **Set multiplier of operator**<br/>`x`: Operator (1 or 2)<br/>`y`: New MULT value |
+| `19xx` | **Set attack of all operators** |
+| `1Axx` | **Set attack of operator 1** |
+| `1Bxx` | **Set attack of operator 2** |
+| `50xy` | **Set AM of operator**<br/>`x`: Operator (1 or 2, or 0 for all)<br/>`y`: Whether AM is on |
+| `51xy` | **Set SL of operator**<br/>`x`: Operator (1 or 2, or 0 for all)<br/>`y`: Value |
+| `52xy` | **Set RR of operator**<br/>`x`: Operator (1 or 2, or 0 for all)<br/>`y`: Value |
+| `53xy` | **Set VIB of operator**<br/>`x`: Operator (1 or 2, or 0 for all)<br/>`y`: Whether VIB is on |
+| `54xy` | **Set KSL of operator**<br/>`x`: Operator (1 or 2, or 0 for all)<br/>`y`: Value |
+| `55xy` | **Set EGT of operator**<br/>`x`: Operator (1 or 2, or 0 for all)<br/>`y`: Whether EGT is on |
+| `56xx` | **Set DR of all operators** |
+| `57xx` | **Set DR of operator 1** |
+| `58xx` | **Set DR of operator 2** |
+| `5Bxy` | **Set KSR of operator**<br/>`x`: Operator (1 or 2, or 0 for all)<br/>`y`: Whether KSR is on |
+
+## Chip Configuration
+
+The following options are available in the Chip Manager window:
+
+- **Clock rate**: Sets the rate at which the chip will run
+- **Patch set**: Changes the chip model, providing different built-in sounds. VRC7 is the default.
+
+## Instrument Editor
+
+This chip uses the FM (OPLL) instrument editor.
+
+## Related Chips
+
+The VRC7 is part of the OPLL family:
+- **Yamaha YM2413** - The original OPLL with 9 channels and drums mode
+- **Konami VRC7** - 6 channels, no drums mode, custom patches
+- **Yamaha YM2423** - Same as YM2413, different patch set
+- **Yamaha YMF281** - Also changes the patch set

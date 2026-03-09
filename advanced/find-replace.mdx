@@ -1,0 +1,156 @@
+---
+title: Find/Replace
+description: Powerful pattern search and mass editing tools
+---
+
+Furnace has a powerful find-and-replace function that can take the repetitive work out of mass editing.
+
+## Find
+
+![find dialog](/images/8-advanced/find-find.png)
+
+All data that can be found within a pattern can be searched for here.
+
+### Query Fields
+
+A query contains:
+
+<ParamField path="Note" type="select">
+  Search for note values.
+</ParamField>
+
+<ParamField path="Ins" type="select">
+  Search for instrument numbers.
+</ParamField>
+
+<ParamField path="Volume" type="select">
+  Search for volume values.
+</ParamField>
+
+<ParamField path="Effect" type="select">
+  Search for effect type.
+</ParamField>
+
+<ParamField path="Value" type="select">
+  Search for effect value.
+</ParamField>
+
+### Match Types
+
+All fields have the following choices for what data will be found:
+
+- **ignore**: Ignore this field in the search
+- **equals**: Match the given value exactly
+- **not equal**: Match everything but the given value
+- **between**: Match anything between and including the given values
+- **not between**: Match anything outside the given range of values
+- **any**: Match all values
+- **none**: Match blanks only
+
+### Query Management
+
+<ParamField path="-" type="button">
+  Remove query. If only one query exists, it is cleared.
+</ParamField>
+
+<ParamField path="Add effect" type="button">
+  Adds another Effect and Value to the query, each set representing additional effects columns.
+</ParamField>
+
+<ParamField path="Remove effect" type="button">
+  Removes last Effect and Value from the query.
+</ParamField>
+
+<ParamField path="+" type="button">
+  Adds another query.
+</ParamField>
+
+### Search Options
+
+<ParamField path="Search range" type="select">
+  Restricts search range.
+  
+  - **Song**: Search entire song
+  - **Selection**: Search current selection only
+  - **Pattern**: Search currently viewed pattern only
+</ParamField>
+
+<ParamField path="Confine to channels" type="checkbox">
+  Restricts to the selected channels and the channels between them.
+</ParamField>
+
+<ParamField path="Match effect position" type="select">
+  Chooses how the order of effect types and effect values will matter when finding them.
+  
+  - **No**: No attention is paid to what order the effects appear in
+  - **Lax**: Matches effects if they appear in the same order as selected above
+  - **Strict**: Effects may only match in their corresponding effects columns
+</ParamField>
+
+### Find Button
+
+The **Find** button finds everything that matches the query and displays it in a list.
+
+- The **order**, **row**, and **channel** columns show the location of each match
+- The **go** column buttons will take you to the location of the result
+
+## Replace
+
+![replace dialog](/images/8-advanced/find-replace.png)
+
+You may select any of these fields to replace:
+
+- **Note**: Note
+- **Ins**: Instrument
+- **Volume**: Volume
+- **Effect**: Effect type
+- **Value**: Effect value
+
+### Replacement Modes
+
+All fields have the following choices for how they alter matches:
+
+<AccordionGroup>
+  <Accordion title="set">
+    Changes matched data to this value.
+  </Accordion>
+  
+  <Accordion title="add">
+    Adds this value to matched data. It may be negative for subtraction. Notes are calculated in semitones.
+  </Accordion>
+  
+  <Accordion title="add (overflow)">
+    As "add" above, but values will wrap around; for example, adding 13 to `FF` will result in `0C`.
+  </Accordion>
+  
+  <Accordion title="scale">
+    Multiply value to this percentage; for example, scaling `1A` by `150` results in `27`. Not available for "note".
+  </Accordion>
+  
+  <Accordion title="clear">
+    Erases matched data.
+  </Accordion>
+</AccordionGroup>
+
+### Replace Options
+
+<ParamField path="Add effect" type="button">
+  Adds another Effect and Value to be replaced according to how they were found.
+</ParamField>
+
+<ParamField path="Remove effect" type="button">
+  Removes last Effect and Value.
+</ParamField>
+
+<ParamField path="Effect replace mode" type="select">
+  Controls how effects are replaced.
+  
+  - **Replace matches only**: Replaces only the effect columns that match
+  - **Replace matches, then free spaces**: Replaces matched effects; if there are effect columns without data, those will be filled in with the additional effect replacements
+  - **Clear effects**: Overwrites effect data with replacement effects
+  - **Insert in free spaces**: Replaces nothing; replacement effects are inserted in free effects columns when available
+</ParamField>
+
+### Replace Button
+
+The **Replace** button performs the query specified in the Find tab and replaces it as directed.

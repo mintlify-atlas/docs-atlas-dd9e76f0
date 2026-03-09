@@ -1,0 +1,28 @@
+---
+title: Namco C219
+description: Documentation for the C219 16-channel PCM sound chip
+---
+
+Namco C219 is a 16-channel PCM sound chip that's a lot like C140, but has a noise generator, surround effect and a different µ-law curve.
+
+This chip features:
+
+- Stereo soft panning
+- Accepts either 8-bit PCM or proprietary 8-bit µ-law compressed PCM samples
+
+## Sample Memory Notice
+
+This chip is rather unique when it comes to sample memory. Be sure to read this notice.
+
+The channels are in groups of four. A sample bank (128KB) may be selected for each group. If a sample that is on a different bank plays in a group, the group is switched to that bank, and other channels will be silenced.
+
+## Effects
+
+- `11xx`: **Set noise mode.**
+- `12xy`: **Set invert mode.**
+  - If `x` is 1 or higher, surround is enabled.
+  - If `y` is 1 or higher, invert is enabled.
+
+## Info
+
+Maximum sample length is 131072, and loop start and end points must be even numbers.

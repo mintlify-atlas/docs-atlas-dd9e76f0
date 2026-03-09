@@ -1,0 +1,56 @@
+---
+title: "Namco WSG / C15 / C30"
+description: "Wavetable sound chips used in Namco arcade machines"
+---
+
+A family of wavetable synth sound chips used by Namco in their arcade machines (Pac-Man and later). Waveforms are 4-bit, with 32-byte sample length.
+
+Everything starts with Namco WSG, which is a simple 3-channel wavetable with no extra frills. C15 is a much more advanced sound source with 8 channels, and C30 adds stereo output and noise mode.
+
+## Chip Variants
+
+### Namco WSG
+- **3 channels** of wavetable synthesis
+- Basic functionality, no extra features
+
+### Namco C15
+- **8 channels** of wavetable synthesis
+- More advanced sound capabilities
+
+### Namco C30
+- **8 channels** of wavetable synthesis
+- **Stereo output**
+- **Noise mode** support
+
+## Waveform Specifications
+
+- **4-bit** waveforms
+- **32-byte** sample length
+
+## Effects
+
+| Effect | Description |
+|--------|-------------|
+| `10xx` | **Change waveform** |
+| `11xx` | **Toggle noise mode** (C30 only) |
+
+<Warning>
+The noise mode effect (`11xx`) only works on Namco C30.
+</Warning>
+
+## Chip Configuration
+
+The following options are available in the Chip Manager window:
+
+**For Namco WSG and C15:**
+- **Waveform storage mode**: Selects whether RAM or ROM is connected to the chip
+  - **RAM**: Connects RAM for unlimited waves
+  - **ROM**: Connects ROM. Authentic to hardware, but only the first 8 waves are loaded
+
+**For Namco C30:**
+The C30 always uses RAM for waveforms, so the storage mode option is not available. Instead:
+- **Compatible noise frequencies**: For compatibility with old Furnace
+
+## Instrument Editor
+
+This chip uses the Namco WSG instrument editor.

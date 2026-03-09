@@ -1,0 +1,56 @@
+---
+title: "WonderSwan"
+description: "Bandai's Japan-exclusive handheld console sound chip"
+---
+
+A handheld console released only in Japan by Bandai, designed by the same people behind Game Boy and Virtual Boy. For this reason it has lots of similar elements from those two systems in the sound department.
+
+It has 4 wavetable channels. Some of them have additional capabilities:
+- The second channel could play samples
+- The third one has hardware sweep
+- The fourth one also does noise
+
+Unfortunately, the system mixes and outputs sound at only 24kHz, leading to noticeable aliasing noise...
+
+## Channel Configuration
+
+- **Channel 1**: Standard wavetable
+- **Channel 2**: Wavetable + **sample playback**
+- **Channel 3**: Wavetable + **hardware sweep**
+- **Channel 4**: Wavetable + **noise**
+
+## Effects
+
+| Effect | Description |
+|--------|-------------|
+| `10xx` | **Change wave** |
+| `11xx` | **Setup noise mode** (channel 4 only)<br/>`0`: Disable<br/>`1-8`: Enable and set length |
+| `12xx` | **Setup sweep period** (channel 3 only)<br/>`00`: Disable<br/>`01-20`: Enable and set period for 1 to 32 |
+| `13xx` | **Setup sweep amount** (channel 3 only)<br/>`00-7F`: 0 to 127<br/>`80-FF`: -128 to -1 |
+| `20xx` | **Set internal speaker loudness**<br/>`0-1`: 100% (default)<br/>`2-3`: 200%<br/>`4-7`: 400%<br/>`8`: 800%<br/>Has no effect when "Headphone output" is on |
+
+## Channel Status Icons
+
+When channel status is enabled in the pattern view, the following icons are displayed:
+
+**PCM mode (channel 2):**
+- PCM mode off
+- PCM mode on
+
+**Sweep (channel 3):**
+- Sweep mode disabled
+- Sweep mode enabled
+
+**Noise mode (channel 4):**
+- Noise mode off
+- Noise mode on
+
+## Chip Configuration
+
+The following option is available in the Chip Manager window:
+
+- **Headphone output**: Enables stereo 16-bit output. If disabled, the internal speaker's 8-bit mono output is used. Default is on.
+
+## Instrument Editor
+
+This chip uses the WonderSwan instrument editor.

@@ -1,0 +1,61 @@
+---
+title: Ensoniq ES5506 (OTTO)
+description: Documentation for the ES5506 32-channel sample-based synthesis chip
+---
+
+Sample-based synthesis chip used in a bunch of Taito arcade machines and PC sound cards like Soundscape Elite. A variant of it was the heart of the well-known Gravis Ultrasound.
+
+It has a whopping 32 channels of 16-bit PCM and:
+
+- Real time digital filters
+- Linear interpolation
+- Loop start and stop positions for each voice (bidirectional and reverse looping)
+- Internal volume multiplication and stereo panning
+- Hardware support for short envelopes
+
+## Effects
+
+- `11xx`: **Set filter mode.** Values are `0` through `3`.
+- `120x`: **Set pause (bit 0).** Pauses the sample until the bit is unset; it will then resume where it left off.
+- `14xx`: **Set filter coefficient K1 low byte.**
+- `15xx`: **Set filter coefficient K1 high byte.**
+- `16xx`: **Set filter coefficient K2 low byte.**
+- `17xx`: **Set filter coefficient K2 high byte.**
+- `18xx`: **Set filter coefficient K1 slide up.**
+- `19xx`: **Set filter coefficient K1 slide down.**
+- `1Axx`: **Set filter coefficient K2 slide up.**
+- `1Bxx`: **Set filter coefficient K2 slide down.**
+- `20xx`: **Set envelope count.**
+- `22xx`: **Set envelope left volume ramp.**
+- `23xx`: **Set envelope right volume ramp.**
+- `24xx`: **Set envelope filter coefficient K1 ramp.**
+- `25xx`: **Set envelope filter coefficient K1 ramp (slower).**
+- `26xx`: **Set envelope filter coefficient K2 ramp.**
+- `27xx`: **Set envelope filter coefficient K2 ramp (slower).**
+- `3xxx`: **Set coarse filter coefficient K1.**
+- `4xxx`: **Set coarse filter coefficient K2.**
+- `81xx`: **Set panning (left channel).**
+- `82xx`: **Set panning (right channel).**
+- `88xx`: **Set panning (rear channels).**
+- `89xx`: **Set panning (rear left channel).**
+- `8Axx`: **Set panning (rear right channel).**
+- `9xxx`: **Set sample offset.**
+  - Resets sample position to `xxx * 0x100`.
+- `DFxx`: **Set sample playback direction.**
+
+## Info
+
+Sample memory is split into 2MB banks, making the maximum sample length 2097024 bytes.
+
+## Chip Configuration
+
+The following options are available in the Chip Manager window:
+
+- **Output rate divider**: Sets the number of channels used in mixing. Ranges from the value set in "Channels" below up to 32.
+  - As the chip mixes more channels, its output sample rate goes down, which also affects filtering.
+  - Higher output rates (lower dividers) consume significantly more CPU, so even when using fewer active channels, it's best to keep this divider as high as possible. A /22 divider is sufficient for 44100 Hz output.
+- **Volume scale**: Allows you to lower the overall volume to prevent clipping/distortion when using too many channels.
+- **Amiga channel volumes**: Makes volume linear, from 0 to 64 (40 in hex). Used in S3M, XM and IT import.
+- **Amiga-like pitch**: Pretends to be an Amiga, with periodic slides. Used in S3M, XM and IT import (the latter two when linear slides are disabled).
+  - Only effective when pitch linearity is None.
+- **Channels**: Sets the number of channels, from 5 to 32.

@@ -1,0 +1,122 @@
+---
+title: Commodore 64 (SID)
+description: The iconic synthesizer-grade sound chip from the Commodore 64
+---
+
+A home computer with a synthesizer-grade sound chip of which people took decades to master. Three oscillators with four selectable waveforms, ring modulation, oscillator sync, multi-mode filter and ADSR envelope.
+
+Very popular in Europe and mostly due to the demoscene, which stretched the machine's limbs to no end.
+
+## Chip Versions
+
+Two versions of the chip exist:
+- **6581**: Original chip with a hardware quirk producing DC output regulated by the global volume register. This can be abused to create a crude virtual fourth 4-bit PCM channel.
+- **8580**: Improved version with working waveform mixing and more consistent filter curves. The DC output quirk is fixed, making PCM playback nearly inaudible.
+
+Furnace supports the 6581 with the "Commodore 64 (SID 6581) with software PCM" system.
+
+## Effects
+
+- `10xx`: **Change wave**
+  - `00`: Nothing
+  - `01`: Triangle
+  - `02`: Saw
+  - `03`: Triangle and saw
+  - `04`: Pulse
+  - `05`: Pulse and triangle
+  - `06`: Pulse and saw
+  - `07`: Pulse and triangle and saw
+  - `08`: Noise
+
+- `11xx`: **Set coarse cutoff** (`00` to `64`)
+  - This effect exists for compatibility only; use `4xxx` instead
+
+- `12xx`: **Set coarse duty cycle** (`00` to `64`)
+  - This effect exists for compatibility only; use `3xxx` instead
+
+- `13xx`: **Set resonance** (`00` to `0F`)
+
+- `14xx`: **Set filter mode**
+  - `00`: Filter off
+  - `01`: Low pass
+  - `02`: Band pass
+  - `03`: Low+band pass
+  - `04`: High pass
+  - `05`: Band reject/stop/notch
+  - `06`: High+band pass
+  - `07`: All pass
+
+- `15xx`: **Set envelope reset time**
+  - Number of ticks the channel turns off before a note to reset the envelope
+  - If `xx` is 0 or higher than song speed, envelope will not reset
+
+- `1Axx`: **Disable envelope reset for this channel**
+
+- `1Bxy`: **Reset cutoff**
+  - `x` ≠ 0: On new note
+  - `y` ≠ 0: Now
+  - Not necessary if instrument's cutoff macro is absolute
+
+- `1Cxy`: **Reset duty cycle**
+  - `x` ≠ 0: On new note
+  - `y` ≠ 0: Now
+  - Not necessary if instrument's duty macro is absolute
+
+- `1Exy`: **Change additional parameters** (compatibility only)
+  - `x` selects parameter:
+    - `0`: Attack (`y` from `0` to `F`)
+    - `1`: Decay (`y` from `0` to `F`)
+    - `2`: Sustain (`y` from `0` to `F`)
+    - `3`: Release (`y` from `0` to `F`)
+    - `4`: Ring modulation (`y` is `0` or `1`)
+    - `5`: Oscillator sync (`y` is `0` or `1`)
+    - `6`: Disable channel 3 (`y` is `0` or `1`)
+
+- `20xy`: **Set attack/decay**
+  - `x`: Attack
+  - `y`: Decay
+
+- `21xy`: **Set sustain/release**
+  - `x`: Sustain
+  - `y`: Release
+
+- `22xx`: **Pulse width slide up**
+  - `xx` is speed; `00` stops the slide
+
+- `23xx`: **Pulse width slide down**
+  - `xx` is speed; `00` stops the slide
+
+- `24xx`: **Filter cutoff slide up**
+  - `xx` is speed; `00` stops the slide
+
+- `25xx`: **Filter cutoff slide down**
+  - `xx` is speed; `00` stops the slide
+
+- `3xxx`: **Set duty cycle** (range: `000` to `FFF`)
+
+- `4xxx`: **Set cutoff** (range: `000` to `7FF`)
+
+## Channel Status
+
+When channel status is enabled in the pattern view, the following icons are displayed:
+
+- Not muted
+- Gate bit disabled
+- Gate bit disabled and test bit enabled
+- Test bit enabled
+- Ch3off enabled in filter mode
+
+## Chip Configuration
+
+**Clock rate**: Sets the rate at which the chip will run
+
+**Global parameter priority**: Change the priority of macros controlling global parameters (volume, filter)
+- Left to right: Process channels 1 to 3, last one takes effect
+- Last used channel: Process channels from oldest to newest; latest note takes effect
+
+**Hard reset envelope**: Configure envelope parameters during the short reset before a note
+
+**Envelope reset time**: Duration of pre-note reset in ticks
+- `0`: Disables reset (prevents notes from triggering)
+- `1`: Short, but may exhibit SID envelope bugs
+- `2`: Good default value

@@ -1,0 +1,63 @@
+---
+title: "Namco 163"
+description: "NES expansion chip with up to 8 wavetable channels"
+---
+
+The Namco 163 (also called N163, Namco C163, Namco 106 [sic], Namco 160 or Namco 129) is one of Namco's NES mappers, with up to 8 wavetable channels.
+
+It has 256 nibbles (128 bytes) of internal RAM which is shared between channel state and waves.
+
+Wavetables are variable in size and may be allocated anywhere in RAM. At least 128 nibbles (64 bytes) can be dedicated to waves, with more available if not all channels are used - waveform RAM area becomes smaller as more channels are activated, since channel registers consume 8 bytes for each channel.
+
+Namco 163 uses **time-division multiplexing (TDM)** for its output. This means that only one channel is output per sample (like OPLL and OPN2). Therefore, its sound quality gets worse as more channels are activated.
+
+## Waveform Load Position vs Waveform Position
+
+In Furnace, waveform **load** position/length is different from the waveform position/length.
+
+- When placing a note, the load pos/len and the pos/len are set to the values specified in the instrument
+- Waveforms are loaded in the region set by the **load** pos/len, which you can change using effects `15xx` and `16xx`
+- The region that will play is set by the waveform pos/len, which you can alter using effects `11xx` and `12xx`
+- The waveform pos/len macros only change the pos/len, and not the **load** one
+- If the waveform changes (e.g. ins change, wave macro or wave synth), or the **load** pos/len changes, the wave is written to memory
+
+## Memory Management
+
+- **256 nibbles (128 bytes)** of internal RAM
+- RAM is shared between channel state and waveforms
+- At least **128 nibbles (64 bytes)** can be dedicated to waves
+- More waveform RAM available when fewer channels are used
+- Each active channel consumes **8 bytes** for registers
+
+## Effects
+
+| Effect | Description |
+|--------|-------------|
+| `10xx` | **Set waveform for playback** |
+| `11xx` | **Set waveform position in RAM for playback**<br/>Position is in nibbles |
+| `12xx` | **Set waveform length in RAM for playback**<br/>`x` goes from `04` to `FC` in steps of 4 |
+| `15xx` | **Set waveform load position**<br/>Position is in nibbles |
+| `16xx` | **Set waveform load length**<br/>`x` goes from `04` to `FC` in steps of 4 |
+| `180x` | **Set channel limit**<br/>Range: `0-7` (1 is added to get results of 1 through 8) |
+| `1Axx` | **Set waveform load and playback position**<br/>Position is in nibbles |
+| `1Bxx` | **Set waveform load and playback length**<br/>`x` goes from `04` to `FC` in steps of 4 |
+| `20xx` | **Load a waveform to RAM**<br/>`x` is the waveform<br/>The length is determined by the wave's width (snapped to a multiple of 4)<br/>Make sure to use `21xx` first! |
+| `21xx` | **Set position for 20xx** |
+
+## Chip Configuration
+
+The following options are available in the Chip Manager window:
+
+- **Clock rate**: Sets the rate at which the chip will run
+- **Fix channel count** / **Give me more channels**: When loading files created in earlier versions of Furnace, there may be a warning specifying that the legacy channel limit isn't equal to the channel count. These options allow you to adjust accordingly.
+  - **Fix channel count**: Changes Channels to match the track. Note that this is a **destructive** operation!
+  - **Give me more channels**: Adjusts the chip to an appropriate channel count
+- **Disable hissing**: Remove TDM artifacts by mixing. Sacrifices some accuracy!
+- **Scale frequency to wave length**: Automatically adjusts note frequency to account for differing waveform lengths
+  - If disabled, note frequencies ignore waveform length. This is how FamiTracker behaves
+- **Waveform position latch**: When enabled, effects that change the wave position will "lock" it in place; new notes, instrument changes, and macros will not change the position while locked. To "unlock" it, use a wave position effect with values `FE` or `FF`
+- **Channels**: Sets the number of channels, from 1 to 8. Higher values reduce volume and make TDM artifacts more noticeable
+
+## Instrument Editor
+
+This chip uses the Namco 163 instrument editor.

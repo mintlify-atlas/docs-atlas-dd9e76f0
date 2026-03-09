@@ -1,80 +1,399 @@
 ---
-title: "Quickstart"
-description: "Start building awesome documentation in minutes"
+title: Quick Start Guide
+description: Get started making chiptunes with Furnace in about an hour with this comprehensive beginner-friendly guide
 ---
 
-## Get started in three steps
+Furnace is amazingly versatile, but it can also be intimidating, even for those already familiar with trackers. This quick start guide will get you on the road to making the chiptunes of your dreams! If you're a beginner, it will probably take about an hour from start to finish.
 
-Get your documentation site running locally and make your first customization.
-
-### Step 1: Set up your local environment
-
-<AccordionGroup>
-  <Accordion icon="copy" title="Clone your docs locally">
-    During the onboarding process, you created a GitHub repository with your docs content if you didn't already have one. You can find a link to this repository in your [dashboard](https://dashboard.mintlify.com).
-    
-    To clone the repository locally so that you can make and preview changes to your docs, follow the [Cloning a repository](https://docs.github.com/en/repositories/creating-and-managing-repositories/cloning-a-repository) guide in the GitHub docs.
-  </Accordion>
-  <Accordion icon="rectangle-terminal" title="Start the preview server">
-    1. Install the Mintlify CLI: `npm i -g mint`
-    2. Navigate to your docs directory and run: `mint dev`
-    3. Open `http://localhost:3000` to see your docs live!
-    
-    <Tip>Your preview updates automatically as you edit files.</Tip>
-  </Accordion>
-</AccordionGroup>
-
-### Step 2: Deploy your changes
-
-<AccordionGroup>
-  <Accordion icon="github" title="Install our GitHub app">
-    Install the Mintlify GitHub app from your [dashboard](https://dashboard.mintlify.com/settings/organization/github-app).
-    
-    Our GitHub app automatically deploys your changes to your docs site, so you don't need to manage deployments yourself.
-</Accordion>
-<Accordion icon="palette" title="Update your site name and colors">
-    For a first change, let's update the name and colors of your docs site.
-
-    1. Open `docs.json` in your editor.
-    2. Change the `"name"` field to your project name.
-    3. Update the `"colors"` to match your brand.
-    4. Save and see your changes instantly at `http://localhost:3000`.
-
-    <Tip>Try changing the primary color to see an immediate difference!</Tip>
-  </Accordion>
-</AccordionGroup>
-
-### Step 3: Go live
-
-<Accordion icon="rocket" title="Publish your docs">
-  1. Commit and push your changes.
-  2. Your docs will update and be live in moments!
-</Accordion>
-
-## Next steps
-
-Now that you have your docs running, explore these key features:
-
-<CardGroup cols={2}>
-
-<Card title="Write Content" icon="pen-to-square" href="/essentials/markdown">
-  Learn MDX syntax and start writing your documentation.
-</Card>
-
-<Card title="Customize style" icon="palette" href="/essentials/settings">
-  Make your docs match your brand perfectly.
-</Card>
-
-<Card title="Add code examples" icon="square-code" href="/essentials/code">
-  Include syntax-highlighted code blocks.
-</Card>
-
-<Card title="API documentation" icon="code" href="/api-reference/introduction">
-  Auto-generate API docs from OpenAPI specs.
-</Card>
-
-</CardGroup>
+## Before You Begin
 
 <Note>
-  **Need help?** See our [full documentation](https://mintlify.com/docs) or join our [community](https://mintlify.com/community).
+This guide makes a few assumptions:
+- You've already installed Furnace and know where to find the `demos` directory that comes with it. Look for `quickstart.fur` but don't open it yet.
+- You haven't changed any configuration or layout yet. It should start up with the default Sega Genesis system.
+- You're working with a PC keyboard, US English, QWERTY layout. Mac users should already know the equivalents to the `Ctrl` and `Alt` keys.
+- You're comfortable with keyboard shortcuts. If not, a lot of this can also be done using buttons or menus, but please try the keyboard first. It's worth it to smooth out the tracking workflow.
 </Note>
+
+If an unfamiliar term comes up or you need more clarification on a term, refer to the [basic concepts](/concepts) and glossary docs.
+
+<Warning>
+If at any point something goes wrong with the interface – something gets moved to where it's inaccessible, something closes a window or tab unexpectedly, or the like – it can always be reverted to its original state by selecting "reset layout" from the "settings" menu.
+</Warning>
+
+With all that said, start up the program and let's get going!
+
+## I've Opened Furnace – Now What?
+
+On starting Furnace for the first time, the interface should look like this. If it's not quite right, drag the borders between sections until it approximately matches.
+
+![full-screen interface](doc/1-intro/qs-interface.png)
+
+There's a lot going on, but the most prominent part of Furnace's interface is the **pattern view** – the spreadsheet-like table that takes up the bottom-left.
+
+### Navigating the Pattern View
+
+Click to place the cursor somewhere in this view. It will appear as a medium-blue highlight. Try moving around with the arrow keys:
+
+- **Up/Down arrows**: Move between rows
+- **PgUp/PgDn**: Move faster through rows
+- **Home/End**: Move to first/last row
+- **Left/Right arrows**: Move between columns
+- **Home/End twice**: Jump to first/last column
+
+The vertical axis represents time. During editing and playback the view scrolls around a highlighted row that stays put in the center; this is called the **playhead**.
+
+### Playing Notes
+
+Let's play a little! Notes are arranged on the keyboard rather like a piano:
+
+![keyboard note entry](doc/3-pattern/keyboard.png)
+
+<Accordion title="Keyboard Note Layout">
+- **Bottom row** (`ZXCVBNM`): C major scale (like piano's white keys)
+- **Second row** (`SD GHJ`): Accidentals (like piano's black keys)
+- **Third row** (`QWERTYU`): Same arrangement, one octave higher
+- **Fourth row** (`23 567`): Accidentals for the higher octave
+
+To change which octaves are represented on the keyboard, use the `/` and `*` keys on the numeric pad. As an alternative, there's an octave selector at the top of the interface.
+</Accordion>
+
+### Edit Mode
+
+Now press the **space bar** to change from play to edit mode. The row the cursor is on will change to dark red – the playhead mentioned earlier. Another way to tell what mode we're in is via the play/edit controls just above the pattern view in the center; make sure the "record" button is on.
+
+![play/edit controls](doc/1-intro/qs-playeditcontrols.png)
+
+Now try playing some notes; they should appear in the pattern view, one after another.
+
+![notes in one channel](doc/1-intro/qs-notes-channel.png)
+
+### Understanding Channels
+
+Each **channel** is a group of columns separated from the others by lines, with a name at the top. Each channel can only ever play one note at a time. 
+
+To hear this in action:
+1. Move the cursor back to the top
+2. Press **Enter** or **Return** to start playback
+3. You should hear the notes played back quickly, one after another
+4. Press **Enter** again to stop playback
+
+### Selecting and Deleting Notes
+
+Let's clear out those notes. Click and drag to select them all. You'll know they're selected when they have a medium grey background. Hit **Del** to delete them all at once.
+
+![selection area](doc/1-intro/qs-selection.png)
+
+### Playing Chords
+
+You'll usually want more than one note playing at a time. Move back to the start of the pattern in the leftmost column of the leftmost channel. Put some different notes next to each other in the same row. Only enter notes in the first column of each channel; we'll get to those other columns later.
+
+![notes in three channels](doc/1-intro/qs-notes-channels.png)
+
+Go back to the top row and use **F5** to play from the start. They should all sound at the same time as one single chord.
+
+### Note Offs
+
+That chord will ring out for quite some time, but let's try stopping it early. A couple rows after that chord, use the **Tab** or **1** key to enter a **note off** (sometimes called "note cut") in each channel that has a note. It'll appear as `OFF` in the note column.
+
+![notes and note offs](doc/1-intro/qs-noteoffs-channels.png)
+
+<Note>
+You can undo errors with **Ctrl-Z**. Furnace keeps track of multiple levels of undo. Redo is **Ctrl-Y**.
+</Note>
+
+Before the next part of this guide, save the current **module** – the tracker file that contains everything needed for a song. Use **Ctrl-S** and pick a good spot on your computer for the file. Furnace modules always have a filename that ends in a `.fur` extension.
+
+## How Do I Get Different Sounds?
+
+At the top of the interface, just right of center, is the **instrument** list. There are also tabs for wavetables and samples, but we'll get to those later.
+
+![empty instrument list](doc/1-intro/qs-instlist-empty.png)
+
+<Steps>
+  <Step title="Create a new instrument">
+    Click the `+` button to add a new instrument. A list of instrument types will pop up, one for each type supported by the chips in use. Select "FM (OPN)", and the new instrument will appear in the list as "00: Instrument 0".
+  </Step>
+  
+  <Step title="Load an existing instrument">
+    Open up a second instance of Furnace and use **Ctrl-O** to open the `quickstart.fur` file included with Furnace in its `demos` directory. The instrument list will contain "00: horn"; select it, then use the floppy-disk save icon above it to save it wherever you like. Furnace instrument filenames end with the `.fui` extension.
+  </Step>
+  
+  <Step title="Import the instrument">
+    Return to the first instance with our practice track. Load up the new instrument; click the folder button left of the "save instrument" button and select the file. It will appear in the list as "01: horn", and it should already be highlighted.
+  </Step>
+</Steps>
+
+![less empty instrument list](doc/1-intro/qs-instlist-lessempty.png)
+
+Click into the pattern view and add some notes in another FM channel well after our existing chord. We'll hear them with our new sound, and the number `01` appears next to them. This is the instrument column, and it can be edited directly by typing in the number desired.
+
+![notes with instruments](doc/1-intro/qs-notes-inst.png)
+
+<Note>
+Generally, each note should have an associated instrument value.
+</Note>
+
+## How Do I Change Volume?
+
+Next to the instrument column is the **volume** column. Typing in it will change the loudness of the associated note... but it's not always as straightforward as it seems.
+
+### Understanding Hexadecimal Volumes
+
+This column operates in hexadecimal. In fact, so does the instrument column, and so will the others when we get to them. If you're ever uncertain what the decimal equivalent is, put your cursor over the volume in question and look to the menu bar, which doubles as a status bar.
+
+<Warning>
+If you haven't saved your recent edits, there will be an indicator at the end which shows the "modified status". It might be worth saving now.
+</Warning>
+
+Try typing `6C` into the volume column of the last note, then play it back. It should be much quieter than those before it in the column because they default to full volume – in this case, `7F`. Everything in the column after our `6C` will inherit that volume level until it's changed again.
+
+![notes with volume](doc/1-intro/qs-notes-vol.png)
+
+### Volume Limits
+
+Now try putting `90` in the volume column. It automatically changes to `7F` because that's the maximum volume available for this channel. Different channels may have different maximum volumes because of how each chip works.
+
+### Linear vs Logarithmic Volume
+
+<Accordion title="Understanding Volume Curves">
+Some chips use "linear" volume, which translates directly to amplitude; dividing the value in half results in half the volume. 
+
+Other chips, such as the one we're using right now, use "logarithmic" volume; subtracting from it lowers the volume based on how loud it *sounds*. In this particular case:
+- Subtracting 8 to get `77` lowers the volume by half
+- Subtracting 8 again to get `6F` lowers it to one-quarter
+
+This takes some getting used to, but it's more convenient in some ways.
+</Accordion>
+
+### Volume Effects
+
+There are more ways to change volume using **effects**. Clear out all of our notes and place one at the top of one of the FM channels, and set it to full volume (`7F`).
+
+Next to the volume column are the effect columns. In the effect type column, type `0A`; this corresponds to the "volume slide" effect. Next to that, in the effect value column, type `02`. Hit **F5** to play from the start, and you'll hear the note play but instead of staying at a steady volume it'll smoothly fade out.
+
+![note with effect](doc/1-intro/qs-notes-effect.png)
+
+<Note>
+`0A` is an interesting effect because its two-digit value is split:
+- `0y` (e.g., `01`-`0F`): Fade down (slower to faster)
+- `x0` (e.g., `10`-`F0`): Fade up (slower to faster)
+
+Putting the cursor on an effect will show the effect type and description in the status bar.
+</Note>
+
+### Continuous Effects
+
+It's important to know that *most* effects are continuous, meaning they will continue to do what they do until explicitly stopped. Volume slides are like this. Place an effect type of `0A` on row 16. You can leave the effect value blank or type `00` there; these are equivalent, and both will stop the effect.
+
+## How Do I Make the Song Longer?
+
+Right now, our track is only about six and a half seconds long. This is because we only have one **order**. The term "pattern view" is slightly misleading in that a **pattern** is just one channel's worth of data; the pattern view shows all the patterns in an order at once.
+
+![default order view](doc/1-intro/qs-order-default.png)
+
+At the top left of the interface we find the order view. Similar to the pattern view, it's like a spreadsheet, but even simpler.
+
+<Steps>
+  <Step title="Add a new order">
+    Click on the `+` button to the right of the row of channel labels, and another order row appears, labeled `01` and filled with that same number.
+  </Step>
+  
+  <Step title="Navigate between orders">
+    Click in the pattern view and move to the top-left by hitting **Home** twice. You'll see that the new patterns are empty. Try moving between orders by clicking on their order numbers in the order list.
+  </Step>
+  
+  <Step title="Rearrange patterns">
+    Click on a pattern number in the order view to increase it, or right-click to decrease it. This way, you can rearrange and reuse parts of your track without having to duplicate them all the time.
+  </Step>
+</Steps>
+
+![order view with added row](doc/1-intro/qs-order-added.png)
+
+![order view with changed patterns](doc/1-intro/qs-order-changed.png)
+
+<Note>
+The important take away here is that patterns exist independently of orders. The order list is a playlist of patterns that can be freely rearranged.
+</Note>
+
+### Deep Clone
+
+When you want to make variations of the same patterns, right-click the "duplicate" button (showing two overlaid pages). This creates a "deep clone", meaning that all the patterns in it are duplicated to new pattern numbers.
+
+## How Do I Change Tempo?
+
+**Tempo** and **speed** are a little tricky – in fact, for the purposes of Furnace, they mean different things! First, let's clear out our first order and put some evenly-spaced notes there.
+
+![evenly-spaced notes](doc/1-intro/qs-notes-spaced.png)
+
+### Understanding Ticks
+
+The most basic unit of time is the **tick**. Almost always, videogame systems take actions based on each frame of video, and these most often happen at 60 times per second, usually expressed as 60Hz. (This is for NTSC systems; systems that expect PAL will use 50Hz.)
+
+Because of this timing, everything that happens during playback will happen on a tick, never in between ticks.
+
+![speed tab](doc/1-intro/qs-speed.png)
+
+<Accordion title="Understanding Speed and Tempo">
+If we click on the "Speed" tab at the top-right of the interface, we'll see:
+- **Base Tempo**: Shows the tick rate as "60Hz" to the right
+- **Speed**: Set to 6 (each row takes 6 ticks to complete)
+- **Calculated Tempo**: Shows "150.00 BPM"
+
+If we change speed to 5, the tempo will now read "180.00 BPM" and notes will play faster.
+
+It's possible to get tempos in between by alternating speeds using grooves.
+</Accordion>
+
+## What About Those Other Channels?
+
+Here's where we really get into the nitty-gritty of our emulated videogame system. We've been using Furnace's default system, the Sega Genesis. It employs two very different sound chips:
+
+1. **Yamaha YM2612 (OPN2)**: Uses frequency modulation (FM) synthesis to generate sounds
+2. **Sega PSG**: A programmable sound generator that can only make square waves and variations of noise
+
+### PSG Channels
+
+<Steps>
+  <Step title="Create a PSG instrument">
+    Create a new instrument, this time choosing "SN76489/Sega PSG" from the list. The new "Instrument 2" appears in the instrument list, already selected.
+  </Step>
+  
+  <Step title="Use the correct channel">
+    Move to the channel labeled "Square 1", the first of the PSG's channels. Add notes with the new instrument – they're plain, no-frills square waves.
+  </Step>
+  
+  <Step title="Adjust volume">
+    Try making them quieter by entering new volumes. Since this chip only uses sixteen volume levels, `0F` is the maximum.
+  </Step>
+</Steps>
+
+![notes with a wrong instrument](doc/1-intro/qs-notes-wronginst.png)
+
+<Warning>
+If you use a PSG instrument on an FM channel, the number will change color from soft blue to bright yellow, indicating the instrument isn't meant for that chip.
+</Warning>
+
+## What About Samples?
+
+The FM side of the Sega Genesis has a special feature; channel 6 can be used to play back digital **samples**. This means that any recording – a snare drum, an orchestra hit, somebody talking, whatever you have – can be part of the music.
+
+<Steps>
+  <Step title="Load a sample">
+    In the "Samples" tab, open a sample file (`.wav` format). You can use the example from `quickstart.fur` in the demos directory.
+  </Step>
+  
+  <Step title="Create an instrument">
+    Right-click on the sample in the list and select "make instrument". The Instrument Editor window will pop up showing a "Generic Sample" instrument.
+  </Step>
+  
+  <Step title="Play the sample">
+    Switch to channel "FM 6" and put a note with your new sample instrument. When you play it back, you'll hear the sample!
+  </Step>
+</Steps>
+
+![sample list](doc/1-intro/qs-samplist.png)
+
+![full instrument list](doc/1-intro/qs-instlist-full.png)
+
+<Note>
+In this case, we can use a Generic Sample instrument type just fine, but there are chips that use samples in specialized ways. Always check the chip's documentation for the best way to use samples with it.
+</Note>
+
+## What About Wavetables?
+
+Some chips can use **wavetables**, which are a lot like very short looping samples. One of these is the Game Boy. Let's start a new file with **Ctrl-N** and select "Game Boy" from the system dialog.
+
+### Creating Wavetables
+
+<Steps>
+  <Step title="Add a wavetable">
+    Between the "Instruments" and "Samples" tabs, select "Wavetables". Add a new one with the `+` button. Furnace will generate a wavetable of the right size for the current chip with a sawtooth wave.
+  </Step>
+  
+  <Step title="Edit the wavetable">
+    Double-click the entry to open the "Wavetable Editor". Click anywhere in the pixel-like blocks to "draw" a new wave. You can also edit the numbers directly at the bottom of the window.
+  </Step>
+  
+  <Step title="Create multiple wavetables">
+    Make at least two more wavetables for demonstration purposes.
+  </Step>
+</Steps>
+
+![wavetables list](doc/1-intro/qs-wavelist.png)
+
+![wavetable editor](doc/1-intro/qs-waveeditor.png)
+
+### Using Wavetables in Instruments
+
+Right now, we can't do much with this wavetable; as with samples, it needs an instrument.
+
+1. Go to the instruments list and add a new one
+2. Open it in the instrument editor and select the "Macros" tab
+3. Click the down-arrow next to "Waveform"
+4. Click the `+` button that appears; a column will turn grey
+5. Click in the middle of that column to select which wavetable to use
+
+![instrument editor](doc/1-intro/qs-insteditor.png)
+
+Now add notes in the "Wavetable" channel to hear the wavetable in action!
+
+## But... What's a Macro?
+
+The **macro** is perhaps Furnace's most powerful feature. Formally defined, it automates a note's parameters while it plays. A lot of what can be achieved with effects can be done with macros, but on a per-tick basis instead of per-row.
+
+### Creating a Volume Envelope
+
+<Steps>
+  <Step title="Prepare the instrument">
+    Switch to the "Pulse 1" channel. Create a new instrument and go into the instrument editor. Select the "Game Boy" tab and check the box labeled "Use software envelope".
+  </Step>
+  
+  <Step title="Draw the macro">
+    In the "Macros" tab, set the volume macro length to 30. Draw a ramp from near minimum volume (1) to maximum volume (15) at the left, then another down to minimum volume (0) at the right.
+  </Step>
+  
+  <Step title="Test it">
+    While in the instrument editor, play notes on the keyboard. Each note does its own quick fade in then fade to silence!
+  </Step>
+</Steps>
+
+![volume macro](doc/1-intro/qs-macro.png)
+
+### Release Points
+
+Hold **Shift** and click directly underneath the peak of the macro. You've just set a **release point**. Now holding a key will hold the note at top volume – at the release point – until let go.
+
+![volume macro with release](doc/1-intro/qs-macro-release.png)
+
+To get the rest of the macro to play after a note, use the `` ` `` key (backtick) to insert a **macro release** instead of a note off. It will appear as `REL`.
+
+<Note>
+Macros are absurdly powerful tools. Read the macro documentation to make the most of them!
+</Note>
+
+## What's Next?
+
+Now you know the basics of how to make music with Furnace. From here, the rest of the documentation should make more sense, and it should be your primary reference.
+
+### Learning Tips
+
+<CardGroup cols={2}>
+  <Card title="Study Demo Modules" icon="music">
+    Try the demo modules! They sound good, show off Furnace's capabilities, and are great for learning tracking techniques.
+  </Card>
+  
+  <Card title="Transcribe Songs" icon="copy">
+    Open a demo track you like, save a copy, clear it, and remake the track by transcribing from the original.
+  </Card>
+  
+  <Card title="Use Free Instruments" icon="waveform">
+    Everything in the `instruments` directory is free for you to use in your own music, as well as instruments found in demo songs.
+  </Card>
+  
+  <Card title="Ask Questions" icon="comments">
+    If you have questions that aren't answered in the documentation, ask in the [Discussions section](https://github.com/tildearrow/furnace/discussions) on GitHub.
+  </Card>
+</CardGroup>
+
+Most of all, don't be afraid to experiment. Go play!

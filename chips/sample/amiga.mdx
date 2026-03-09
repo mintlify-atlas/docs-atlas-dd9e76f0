@@ -1,0 +1,58 @@
+---
+title: Commodore Amiga
+description: Documentation for the Amiga's 4-channel PCM sound chip (Paula)
+---
+
+A computer with a desktop OS, lifelike graphics and 4 channels of PCM sound in 1985? No way!
+
+In this very computer music trackers were born...
+
+Imported MOD files use this chip, and will set A-4 tuning to 436.
+
+## Amplitude/Period Modulation
+
+Amiga has support for (rather primitive) amplitude and period (frequency) modulation. However, nobody has used this feature as it is rather useless, not well-documented and works in a complicated way.
+
+Amiga sample playback is done by two chips: Paula (the one that you probably know) and Agnus (the one that actually feeds Paula with samples). Agnus has several DMA (direct memory access) units which read from chip memory independent of the CPU. Four of these DMA units are used for samples.
+
+When DMA is enabled, Paula requests sample data from Agnus, and then plays these samples back. There's a catch though. Since the data bus is 16-bit, Paula requests **two** 8-bit samples at once! This explains why:
+
+- The sample length registers are in words rather than bytes (thereby allowing samples up to 131070 in length)
+- The maximum playback rate (31250Hz PAL; ~31469Hz NTSC) is two times the HBlank rate (Agnus fetches samples on HBlank, around 15625Hz on PAL or ~15734Hz on NTSC)
+
+During normal sample playback, the first sample is output and then the second. Afterwards, two more samples are fetched, and so on.
+
+Now, when amplitude or period modulation are enabled, things work differently. The channel is silenced, and the two 8-bit samples are **treated as a big-endian 16-bit number**, which is then written to the next channel's volume or period.
+
+In the case of amplitude modulation, only the second sample is significant because the volume register uses 7 bits (to represent 0 to 64 (65 to 127 are treated as 64)) and the other bits are ignored.
+
+In the case of period modulation, both samples are significant. The first sample is the upper byte, and the second is the lower byte.
+
+## Effects
+
+- `10xx`: **Toggle low-pass filter.** `0` turns it off and `1` turns it on.
+- `11xx`: **Toggle amplitude modulation with the next channel.**
+  - Does not work on the last channel.
+- `12xx`: **Toggle period (frequency) modulation with the next channel.**
+  - Does not work on the last channel.
+- `13xx`: **Change wave.**
+  - Only works when "Mode" is set to "Wavetable" in the instrument.
+
+## Info
+
+- The maximum rate for sample playback is technically 31469Hz but anything higher than 28867Hz will sound glitchy on hardware.
+- Sample lengths and loop will be set to an even number.
+- Samples can't be longer than 131070.
+- Samples must be 8-bit. Furnace handles conversion automatically.
+
+## Chip Configuration
+
+The following options are available in the Chip Manager window:
+
+- **Stereo separation**: Sets the amount of left/right separation.
+- **Model**: Allows you to change the chipset.
+  - Amiga 500 (OCS): Has a low-pass filter on top of the user-selectable filter.
+  - Amiga 1200 (AGA): Doesn't have the aforementioned low-pass filter.
+- **Chip memory**: More chip memory means more space for samples.
+- **PAL**: Run the chip at PAL clock (3.54MHz) instead of NTSC (3.58MHz).
+- **Bypass frequency limits**: When enabled, the ~31KHz frequency limit is disabled, allowing you to play higher notes.

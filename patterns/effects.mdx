@@ -1,0 +1,173 @@
+---
+title: Pattern Effects
+description: Complete reference of all pattern effects available in Furnace
+---
+
+Some of the effect numbers are taken from ProTracker / FastTracker 2. However, effects are continuous (unless specified), which means you only need to type it once and then stop it with an effect value of `00` or no effect value at all.
+
+## Volume Effects
+
+### Volume Slides
+
+- `0Axy`: **Volume slide**
+  - If `x` is 0 then this slides volume down by `y` each tick
+  - If `y` is 0 then this slides volume up by `x` each tick
+- `FAxy`: **Fast volume slide** - Same as `0Axy` but 4× faster
+- `F3xx`: **Fine volume slide up** - Same as `0Ax0` but 64× slower
+- `F4xx`: **Fine volume slide down** - Same as `0A0x` but 64× slower
+- `F8xx`: **Single tick volume up** - Adds `x` to volume
+- `F9xx`: **Single tick volume down** - Subtracts `x` from volume
+
+### Volume Portamento
+
+- `D3xx`: **Volume portamento** - Slides the volume to the one specified in the volume column. `x` is the slide speed
+  - A volume _must_ be present with this effect for it to work
+- `D4xx`: **Volume portamento (fast)** - Like `D3xx` but 4× faster
+
+### Other Volume Effects
+
+- `07xy`: **Tremolo** - Changes volume to be "wavy" with a sine LFO. `x` is the speed, `y` is the depth
+  - Tremolo is downward only
+  - Maximum tremolo depth is -60 volume steps
+- `DCxx`: **Delayed mute** - Sets channel volume to 0 after `xx` ticks
+
+## Pitch Effects
+
+### Basic Pitch Control
+
+- `E5xx`: **Set pitch** - `00` is -1 semitone, `80` is base pitch, `FF` is nearly +1 semitone
+- `01xx`: **Pitch slide up**
+- `02xx`: **Pitch slide down**
+- `F1xx`: **Single tick pitch up**
+- `F2xx`: **Single tick pitch down**
+
+### Portamento
+
+- `03xx`: **Portamento** - Slides the currently playing note's pitch toward the new note. `x` is the slide speed
+  - A note _must_ be present with this effect for it to work
+  - The effect stops automatically when it reaches the new note
+- `E1xy`: **Note slide up** - `x` is the speed, `y` is how many semitones to slide up
+- `E2xy`: **Note slide down** - `x` is the speed, `y` is how many semitones to slide down
+
+### Legato
+
+- `EAxx`: **Toggle legato** - While on, new notes instantly change the pitch of the currently playing sound instead of starting it over
+- `E6xy`: **Quick legato (compatibility)** - Transposes note by `y` semitones after `x` ticks
+  - If `x` is between 0 and 7, it transposes up
+  - If `x` is between 8 and F, it transposes down
+- `E8xy`: **Quick legato up** - Transposes note up by `y` semitones after `x` ticks
+- `E9xy`: **Quick legato down** - Transposes note down by `y` semitones after `x` ticks
+
+### Arpeggio
+
+- `00xy`: **Arpeggio** - Produces a rapid cycle between the current note, the note plus `x` semitones and the note plus `y` semitones
+  - Example: For a C-3, G-3, D#4 chord, G-3 and D#4 are 7 and 15 semitones higher, so use `007F`
+- `E0xx`: **Set arpeggio speed** - Sets the number of ticks between arpeggio values. Default is 1
+
+### Vibrato
+
+- `04xy`: **Vibrato** - Makes the pitch oscillate. `x` is the speed, `y` is the depth
+  - Maximum vibrato depth is ±1 semitone
+- `E3xx`: **Set vibrato shape** - Values:
+  - `00`: Sine (default)
+  - `01`: Sine (upper portion only)
+  - `02`: Sine (lower portion only)
+  - `03`: Triangle
+  - `04`: Ramp up
+  - `05`: Ramp down
+  - `06`: Square
+  - `07`: Random
+  - `08`: Square (up)
+  - `09`: Square (down)
+  - `0a`: Half sine (up)
+  - `0b`: Half sine (down)
+- `E4xx`: **Set vibrato range** - In 1/16th of a semitone
+
+## Panning Effects
+
+<Note>
+Not all chips support these effects.
+</Note>
+
+### Basic Panning
+
+- `08xy`: **Set panning** - Changes stereo volumes independently. `x` is left, `y` is right
+- `88xy`: **Set rear panning** - Changes rear channel volumes. `x` is rear left, `y` is rear right
+- `81xx`: **Set volume of left channel** - From `00` to `FF`
+- `82xx`: **Set volume of right channel** - From `00` to `FF`
+- `89xx`: **Set volume of rear left channel** - From `00` to `FF`
+- `8Axx`: **Set volume of rear right channel** - From `00` to `FF`
+- `80xx`: **Set panning (linear)** - `00` is left, `80` is center, `FF` is right
+
+### Dynamic Panning
+
+- `83xy`: **Panning slide**
+  - If `y` is 0 then this pans to the left by `x` each tick
+  - If `x` is 0 then this pans to the right by `y` each tick
+  - Note: Panning macros override this effect
+- `84xy`: **Panbrello** - Makes panning oscillate. `x` is speed, `y` is depth
+  - Note: Panning macros override this effect
+
+## Time Effects
+
+### Speed and Tempo
+
+- `09xx`: **Set speed/groove** - If no grooves are defined, this sets speed. If alternating speeds are active, this sets the first speed
+- `0Fxx`: **Set speed 2** - During alternating speeds or a groove, this sets the second speed
+- `Cxxx`: **Set tick rate** - Changes tick rate to `xxx` Hz (ticks per second)
+  - `xxx` may be from `000` to `3FF`
+- `F0xx`: **Set BPM** - Changes tick rate according to beats per minute. Range is `01` to `FF`
+- `FDxx`: **Set virtual tempo numerator** - Sets the virtual tempo's numerator to the effect value
+- `FExx`: **Set virtual tempo denominator** - Sets the virtual tempo's denominator to the effect value
+
+### Pattern Flow
+
+- `0Bxx`: **Jump to order** - `x` is the order to play after the current row
+  - This marks the end of a loop with order `x` as the loop start
+- `0Dxx`: **Jump to next pattern** - Skips the current row and remainder of current order. `x` is the row at which to start playing the next pattern
+  - Can be used to shorten the current order as though it had a different pattern length
+- `FFxx`: **Stop song** - Stops playback and ends the song. `x` is ignored
+
+## Note Effects
+
+- `0Cxx`: **Retrigger** - Repeats current note every `xx` ticks
+  - This effect is not continuous; it must be entered on every row
+- `ECxx`: **Note cut** - Triggers note off after `xx` ticks. Triggers key off in FM/hardware envelope chips, or cuts the note otherwise
+- `EDxx`: **Note delay** - Delays note by `x` ticks
+- `FCxx`: **Note release** - Releases current note after `xx` ticks. Releases macros and triggers key off in FM/hardware envelope chips
+- `E7xx`: **Macro release** - Releases macros after `xx` ticks. Does not trigger key off
+
+## Sample Offset
+
+<Note>
+These effects make the current playing sample on the channel jump to a specific position. Only some chips support this effect.
+</Note>
+
+Sample offset is a 24-bit (3 byte) number:
+
+- `90xx`: **Set sample offset (first byte)**
+- `91xx`: **Set sample offset (second byte)**
+- `92xx`: **Set sample offset (third byte)**
+
+You may use these effects simultaneously in a row. If you do not set a byte, its most recent value will be used.
+
+<Info>
+In previous versions of Furnace a `9xxx` effect existed which set the sample position to `$xxx00` (`xxx` was effectively multiplied by 256). This maps to `920x 91xx` in current Furnace.
+</Info>
+
+## Macro Control
+
+- `F5xx`: **Disable macro**
+- `F6xx`: **Enable macro**
+- `F7xx`: **Restart macro**
+
+See the macro table in the source documentation for possible values.
+
+## Other Effects
+
+- `EExx`: **Send external command**
+  - This effect is currently incomplete
+
+<Card title="Chip-Specific Effects" icon="microchip" href="/systems">
+  Each chip has its own additional effects. Check the systems documentation for details.
+</Card>

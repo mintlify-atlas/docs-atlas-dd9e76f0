@@ -1,0 +1,29 @@
+---
+title: Commodore VIC-20
+description: The precursor to the Commodore 64 with 4 limited voices
+---
+
+The Commodore VIC-20 was Commodore's major attempt at making a personal home computer, and is the precursor to the Commodore 64.
+
+It was also known as the VC-20 in Germany, and the VIC-1001 in Japan.
+
+## Sound Capabilities
+
+The VIC-20 has 4 voices with a limited but wide tuning range. Like the SN76489 and T6W28, the last voice is dedicated to playing noise.
+
+The 3 pulse wave channels have different octaves:
+- **Channel 1**: Bass channel, plays notes from octave 1
+- **Channel 2**: Mid/chord channel, plays notes from octave 2
+- **Channel 3**: Lead channel, plays notes from octave 3
+
+These channels are not referred to as "square" wave channels since a technique to play 15 additional pulse-like waveforms was discovered long after the VIC-20's release.
+
+## Effect Commands
+
+- `10xx`: **Switch waveform** (range: `00` to `0F`)
+
+## Chip Configuration
+
+**PAL**: Run at 1.10MHz instead of 1.02MHz
+
+**Disable filtering**: Bypasses the hardware's lowpass filter

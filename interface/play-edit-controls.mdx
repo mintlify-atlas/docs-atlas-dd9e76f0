@@ -1,0 +1,55 @@
+---
+title: Play/Edit Controls
+description: Controls for playback and pattern editing parameters
+---
+
+The "Play/Edit Controls" are used to control playback and change parameters of the pattern view.
+
+## Controls
+
+- ![play](/images/interface/control-play.png) **Play**: plays from cursor position.
+- ![stop](/images/interface/control-stop.png) **Stop**: stops all playback.
+- ![play pattern](/images/interface/control-play-pattern.png) **Play from the beginning of this pattern**: plays from the start of current pattern.
+- ![play repeat](/images/interface/control-play-repeat.png) **Repeat from the beginning of this pattern**: repeats current pattern from its start.
+- ![step](/images/interface/control-step.png) **Step one row**: plays only the row at cursor position and moves down one.
+- ![edit](/images/interface/control-edit.png) **Edit**: toggles edit mode. When turned off, you won't be able to enter notes.
+- ![lock](/images/interface/control-lock.png) **Lock**: toggles the order lock, which keeps the cursor in the currently selected order.
+- ![metronome](/images/interface/control-metronome.png) **Metronome**: toggles the metronome, which only works during playback.
+- ![repeat](/images/interface/control-repeat.png) **Repeat pattern**: toggles pattern repeat. During playback while this is on, the current pattern will play over and over instead of following the order list.
+
+### Polyphony Toggle
+
+Cycles through the following options:
+
+- **Mono**: monophony. Preview one note at a time only.
+- **Poly**: polyphony. Preview multiple notes at once, using other channels of the same type on the same chip. Default.
+- **Chord**: chord input. Same as polyphony, with the added feature that while keys are held, notes past the first are entered on the same row in adjacent channels.
+  - Some keyboards have limits on the number of keys that can be held at the same time. This is not a Furnace issue.
+
+### Other Controls
+
+- **Octave**: sets current input octave.
+- **Edit Step**: sets edit step. If this is 1, entering a note or effect will move to the next row. If this is a larger number, rows will be skipped. If this is 0, the cursor will stay in place.
+  - If clicked, Step becomes **Coarse**, which sets the number of rows moved with `PgUp`, `PgDn`, and related movement shortcuts. Clicking again will revert it to Step.
+- **Follow orders**: if on, the selected order in the orders window will follow the song during playback.
+- **Follow pattern**: if on, the cursor will follow playback and the song will scroll by as it plays.
+
+## Layouts
+
+The layout can be changed in Settings > Appearance to one of these:
+
+### Classic
+
+![classic play/edit controls](/images/interface/controls-classic.png)
+
+### Compact
+
+![compact play/edit controls](/images/interface/controls-compact.png)
+
+### Compact (Vertical)
+
+![compact vertical play/edit controls](/images/interface/controls-vertical.png)
+
+### Split
+
+![split play and edit controls](/images/interface/controls-split.png)

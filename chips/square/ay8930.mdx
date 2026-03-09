@@ -1,0 +1,79 @@
+---
+title: Microchip AY8930
+description: Documentation for the AY8930 sound chip, a backwards-compatible successor to the AY-3-8910 with enhanced features
+---
+
+A backwards-compatible successor to the AY-3-8910, with increased volume resolution, duty cycle control, three envelopes and highly configurable noise generator.
+
+Sadly, this soundchip has only ever observed minimal success, and has remained rather obscure since. It is known for being used in the Covox Sound Master, which didn't sell well either.
+
+Emulation of this chip in Furnace is now complete thanks to community efforts and hardware testing, which an MSX board called Darky has permitted.
+
+Furnace is able to do software PCM on AY8930, where all 3 channels can play 5-bit PCM samples (at the cost of a very high CPU usage).
+
+## Effects
+
+- `12xx`: **Set channel duty cycle.**
+  - `0`: 3.125%
+  - `1`: 6.25%
+  - `2`: 12.5%
+  - `3`: 25%
+  - `4`: 50%
+  - `5`: 75%
+  - `6`: 87.5%
+  - `7`: 93.75%
+  - `8`: 96.875%
+- `20xx`: **Set channel mode.** `xx` may be one of the following:
+  - `0`: square
+  - `1`: noise
+  - `2`: square and noise
+  - `3`: envelope
+  - `4`: envelope and square
+  - `5`: envelope and noise
+  - `6`: envelope and square and noise
+  - `7`: nothing
+- `21xx`: **Set noise frequency.** `xx` is a value between `00` and `FF`.
+- `22xy`: **Set envelope mode.**
+  - `x` sets the envelope shape, which may be one of the following:
+    - `0`: `\___` decay
+    - `4`: `/___` attack once
+    - `8`: `\\\\` saw
+    - `9`: `\___` decay
+    - `A`: `\/\/` inverse obelisco
+    - `B`: `\¯¯¯` decay once
+    - `C`: `////` inverse saw
+    - `D`: `/¯¯¯` attack
+    - `E`: `/\/\` obelisco
+    - `F`: `/___` attack once
+  - If `y` is 1 then the envelope will affect this channel.
+- `23xx`: **Set envelope period low byte.**
+- `24xx`: **Set envelope period high byte.**
+- `25xx`: **Slide envelope period up.**
+- `26xx`: **Slide envelope period down.**
+- `27xx`: **Set noise AND mask.**
+- `28xx`: **Set noise OR mask.**
+- `29xy`: **Enable auto-envelope mode.**
+  - In this mode the envelope period is set to the channel's notes, multiplied by a fraction.
+  - `x` is the numerator.
+  - `y` is the denominator.
+  - If `x` or `y` are 0 this will disable auto-envelope mode.
+- `2Cxx`: **Automatic noise frequency.**
+  - `x` sets the mode:
+    - `0`: disabled
+    - `1`: alter frequency
+    - `2`: alter frequency and OR mask
+  - `y` sets the offset.
+  - This can be used to make a pulse-width modulation (PWM) effect.
+- `2Exx`: **Write to I/O port A.**
+  - This changes the port's mode to "write". Make sure you have connected something to it.
+- `2Fxx`: **Write to I/O port B.**
+  - This changes the port's mode to "write". Make sure you have connected something to it.
+
+## Chip Configuration
+
+The following options are available in the Chip Manager window:
+
+- **Clock rate**: Sets the rate at which the chip will run.
+- **Stereo**: Enable stereo output. Channel 1 is output left, channel 2 is output center and channel 3 is output right.
+  - **Separation**: Allows you to set left/right separation.
+- **Half Clock divider**: Pulls the half clock pin, running the chip at half the speed.

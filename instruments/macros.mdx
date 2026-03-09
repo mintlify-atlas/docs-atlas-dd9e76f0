@@ -1,0 +1,189 @@
+---
+title: Macros
+description: Master macros for automating instrument parameters in Furnace
+---
+
+Macros are incredibly versatile tools for automating instrument parameters. They allow you to create dynamic, evolving sounds without manually entering effects in every pattern row.
+
+After creating an instrument, open the Instrument Editor and select the "Macros" tab. There may be multiple macro tabs to control individual FM operators and such.
+
+![Macro View](/images/instrument/macroview.png)
+
+## Macro Interface
+
+The very first numeric entry sets the visible width of the bars in sequence-type macros. The scrollbar affects the view of all macros at once. There is a matching scrollbar at the bottom underneath all the macros.
+
+Each macro has the following parameters:
+
+- **Macro type** (explained below)
+- **Timing options**:
+  - **Step Length (ticks)**: Determines the number of ticks between macro steps. Default is 1
+  - **Delay**: Delays the macro until this many ticks have elapsed. Default is 0
+  - The button is highlighted if either of these parameters is set to non-default values
+
+## Macro Types
+
+There are three macro types available:
+
+### Sequence Macro
+
+![Sequence](/images/instrument/macro-button-seq.png)
+
+This is the most basic macro type. When the instrument is played, every value in the macro will be output sequentially, from left to right.
+
+![Sequence Macro Editor](/images/instrument/macro-seq.png)
+
+#### Editing the Sequence
+
+The **Length** field allows you to set the number of steps in the sequence.
+
+The sequence view allows you to edit the macro:
+- Press and hold the left mouse button to start drawing. Release to stop drawing
+- Press and hold the right mouse button to draw a line:
+  - The start point will be set to the cursor position
+  - Move the cursor to change the end point
+  - Release to finish drawing the line
+
+#### View Adjustments
+
+The sequence view may be adjusted using the following combinations:
+- Hold **Ctrl** and use the scroll wheel to zoom horizontally
+- Hold **Ctrl-Shift** and use the scroll wheel to zoom vertically
+- The scrollbar at the right allows you to scroll vertically (if possible)
+- You may hold **Shift** and use the scroll wheel to scroll vertically as well
+
+#### Right-Click Menu
+
+Right-click on the sequence view to open a menu:
+
+- **Copy**: Copy this macro to clipboard
+- **Paste**: Pastes the macro
+- **Clear**: Clears the macro
+- **Clear contents**: Resets all values to 0
+- **Offset**:
+  - **X**: Slides the data "horizontally" within the macro, filling the gap with zeroes. Data moved past the start or end is lost
+  - **Y**: Increases or decreases all values, clipping them if they would move past the allowed range
+- **Scale**:
+  - **X**: Stretches the macro
+  - **Y**: Multiplies all values by the scale factor, clipping them if they would exceed the allowed range
+- **Randomize**: Replaces all values with random values between **Min** and **Max**
+
+<Note>
+Arpeggio and pitch macros may have values above or below the visible area. Indicators will be shown until they are scrolled into view.
+</Note>
+
+#### Loop and Release Points
+
+Under the sequence view there is a bar that allows you to set loop and release points:
+
+- **Click** to set the loop start point; the end point is the last step or release point
+  - Right-click to remove the loop point
+- **Shift-click** to set the release point
+  - The macro will stop at the release point until the note is released (`===` or `REL`)
+  - If the loop point is set, and it is placed before the release point, the macro will loop until note release instead
+  - Shift-right-click to remove the release point
+
+#### Arpeggio Macros
+
+Arpeggio macros have an additional bar under the sequence view to set steps to "relative" or "fixed":
+
+- By default, step values are offsets **relative** to the note
+- If clicked on, a step value becomes **fixed** and will be played at its corresponding note without regard to the currently playing note
+  - Values are counted from `C-0`. For example, a fixed value of 48 produces a `C-4` note
+  - Fixed values are especially useful for noise or percussion
+
+#### Text Input
+
+The sequence can be edited in the text input field at the very bottom. The following symbols have special meanings:
+
+- `|`: Loop point
+- `/`: Release point
+- In arpeggio macros, `@` prefixed to a value indicates that it is a fixed value as described above
+
+In bitmask-style macros, the values are added up in binary and converted to decimal.
+
+#### Release Mode
+
+The release mode parameter determines how macro release (`===` or `REL` in the pattern) is handled:
+
+- **Active**: Jumps to release position on release
+- **Passive**: Does not jump to release position. This will result in delay if release position has not been reached yet
+
+#### Bitmask Macros
+
+![Bitmask Sequence Macro Editor](/images/instrument/macro-seq-bitmask.png)
+
+Bitmask-style macros show labels for each of their bits. These are edited as toggles. Drawing lines is not possible in these macros.
+
+### ADSR Macro
+
+![ADSR](/images/instrument/macro-button-ADSR.png)
+
+This is an attack/decay/sustain/release envelope, providing classic ADSR envelope control.
+
+![ADSR Macro Editor](/images/instrument/macro-ADSR.png)
+
+#### Parameters
+
+- **Bottom** and **Top**: Determine the macro's output range (Bottom can be larger than Top to invert the envelope!). All outputs will be between these two values
+- Attack, Decay, Sustain, SusDecay, and Release accept inputs between 0 to 255. These are scaled to the distance between Bottom and Top:
+  - The output starts at Bottom
+  - **Attack**: How much the output moves toward Top with each tick
+  - **Hold**: How many ticks to stay at Top before Decay
+  - **Decay**: How much the output moves to the Sustain level
+  - **Sustain**: How far from Bottom the value stays while the note is on
+  - **SusTime**: How many ticks to stay at Sustain until SusDecay
+  - **SusDecay**: How much the output moves toward Bottom with each tick while the note is on
+  - **Release**: How much the output moves toward Bottom with each tick after the note is released
+
+![ADSR Chart](/images/instrument/macro-ADSRchart.png)
+
+### LFO Macro
+
+![LFO](/images/instrument/macro-button-LFO.png)
+
+Low Frequency Oscillator - creates periodic modulation of the parameter.
+
+![LFO Macro Editor](/images/instrument/macro-LFO.png)
+
+#### Parameters
+
+- **Bottom** and **Top**: Determine the macro's output range (Bottom can be larger than Top to invert the waveform!)
+- **Speed**: How quickly the LFO position moves
+- **Phase**: Defines the starting LFO position, measured in 1/1024 increments
+- **Shape**: The waveform of the LFO. There are three waveforms:
+  - **Triangle**: Bottom > Top > Bottom
+  - **Saw**: Moves from Bottom to Top, and then jumps back to Bottom
+  - **Square**: Alternates between Bottom and Top
+
+## Common Macro Uses
+
+<CardGroup cols={2}>
+  <Card title="Volume Envelopes" icon="volume-high">
+    Use ADSR macros on the volume parameter to create attack and decay envelopes for your sounds.
+  </Card>
+  
+  <Card title="Pitch Bends" icon="arrow-trend-up">
+    Use sequence macros on the pitch parameter to create pitch bends, slides, or portamento effects.
+  </Card>
+  
+  <Card title="Vibrato" icon="wave-sine">
+    Use LFO macros on the pitch parameter to create vibrato effects with adjustable speed and depth.
+  </Card>
+  
+  <Card title="Arpeggios" icon="music">
+    Use sequence macros on the arpeggio parameter to create chord arpeggios or melodic patterns.
+  </Card>
+  
+  <Card title="Filter Sweeps" icon="filter">
+    Use sequence macros on filter cutoff to create classic filter sweep effects.
+  </Card>
+  
+  <Card title="PWM" icon="square">
+    Use LFO or sequence macros on the duty parameter to create pulse width modulation.
+  </Card>
+</CardGroup>
+
+<Tip>
+Macros can be combined with pattern effects for even more complex sounds. For example, you can use a volume macro for the basic envelope while using pattern effects for special emphasis on certain notes.
+</Tip>

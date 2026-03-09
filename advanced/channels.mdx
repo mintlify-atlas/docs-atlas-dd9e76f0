@@ -1,0 +1,44 @@
+---
+title: Channels
+description: Manage and customize channel display and organization
+---
+
+The "Channels" dialog allows manipulation of the song's channels.
+
+![channels dialog](/images/8-advanced/channels.png)
+
+Each channel has the following options:
+
+## Channel Options
+
+<ParamField path="Pat" type="checkbox">
+  Uncheck the box to hide the channel from the pattern view. Pattern data will be kept.
+</ParamField>
+
+<ParamField path="Osc" type="checkbox">
+  Uncheck the box to hide the channel from the per-channel oscilloscope view.
+</ParamField>
+
+<ParamField path="Swap/Move" type="button">
+  ![crossed arrow button](/images/8-advanced/channels-swap.png)
+  
+  Click and drag to rearrange pattern data throughout the song. Shift-click and drag to copy pattern data.
+  
+  <Note>
+    This does **not** move channels around! It only moves the channel's pattern data.
+  </Note>
+</ParamField>
+
+<ParamField path="Name" type="text">
+  The name displayed at the top of each channel in the pattern view.
+</ParamField>
+
+<ParamField path="Short Name" type="text">
+  The short name is displayed in the orders view and/or when a channel is collapsed.
+</ParamField>
+
+<ParamField path="Color" type="color">
+  Selects a custom color to be used in pattern view headers and other channel indicators.
+  
+  ![circle-of-arrows button](/images/8-advanced/channels-reset.png) - Click to reset channel color to default.
+</ParamField>

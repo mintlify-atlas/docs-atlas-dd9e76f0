@@ -1,0 +1,54 @@
+---
+title: Atari 2600 (TIA)
+description: The minimalist sound chip from the legendary Atari 2600
+---
+
+Help me! I can't even get this character in where I want!
+I've spent hours debugging the issue, counting every possible cycle and I still cannot get it right!
+
+Only 2 channels and 31 frequencies?!
+
+Furnace isn't complete without this one...
+
+## Effects
+
+- `10xx`: **Select shape**
+  - `0`: Nothing
+  - `1`: Buzzy
+  - `2`: Low buzzy
+  - `3`: Flangy
+  - `4`: Square
+  - `5`: Square
+  - `6`: Pure buzzy
+  - `7`: Reedy
+  - `8`: Noise
+  - `9`: Reedy
+  - `A`: Pure buzzy
+  - `B`: Nothing
+  - `C`: Low square
+  - `D`: Low square
+  - `E`: Low pure buzzy
+  - `F`: Low reedy
+
+## ROM Export
+
+A song can be exported to assembly code for use with the TIunA software driver for the Atari 2600. See [TIunA on GitHub](https://github.com/AYCEdemo/twin-tiuna) for explanations of the export options.
+
+## Chip Configuration
+
+**Software pitch driver**: Use TIunA, a software pitch driver similar to TIATune. It increases pitch precision by rapidly switching between two pitches. Pitches are still limited to their original range.
+
+**Old pitch table**: Use an older method to calculate pitch (for compatibility only)
+
+**Mixing mode**:
+- **Mono**: Normal output
+- **Mono (no distortion)**: Process each channel separately to eliminate distortion
+- **Stereo**: Output two channels on left and right
+
+**PAL**: Runs at a slightly different clock rate, affecting pitch
+
+## Pitch Tables
+
+The arp macro's fixed mode operates differently, writing the direct pitch to the chip. The source documentation includes detailed pitch tables for all 16 waveform shapes across both NTSC and PAL systems, showing exact frequencies, musical notes, and cent deviations.
+
+Refer to the [Atari 2600 VCS Sound Frequency and Waveform Guide](http://7800.8bitdev.org/index.php/Atari_2600_VCS_Sound_Frequency_and_Waveform_Guide) for complete pitch information.

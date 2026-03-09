@@ -1,0 +1,29 @@
+---
+title: Namco C140
+description: Documentation for the C140 24-channel PCM sound chip
+---
+
+The Namco C140 is a 24-channel custom PCM sound chip manufactured jointly by Fujitsu and Namco. It was first used in Namco System 2 arcade family starting in 1987.
+
+This chip features:
+
+- Stereo soft panning
+- Accepts either raw 12-bit PCM or 8-bit µ-law compressed PCM samples
+- 21.4 kHz sampling rate
+
+## Effects
+
+None!
+
+## Info
+
+Maximum sample length is 65535.
+
+## Chip Configuration
+
+The following options are available in the Chip Manager window:
+
+- **Banking style**: Change the sample bank scheme. Used for VGM export.
+  - Namco System 2: 2MB available for samples.
+  - Namco System 21: 4MB available for samples.
+  - Raw: 16MB, but not supported by the VGM format!

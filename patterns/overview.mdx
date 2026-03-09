@@ -1,0 +1,112 @@
+---
+title: Pattern Overview
+description: Learn about patterns, the core editing interface in Furnace for creating chiptune music
+---
+
+The pattern view allows you to edit the song's patterns, which form the foundation of your composition in Furnace.
+
+![Pattern View](/images/pattern/pattern.png)
+
+## Pattern Structure
+
+A pattern consists of columns ("channels") and numbered rows. Each column has several subcolumns in this order:
+
+1. **Note** - The musical note to play
+2. **Instrument** - Which instrument to use
+3. **Volume** - The volume level
+4. **Effects** - Split into effect type and effect value
+
+All columns are represented in hexadecimal, except for the note column.
+
+Row highlights show beats and measures, and are configured in the Speed window.
+
+## Cursor and Selection
+
+You may change the cursor position by clicking anywhere on the pattern.
+
+To select an area:
+- Press and hold the left mouse button
+- Drag the mouse
+- Release the button to finish selection
+
+Right-clicking within the pattern view brings up a pop-up menu with most options from the edit menu.
+
+## Channel Bar
+
+Using the channel bar, you may adjust several aspects of the channel display.
+
+![Channel Bar](/images/pattern/channelbar.png)
+
+### Channel Controls
+
+- **Clicking** on a channel name **mutes** that channel
+- **Double-clicking** or **right-clicking** enables **solo mode**, in which only that channel will be audible
+
+### View Modes
+
+Clicking the `++` at the top left corner of the pattern view pops up a small menu to set view modes:
+
+<AccordionGroup>
+  <Accordion title="Effect columns/collapse">
+    Displays extra options for collapsing channels and adding/removing effect columns:
+    - **-**: Collapse visible columns. Changes to **+** when columns are hidden; click to expand them
+    - **&lt;**: Disables the last effect column and hides it. Effects are not deleted
+    - **&gt;**: Adds an effect column. If one previously existed, its contents will be preserved
+  </Accordion>
+  
+  <Accordion title="Pattern names">
+    Displays pattern names (per channel). Pattern names are also visible when hovering over a pattern in the order list.
+  </Accordion>
+  
+  <Accordion title="Channel group hints">
+    Display indicators when channels are paired in some way (e.g. OPL3 4-op mode).
+  </Accordion>
+  
+  <Accordion title="Visualizer">
+    During playback, show visual effects in the pattern view. Can also be toggled by right-clicking on the `++` button.
+  </Accordion>
+  
+  <Accordion title="Channel status">
+    Displays icons that indicate activity in the channel. See the "Channel Status" section below.
+  </Accordion>
+</AccordionGroup>
+
+To rename and/or hide channels, open the Channels window via the window menu.
+
+## Channel Status
+
+Channel status icons provide visual feedback about what's happening in each channel:
+
+### Note Status
+
+- ![Note off](/images/pattern/status-note-off.png) Note off
+- ![Note on](/images/pattern/status-note-on.png) Note on
+- ![Macro released](/images/pattern/status-note-on-rel.png) Note on but macro released (`REL`)
+- ![Note released](/images/pattern/status-note-off-rel.png) Note released (`===`)
+
+### Pitch Alteration
+
+- ![No effect](/images/pattern/status-pitch-none.png) Nothing
+- ![Pitch up](/images/pattern/status-pitch-up.png) Pitch slide up
+- ![Pitch down](/images/pattern/status-pitch-down.png) Pitch slide down
+- ![Portamento](/images/pattern/status-pitch-porta.png) Portamento
+- ![Arpeggio](/images/pattern/status-pitch-arpeg.png) Arpeggio
+
+### Volume Alteration
+
+- ![No effect](/images/pattern/status-volume-none.png) Nothing
+- ![Volume up](/images/pattern/status-volume-up.png) Volume slide up
+- ![Volume down](/images/pattern/status-volume-down.png) Volume slide down
+- ![Tremolo](/images/pattern/status-volume-tremolo.png) Tremolo
+
+<Note>
+Other icons may be present depending on the used chips.
+</Note>
+
+## Special Note Values
+
+Furnace supports several special note commands:
+
+- **Note off** (`OFF`) - Turns off the last played note in that channel (key off for FM/hardware envelope; note cut otherwise)
+- **Note release** (`===`) - Triggers macro release (and in FM/hardware envelope channels it also triggers key off)
+- **Macro release** (`REL`) - Releases macros but does not trigger key off in FM/hardware envelope channels

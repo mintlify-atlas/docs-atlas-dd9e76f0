@@ -1,0 +1,56 @@
+---
+title: "Game Boy Advance"
+description: "Nintendo's 32-bit portable console sound system"
+---
+
+A portable video game console from Nintendo, succeeding the Game Boy.
+
+It starts with the [Game Boy sound hardware](/chips/console/game-boy) and adds two stereo sample audio channels which can be used directly ("DMA", hard-panned, usually used as left/right channels) or used in a software mixing driver (most games do this) in order to have multiple voices.
+
+## Sound System
+
+- **Game Boy compatibility**: 4 channels (2 pulse, 1 wave, 1 noise)
+- **2 DMA channels**: Stereo sample playback
+- **MinMod driver**: Software mixing for up to 16 voices with echo
+
+## Effects
+
+### Standard Mode
+
+| Effect | Description |
+|--------|-------------|
+| `10xx` | **Change wave** |
+
+### Game Boy Advance (MinMod)
+
+This is the software mixing driver available in Furnace, written by Natt Akuma. It features echo and up to 16 voices.
+
+| Effect | Description |
+|--------|-------------|
+| `10xx` | **Change wave** |
+| `11xy` | **Configure echo**<br/>This effect is kinda odd. Here's how to use it:<br/>• Create an empty instrument and put a very high note of it in channel 1<br/>• Put `110x` in the effect column<br/>• Set volume column to set feedback<br/>• Don't use the channel for anything else |
+| `12xy` | **Toggle invert**<br/>`x`: Left channel<br/>`y`: Right channel |
+
+## Sample Specifications
+
+When played via DMA:
+- Sample's loop start point must be a **multiple of 4**
+- Loop's length must be a **multiple of 16**
+- Sample length is padded to a **multiple of 16**
+
+## Chip Configuration
+
+The following options are available in the Chip Manager window:
+
+**General:**
+- **DAC bit depth**: Sets the bit depth
+
+**MinMod options (when using MinMod):**
+- **Volume scale**: Scale volumes to prevent clipping/distortion
+- **Mix buffers**: Sets how many mix buffers will be stored in memory. Higher values result in longer echo
+- **Channel limit**: Sets the number of channels that will be available. Higher values use more CPU
+- **Sample rate**: Sets the mixing rate. Higher values use more CPU
+
+## Instrument Editor
+
+This chip uses the GBA DMA and GBA MinMod instrument editors.

@@ -1,0 +1,54 @@
+---
+title: "Seta/Allumer X1-010"
+description: "16-channel wavetable chip used in Seta arcade boards"
+---
+
+The X1-010 is a chip used by Seta (and Allumer) in the Seta 1 and 2 arcade boards.
+
+It has 16 channels of wavetable sound with some support for 8-bit samples up to 128KB in length. The sample frequency resolution is pretty bad in the low end though...
+
+Even though this chip has stereo output, no board (as far as we know) uses the two outputs that it has... instead, only one output is connected, effectively being used as a mono chip.
+
+The chip also has some (complicated) hardware volume envelope capabilities, with half of its memory being usable for that purpose. The shape of a volume envelope is defined by user-provided 128×16 waveforms.
+
+The chip can store up to 32 sound waveforms and envelope waveforms at once.
+
+<Note>
+This chip was the inspiration for Organya/PxTone (the former being used in a well-known game called Cave Story).
+</Note>
+
+## Channel Configuration
+
+- **16 wavetable channels**
+- Support for 8-bit samples up to 128KB
+- Hardware volume envelope capabilities
+- Up to 32 waveforms storable at once
+
+## Effects
+
+| Effect | Description |
+|--------|-------------|
+| `10xx` | **Change wave** |
+| `11xx` | **Change envelope shape** (also wavetable) |
+| `20xx` | **Set PCM frequency**<br/>Range: `01-FF`<br/>Formula: `step * (clock / 8192)`<br/>Range: 1.95KHz to 498KHz (if chip clock is 16MHz) |
+| `22xx` | **Set envelope mode**<br/>Bit 0: Whether envelope will affect this channel<br/>Bit 1: Whether envelope will run once instead of looping<br/>Bit 2: Whether split mode is used<br/>Bit 3/5: Whether right/left shape will mirror the original<br/>Bit 4/6: Whether right/left output will mirror the original |
+| `23xx` | **Set envelope period** |
+| `25xx` | **Slide envelope period up** |
+| `26xx` | **Slide envelope period down** |
+| `29xy` | **Enable auto-envelope mode**<br/>In this mode the envelope period is set to the channel's notes, multiplied by a fraction<br/>`x`: Numerator<br/>`y`: Denominator<br/>If `x` or `y` are 0 this will disable auto-envelope mode |
+
+## Sample Specifications
+
+- If bankswitched, the sample length limit is **131,072 samples**
+
+## Chip Configuration
+
+The following options are available in the Chip Manager window:
+
+- **Clock rate**: Sets the rate at which the chip will run
+- **Stereo**: Enables stereo output. The chip supports this, but none of the actual boards use it
+- **Bankswitched**: Don't worry about it for now...
+
+## Instrument Editor
+
+This chip uses the X1-010 instrument editor.

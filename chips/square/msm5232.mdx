@@ -1,0 +1,40 @@
+---
+title: OKI MSM5232
+description: Documentation for the MSM5232 sound generator chip used in arcade boards and synthesizers
+---
+
+A rather primitive (but powerful) sound generator chip used in some arcade boards and even synthesizers (like Korg Poly-800).
+
+It has 8 channels in 2 groups (of 4 channels each). Each group can be configured with an envelope and the ability to produce 2', 4', 8' and/or 16' square/noise overtones on 8 outputs (four (2', 4', 8' and 16') per group).
+
+However, this chip cannot entirely produce sound alone. It has to be paired with either an external envelope generator or capacitors to assist the internal envelope generator.
+
+It also has no fine tune whatsoever. The frequency resolution is exactly a semitone.
+
+Furnace implements this chip in a way that allows the following features:
+
+- Internal (capacitors) or external (volume macro) envelope modes per group
+- The ability to change the volume of each output (this can be used to generate saw waves if you set each part/overtone's volume to exactly half of the previous one)
+- Global fine tune
+- Global vibrato (some arcade boards played with the clock input to simulate vibrato)
+
+## Effects
+
+- `10xy`: **Set group control.**
+  - `x` sets sustain mode.
+  - `y` is a 4-bit mask which toggles overtones.
+- `11xx`: **Set noise mode.**
+- `12xx`: **Set group attack.** Range is `0` to `5`.
+  - Only in internal (capacitor-based) envelope mode.
+- `13xx`: **Set group decay.** Range is `0` to `11`.
+  - Only in internal (capacitor-based) envelope mode.
+
+## Chip Configuration
+
+The following options are available in the Chip Manager window:
+
+- **Detune**: Sets detune in 128ths of a semitone.
+- **Capacitor values**: Allows you to change the capacitance of the 8 capacitors connected to the chip. Longer values increase envelope length.
+- **Initial part volume**: Sets the initial volume of each "part" (octave) in a group.
+- **Envelope mode**: Sets whether to use an external volume input (in this case, macros) or the built-in envelope generator.
+- **Global vibrato**: Nudges the clock to simulate vibrato.

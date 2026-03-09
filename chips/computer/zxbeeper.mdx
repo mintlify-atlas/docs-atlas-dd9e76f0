@@ -1,0 +1,30 @@
+---
+title: ZX Spectrum Beeper
+description: CPU-driven sound synthesis on the ZX Spectrum
+---
+
+Rather than having a dedicated sound synthesizer, early ZX Spectrum models had one piezo beeper, controlled by the Z80 CPU and ULA chip. Its capabilities should be on par with an IBM PC speaker... right?
+
+Not really - very soon talented programmers found out ways to output much more than one square wave channel.
+
+## Supported Engines
+
+A lot of ZX beeper routines exist, but Furnace only supports two engines:
+
+- **Follin/SFX-like engine**: 6 channels of narrow pulse wave and click drums
+- **QuadTone**: PWM-driven engine with 4 channels of pulse wave with freely variable duty cycles and 1-bit PCM drums
+
+## Effects
+
+- `12xx`: **Set pulse width**
+
+- `17xx`: **Trigger overlay drum**
+  - `xx` is the sample number
+  - Overlay drums are 1-bit and always play at 55930Hz (NTSC) or 55420Hz (PAL)
+  - Maximum length is 2048
+
+## Chip Configuration
+
+**PAL**: Run at 3.54MHz instead of 3.58MHz
+
+**Disable hissing** (QuadTone only): Disables TDM hissing

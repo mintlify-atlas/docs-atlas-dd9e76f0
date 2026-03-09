@@ -1,0 +1,46 @@
+---
+title: "HuC6280 (PC Engine/TurboGrafx-16)"
+description: "Wavetable sound chip from the PC Engine/TurboGrafx-16 console"
+---
+
+The HuC6280 is the sound chip used in the PC Engine/TurboGrafx-16, a console from NEC that, depending on region:
+- Attempted to enter the fierce battle between Nintendo and Sega, but because its capabilities are a mix of third and fourth generation, it failed to last long (US and Europe), or
+- Was Nintendo's most fearsome rival, completely defeating Sega Mega Drive and defending itself against Super Famicom (Japan).
+
+It has 6 wavetable channels and the last two ones also double as noise channels. Furthermore, it has some PCM and LFO capabilities!
+
+## Channel Configuration
+
+- **6 wavetable channels**
+- Channels 5 and 6 support noise mode
+- PCM support
+- LFO functionality (uses channel 2 output to modulate channel 1 frequency)
+
+## Effects
+
+| Effect | Description |
+|--------|-------------|
+| `10xx` | **Change wave** |
+| `11xx` | **Toggle noise mode** (channels 5-6 only) |
+| `12xx` | **Setup LFO**<br/>`00`: LFO disabled<br/>`01`: LFO enabled, shift 0<br/>`02`: LFO enabled, shift 4<br/>`03`: LFO enabled, shift 8<br/>When LFO is enabled, channel 2 is muted and its output is passed to channel 1's frequency |
+| `13xx` | **Set LFO speed** |
+
+## Channel Status Icons
+
+When channel status is enabled in the pattern view, the following icons are displayed:
+
+**Noise mode (channels 5 and 6 only):**
+- Noise mode off
+- Noise mode on
+
+## Chip Configuration
+
+The following options are available in the Chip Manager window:
+
+- **Pseudo-PAL**: Run the chip on a PAL clock. Such a configuration has (probably) never existed, despite a planned official PAL version of the PC Engine.
+- **Disable anti-click**: Waveform switching requires a phase reset, which may cause clicks. Furnace uses a wave-position predicting algorithm to minimize these clicks. Check this option to disable the feature.
+- **Chip revision**: Sets the chip revision. HuC6280A has less pops.
+
+## Instrument Editor
+
+This chip uses the PC Engine instrument editor.

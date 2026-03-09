@@ -1,0 +1,166 @@
+---
+title: Wavetable Overview
+description: Learn about wavetables and the wavetable editor in Furnace
+---
+
+Wavetable chips, in the context of Furnace, are sound generators that operate on extremely short, looping sample streams. By extremely short, usually no more than 256 samples. This amount of space is nowhere near enough to store an actual sampled sound, but it allows certain freedom to define a waveform shape.
+
+## Supported Systems
+
+Each chip has its own maximum size. If a larger wave is defined for these chips, it will be scaled to fit within the constraints of the chips.
+
+Some of these chips force a phase reset when changing waveforms, which can cause clicking and popping sounds. This also means they don't work very well with the wavetable synthesizer. These systems are marked in the "notes" column.
+
+| System | Width | Height | Notes |
+|--------|------:|--------|-------|
+| Bubble System | 32 | 16 | |
+| Game Boy | 32 | 16 | Phase reset on waveform change |
+| SM8521 | 32 | 16 | |
+| Namco WSG | 32 | 16 | RAM only |
+| WonderSwan | 32 | 16 | |
+| Namco 163 | ≤240 | 16 | Limits differ depending on channel count |
+| SNES | ≤256 | 16 | |
+| PC Engine | 32 | 32 | Phase reset on waveform change |
+| Virtual Boy | 32 | 64 | Phase reset on all channels on waveform change |
+| FDS | 64 | 64 | |
+| Konami SCC | 32 | 256 | |
+| Seta X1-010 | 128 | 256 | |
+| Amiga | ≤256 | 256 | |
+
+<Note>
+You may use up to **32,768 wavetables** in a module.
+</Note>
+
+## Wavetable Editor
+
+The wavetable editor provides comprehensive tools for creating and editing wavetables.
+
+![Wavetable Editor](/images/wave/wave-editor.png)
+
+### Top Controls
+
+- **Waveform number**: The `-` and `+` buttons step through the list
+- **Open**: Opens a file selector to choose the file to open
+- **Save**: Opens a file selector to choose the file to save to
+  - Right-clicking brings up a menu:
+    - **Save as .dmw...**: Saves the selected wavetable in DefleMask format
+    - **Save raw...**: Saves the selected wavetable as raw data
+- **Create sample from wavetable**: Copies wavetable to a new looped sample
+- **Steps**: View waveform as discrete blocks
+- **Lines**: View waveform as a continuous line
+- **Width**: Length of the waveform data. Maximum is 256
+- **Height**: Height of the waveform. Maximum is 256
+- **< / >**: Show/hide waveform utilities (described below)
+
+### Waveform Display
+
+The waveform is directly editable with the mouse:
+- Click and drag to draw the waveform
+- Hovering will display a tooltip with the waveform position and value
+
+### Bottom Controls
+
+- **Dec**: View text input as decimal
+- **Hex**: View text input as hexadecimal
+- **+ / ±**: Toggle text input as unsigned/signed. Also adjusts waveform display
+- **Text input**: Waveform data as an editable numeric sequence. Also called "MML stream"
+
+## Waveform Utilities
+
+These provide different ways of creating or altering a waveform.
+
+### Shapes
+
+![Wavetable Shape Tab](/images/wave/wave-editor-shapes.png)
+
+This creates a waveform by adding together a few predefined basic wave shapes.
+
+- **Shape**: Select shape from sine, triangle, saw, and square
+- **Duty**: Only affects pulse waves, determining their width
+- **Exponent**: Applies an exponent (power) to the waveform (^2, ^3 and so on)
+- **XOR Point**: Determines the point where the waveform gets inverted
+- **Amplitude/Phase**: Add together up to 16 instances of the shape
+  - **Amplitude**: Height of the shape
+  - **Phase**: Position along the shape. For example, 0.250 starts the shape a quarter of the way along
+
+### FM Synthesis
+
+![Wavetable FM Tab](/images/wave/wave-editor-FM.png)
+
+This creates a waveform using frequency modulation synthesis with up to four operators.
+
+You can set:
+- Carrier/modulation levels
+- Frequency multipliers
+- Connections between operators
+- FM waveforms of these operators
+
+In the connection diagram, a checkmark indicates that the row operator is modulated by the column operator. The "Out" column indicates which operators are audible. The default diagram (as shown) sets operators 1, 2, and 3 as modulators in sequence, with operator 4 as the carrier and only output.
+
+### WaveTools
+
+![Wavetable Tools Tab](/images/wave/wave-editor-tools.png)
+
+These are useful editing tools to fine-tune the waveform:
+
+<AccordionGroup>
+  <Accordion title="Scale X">
+    Stretches the waveform to a new length.
+  </Accordion>
+  
+  <Accordion title="Interpolation method">
+    Filters the waveform when stretching. Choose from none, linear, cosine, and cubic interpolation.
+  </Accordion>
+  
+  <Accordion title="Scale Y">
+    Resizes the waveform to a new height. It will clip at the top and bottom.
+  </Accordion>
+  
+  <Accordion title="Offset X">
+    Slides the waveform forward or back. It will wrap around.
+  </Accordion>
+  
+  <Accordion title="Offset Y">
+    Slides the waveform up or down. It will clip at the top and bottom.
+  </Accordion>
+  
+  <Accordion title="Smooth">
+    Averages values in the waveform.
+  </Accordion>
+  
+  <Accordion title="Amplify">
+    Changes the volume of the waveform. It will clip at the top and bottom.
+  </Accordion>
+  
+  <Accordion title="Normalize">
+    Stretches waveform to maximum within the wavetable height.
+  </Accordion>
+  
+  <Accordion title="Invert">
+    Flips waveform vertically.
+  </Accordion>
+  
+  <Accordion title="Reverse">
+    Flips waveform horizontally.
+  </Accordion>
+  
+  <Accordion title="Half">
+    Halves the waveform's frequency by stretching its first half to fill the waveform length.
+  </Accordion>
+  
+  <Accordion title="Double">
+    Doubles the waveform's frequency by squashing it to half length then repeating it.
+  </Accordion>
+  
+  <Accordion title="Convert Signed/Unsigned">
+    Worth trying if an imported wave sounds corrupted.
+  </Accordion>
+  
+  <Accordion title="Randomize">
+    Generate a completely random waveform.
+  </Accordion>
+</AccordionGroup>
+
+<Tip>
+Experiment with combining multiple tools! For example, create a basic shape, apply FM synthesis, then use WaveTools to fine-tune the result.
+</Tip>

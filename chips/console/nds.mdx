@@ -1,0 +1,47 @@
+---
+title: "Nintendo DS"
+description: "Dual-screen portable console sound system"
+---
+
+This portable video game console succeeded the Game Boy Advance.
+
+It has 16 channels of sampled sound, supporting 8-bit PCM, 16-bit PCM and IMA ADPCM.
+
+Additionally, the last 8 channels may be put in "PSG mode", featuring 6 channels of pulse with 8 duty cycles and 2 noise channels.
+
+## Channel Configuration
+
+- **16 sample channels**
+  - 8-bit PCM
+  - 16-bit PCM
+  - IMA ADPCM
+- **Last 8 channels** can be switched to PSG mode:
+  - 6 pulse channels with 8 duty cycles
+  - 2 noise channels
+
+## Effects
+
+| Effect | Description |
+|--------|-------------|
+| `12xy` | **Set duty cycle**<br/>Range: `0-7`<br/>Only works in PSG channels |
+| `1Fxx` | **Set global volume** |
+
+## Sample Specifications
+
+Sample length, loop start, and loop end are **32-bit word aligned**, meaning they must be divisible evenly by the alignments shown in the table below:
+
+| Sample Type | Sample Length Max | Loop Start Max | Alignment |
+|:-----------:|------------------:|---------------:|----------:|
+| 16-bit PCM  | 8,388,606         | 131,070        | 2 samples |
+| 8-bit PCM   | 16,777,212        | 262,140        | 4 samples |
+| IMA ADPCM   | 33,554,424        | 524,280        | 8 samples |
+
+## Chip Configuration
+
+The following options are available in the Chip Manager window:
+
+- **Model**: Set the amount of memory available for samples
+
+## Instrument Editor
+
+This chip uses the Nintendo DS instrument editor.

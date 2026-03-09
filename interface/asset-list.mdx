@@ -1,0 +1,104 @@
+---
+title: Asset List
+description: Managing instruments, wavetables, and samples in Furnace
+---
+
+An "asset" refers to an instrument, wavetable or sample.
+
+## Instrument List
+
+![instruments window](/images/interface/instruments.png)
+
+This window displays the list of instruments. Each entry contains an icon representing an instrument's type and its name.
+
+The following actions can be done when hovering on an entry:
+
+- Left click to set it as the current instrument.
+- Double click to open the instrument editor.
+- Right click to open a menu with options.
+- Shift-left click to start multi-instrument playback. In this mode you will be able to play more than one instrument at once. See [multi-instrument](/advanced/multi-instrument) for more information.
+
+### Buttons
+
+From left to right:
+
+- **Add**: pops up a menu to select which type of instrument to add. If only one instrument type is available, the menu is skipped.
+  - If the "Display instrument type menu when adding instrument" setting is disabled, this skips the menu and creates an instrument according to the chip under the cursor.
+  - Right-clicking always brings up the menu.
+- **Duplicate**: duplicates the currently selected instrument.
+- **Open**: brings up a file dialog to load a file as a new instrument at the end of the list.
+  - If the file is an instrument bank, a dialog will appear to select which instruments to load.
+- **Save**: brings up a file dialog to save the currently selected instrument.
+  - Instruments are saved as Furnace instrument (.fui) files.
+  - Right-clicking brings up a menu with the following options:
+    - **Save instrument as .dmp...**: saves the selected instrument in DefleMask format.
+    - **Save all instruments...**: saves all instruments to the selected folder as .fui files.
+- **Toggle folders/standard view**: enables (and disables) folder view, explained below.
+- **Move up**: moves the currently selected instrument up in the list. Pattern data will automatically be adjusted to match.
+- **Move down**: same, but downward.
+- **Delete**: deletes the currently selected instrument. Pattern data will be adjusted to use the next available instrument in the list.
+
+<Info>
+Instruments may be dragged and dropped to reorder them. This will change instrument numbers throughout the module accordingly.
+</Info>
+
+## Folder View
+
+![instruments window in folder view](/images/interface/instruments-folder.png)
+
+In folder view, the "Move up" and "Move down" buttons disappear and a new one appears:
+- **New folder**: creates a new folder.
+
+Assets may be dragged from folder to folder and even rearranged within folders without changing their associated numbers.
+
+Right-clicking on a folder allows one to rename or delete it. Deleting a folder does not remove the instruments in it.
+
+## Wavetable List
+
+![wavetables window](/images/interface/wavetables.png)
+
+Everything from the instrument list applies here also, with one major difference: moving waves around with the buttons or dragging them will change their associated numbers in the list but **not** in pattern or instrument data. Be careful!
+
+Wavetables are saved as Furnace wavetable (.fuw) files.
+
+Right-clicking the Save button brings up a menu with the following options:
+- **Save wavetable as .dmw...**: saves the selected wavetable in DefleMask format.
+- **Save raw wavetable...**: saves the selected wavetable as raw data.
+- **Save all wavetables...**: saves all wavetables to the selected folder as .fuw files.
+
+## Sample List
+
+![samples window](/images/interface/samples.png)
+
+Everything from the wavetables list applies here also, with the addition of one button before the Delete button:
+- **Preview**: plays the selected sample at its default note.
+  - Right-clicking stops the sample playback.
+
+Samples are saved as standard wave (.wav) files.
+
+Right-clicking the Save button brings up a menu with the following options:
+- **Save raw sample...**: saves the selected sample as raw data.
+- **Save all samples...**: saves all samples to the selected folder as .wav files.
+
+### Sample Context Menu
+
+Right-clicking a sample in the list brings up a menu:
+- **Make instrument**: creates a new instrument which is set to use the selected sample.
+- **Make me a drum kit**: allows you to instantly create a drum kit using all the samples in the list. See the next section for more information.
+- **Duplicate**: makes a copy of the selected sample.
+- **Replace...**: opens a file dialog to choose a replacement sample.
+- **Save**: opens a file dialog to choose where to save the sample.
+- **Delete**: removes the sample.
+
+## Make Me a Drum Kit
+
+This option makes it easier for you to create a drum kit. It puts all the samples into a new instrument with sample map.
+
+After selecting this option, a list of parameters appears:
+
+- **Drum kit mode**: select how to arrange the samples in the sample map.
+  - **Normal**: put all samples from the starting octave onwards.
+  - **12 samples per octave**: map the first 12 samples to all octaves, DefleMask-style.
+- **Starting octave**: change the octave where the first sample will be at.
+
+Following that is a list of viable instrument types. Click on one of them to proceed with drum kit creation!

@@ -1,0 +1,232 @@
+---
+title: Troubleshooting
+description: Solutions to common problems and issues when using Furnace
+---
+
+This page provides solutions to common issues you might encounter while using Furnace. If your problem isn't covered here, check the [FAQ](/faq) or visit the [GitHub Discussions](https://github.com/tildearrow/furnace/discussions).
+
+## Configuration Info
+
+### File Locations
+
+Furnace configuration file locations vary by operating system:
+
+<CodeGroup>
+```bash Windows
+%USERPROFILE%\AppData\Roaming\furnace
+```
+
+```bash macOS
+~/Library/Application Support/Furnace
+```
+
+```bash Linux
+~/.config/furnace
+```
+
+```bash Linux (Flatpak)
+~/.var/app/org.tildearrow.furnace
+```
+</CodeGroup>
+
+### Configuration Files
+
+| File | Purpose |
+|------|----------|
+| `layout.ini` | Positions, sizes, and docking for each window and tab |
+| `midiIn_.cfg` | Default MIDI input settings |
+| `midiIn_*.cfg` | Settings for each MIDI device Furnace has seen |
+| `presets.cfg` | User-created system presets |
+| `furnace.cfg` | All other settings |
+| `furnace.log` | Log of activity in the current or most recent Furnace session |
+| Filenames ending in numbers | Rolling backups (1 is the most recent) |
+
+## Common Problems
+
+<AccordionGroup>
+  <Accordion title="Input notes aren't audible or sound different from the instrument, wavetable, or sample editor">
+    Check the following:
+    
+    <Steps>
+      <Step title="Channel type and muting">
+        Make sure the pattern editing cursor is in a channel appropriate to the instrument type, and check whether that channel is muted.
+      </Step>
+      
+      <Step title="Note range limitations">
+        All chips have limits on what notes can be played, whether within a frequency range or from a list of preset frequencies.
+      </Step>
+      
+      <Step title="Wavetable size">
+        For wavetables, check the size of the wavetable. If it doesn't match what the chip expects, Furnace will automatically resample it as needed. An easy way to find out the correct size is to click the "Add" button in the list of wavetables.
+      </Step>
+      
+      <Step title="Sample considerations">
+        Many sample-based chips need multiple considerations:
+        - **Sample memory limits**: Use the sample editor to resize samples to fit or change which ones are loaded into which chip. Reference the memory composition window (in the "Window" menu under "Debug").
+        - **Sample length and loop positions**: If the sample editor shows any highlighted (yellow) boxes or numbers, those will have to be adjusted by moving loop points, resampling, trimming, or padding the sample with silence.
+        - **Sample format**: Furnace will auto-convert samples to the correct format for the chip; in some cases, this can make a huge difference in sound.
+      </Step>
+    </Steps>
+    
+    <Note>
+    See the chip's documentation for more info on specific limitations.
+    </Note>
+  </Accordion>
+  
+  <Accordion title="Input notes are audible but aren't appearing in the pattern">
+    <Steps>
+      <Step title="Set focus">
+        Click anywhere in the pattern editing window to set focus.
+      </Step>
+      
+      <Step title="Toggle edit mode">
+        If that doesn't work, toggle edit mode with the space bar and try again.
+      </Step>
+    </Steps>
+  </Accordion>
+  
+  <Accordion title="Multi-ins isn't working">
+    Check the following:
+    
+    - There can only be as many instruments playing as there are channels to play them.
+    - Playback may be set to "Mono". Find it in the play/edit controls and change it to "Poly" or "Chord".
+  </Accordion>
+  
+  <Accordion title="Changing a note's volume seems to have no effect">
+    Some channels don't have adjustable volume, such as the triangle channel on the NES. See the chip's documentation for more info.
+  </Accordion>
+  
+  <Accordion title="Changing one note's volume or pitch affects other notes">
+    Some chips share the same value across multiple channels, such as:
+    - The SID's global volume
+    - The frequency of the noise channel and pulse channel 3 on the SN7
+    
+    See the chip's documentation for more info.
+  </Accordion>
+  
+  <Accordion title="None of the sample editing buttons are working">
+    The sample is likely in a format that doesn't allow for direct editing. 
+    
+    <Steps>
+      <Step title="Convert the sample">
+        Use the sample type selector to convert it to "16-bit PCM" (or "8-bit PCM") and edit from there.
+      </Step>
+    </Steps>
+    
+    <Warning>
+    Furnace will auto-convert such samples as needed for the format the chip expects. However, this can have unexpected effects due to differences in encoding and chip limitations.
+    </Warning>
+  </Accordion>
+  
+  <Accordion title="The track sounds different when exported to an audio file">
+    Check in the "Emulation" tab of the "Settings" window to see if the chip has different playback and render cores, and change them as necessary.
+  </Accordion>
+  
+  <Accordion title="The track sounds different when exported to a VGM file">
+    This can happen for several reasons:
+    
+    - The VGM format doesn't support all chips, or has incomplete support.
+    - The VGM format only supports a maximum of two instances of any chip.
+    - The VGM format cannot store mixer or patchbay settings.
+    - VGM players may introduce their own inaccuracies, whether due to the software itself (such as the deadbeef VGM player for the MD/Genesis) or the emulator it's run on (common with volume macros on the Game Boy).
+  </Accordion>
+</AccordionGroup>
+
+## Window and Interface Issues
+
+<AccordionGroup>
+  <Accordion title="A window that should be visible, isn't">
+    <Steps>
+      <Step title="Check for hidden windows">
+        Check to make sure it's not hidden behind another window!
+      </Step>
+      
+      <Step title="Check collapsed mode">
+        If you see a title bar but no window, it's in "collapsed" mode. Double-click the bar to open the window.
+      </Step>
+      
+      <Step title="Restore from backup">
+        If it only disappeared within the last few sessions, try restoring the window layout from a backup:
+        
+        1. Close Furnace.
+        2. Open the configuration directory.
+        3. Delete (or rename) `layout.ini`.
+        4. Rename one of the numbered backup files to replace it. They're numbered in reverse chronological order; `.1` is the most recent.
+        5. Start Furnace again to see if the window shows up.
+      </Step>
+      
+      <Step title="Manual edit">
+        If none of the backups help (or you're comfortable trying manual edits first):
+        
+        1. Close Furnace.
+        2. Open `layout.ini` in your preferred text editor.
+        3. Search the section headers for the name of the window; it will be in square brackets.
+        4. Delete the `Pos` and `Size` lines beneath it.
+        5. If `Collapsed` is set to `1`, change it to `0`.
+        6. Save the file.
+        7. Start Furnace; the window should appear in its original position.
+      </Step>
+      
+      <Step title="Reset layout">
+        If none of this works, you can revert to Furnace's default layout by selecting "reset layout" in the "settings" menu.
+      </Step>
+    </Steps>
+  </Accordion>
+  
+  <Accordion title="After changing a setting, Furnace crashes, is unresponsive, or is unreadable">
+    <Tabs>
+      <Tab title="Restore from backup">
+        Try restoring configuration from a backup:
+        
+        1. Close Furnace.
+        2. Open the configuration directory.
+        3. Delete (or rename) `furnace.cfg`.
+        4. Rename one of the numbered backup files to replace it. They're numbered in reverse chronological order; `.1` is the most recent.
+        5. Start Furnace again to see if the issue clears up.
+      </Tab>
+      
+      <Tab title="Safe mode">
+        If that doesn't work, try safe mode:
+        
+        1. Open a command line in the directory where Furnace was unpacked or installed to.
+        2. Enter the command `furnace -safemode`. This starts Furnace with disabled audio, software rendering mode, and default fonts.
+        3. Revert whatever setting caused the issue and click "OK".
+        4. Close Furnace, then restart it as normal.
+      </Tab>
+      
+      <Tab title="Clear configuration">
+        If that fails, clear the configuration:
+        
+        1. Close Furnace.
+        2. Delete (or rename) `furnace.cfg`.
+        3. Start Furnace as normal.
+      </Tab>
+    </Tabs>
+  </Accordion>
+  
+  <Accordion title="When I try to open a .fur file, an error dialog says it has an 'invalid info header'">
+    The module header format has changed considerably in Furnace versions after 0.6.8.3 (or more specifically, dev239 onward) in ways that are not backward compatible. 
+    
+    <Note>
+    The only solution is to upgrade to a newer version of Furnace. Don't worry, it will still open older modules.
+    </Note>
+  </Accordion>
+</AccordionGroup>
+
+## Getting More Help
+
+If your issue isn't covered here:
+
+1. Check the [FAQ](/faq) for more common questions
+2. Review the relevant chip documentation for chip-specific issues
+3. Check `furnace.log` in your configuration directory for error messages
+4. Ask in the [GitHub Discussions](https://github.com/tildearrow/furnace/discussions)
+5. Report bugs on the [GitHub Issues](https://github.com/tildearrow/furnace/issues) page
+
+<Warning>
+When reporting issues, always include:
+- Your operating system and version
+- Furnace version number
+- Steps to reproduce the problem
+- Any relevant error messages from `furnace.log`
+</Warning>

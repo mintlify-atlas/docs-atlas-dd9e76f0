@@ -1,0 +1,27 @@
+---
+title: PowerNoise
+description: A fantasy sound chip for the Hexheld fantasy console
+---
+
+A fantasy sound chip created by The Beesh-Spweesh! and jvsTSX for the Hexheld fantasy video game console.
+
+Its design employs linear-feedback shift registers (LFSR) for sound generation. This technology is used in many random number generators to produce noise, but it is also capable of producing other tones.
+
+## Capabilities
+
+- Three noise channels
+- One "slope" channel capable of generating a variety of saw waves
+- Stereo sound output
+- 4-bit volume control per channel
+- 2-bit master volume control
+
+## Effect Commands
+
+- `20xx`: **Load LFSR value (low byte)**
+  - On the slope channel, this sets its accumulator (from `00` to `7F`)
+
+- `21xx`: **Load LFSR value (high byte)**
+
+- `22xx`: **Write to I/O port A**
+
+- `23xx`: **Write to I/O port B**

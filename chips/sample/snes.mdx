@@ -1,0 +1,86 @@
+---
+title: Super Nintendo Entertainment System (SNES)
+description: Documentation for the SNES/Super Famicom DSP sound chip with 8-channel sample playback
+---
+
+The successor to NES to compete with Genesis, packing superior graphics and sample-based audio.
+
+Its Sony-developed audio system features a DSP chip, SPC700 CPU, and 64KB of dedicated SRAM used by both. This whole system itself is pretty much a separate computer that the main CPU needs to upload its program and samples to.
+
+Furnace communicates with the DSP directly and provides a full 64KB of memory. This memory might be reduced excessively on ROM export to make up for playback engine and pattern data. You can go to window > statistics to see how much memory your samples are using.
+
+Some notable features of the DSP are:
+
+- Pitch modulation
+- A built in noise generator, useful for hi-hats, cymbals, rides, effects, among other things
+- Per-channel echo, which unfortunately eats up a lot of memory but can be used to save channels in songs
+- An 8-tap FIR filter for the echo, which is basically a procedural low-pass filter that you can edit however you want
+- Sample loop, but the loop points have to be multiples of 16
+- Left/right channel invert for surround sound
+- ADSR and gain envelope modes
+- 7-bit volume per channel
+- Sample interpolation, which is basically a low-pass filter that gets affected by the pitch of the channel
+
+Furnace also allows the SNES to use wavetables (and the wavetable synthesizer) in order to create more 'animated' sounds, using less memory than regular samples.
+
+## Effects
+
+- `10xx`: **Set waveform.**
+- `11xx`: **Toggle noise mode.**
+- `12xx`: **Toggle echo on this channel.**
+- `13xx`: **Toggle pitch modulation.** Frequency modulation by the previous channel's output. No effect on channel 1.
+- `14xy`: **Toggle inverting the left or right channels.** `x` is left, `y` is right.
+- `15xx`: **Set envelope mode.** See gain chart below for `1` through `5`.
+  - `0`: ADSR mode.
+  - `1`: Gain (direct). Volume holds at one level.
+  - `2`: Linear decrement. Volume lowers by subtractions of 1/64.
+  - `3`: Exponential decrement. Volume lowers by multiplications of 255/256.
+  - `4`: Linear increment. Volume rises by additions of 1/64.
+  - `5`: Bent line (inverse log) increment. Volume rises by additions of 1/64 until 3/4, then additions of 1/256.
+- `16xx`: **Set gain.** `00` to `7F` if direct, `00` to `1F` otherwise.
+- `18xx`: **Enable echo buffer.**
+- `19xx`: **Set echo delay.** Range is `0` to `F`.
+- `1Axx`: **Set left echo channel volume.**
+- `1Bxx`: **Set right echo channel volume.**
+- `1Cxx`: **Set echo feedback.**
+  - All of these are signed numbers.
+  - `00` to `7F` for 0 to 127.
+  - `80` to `FF` for -128 to -1.
+  - Setting these to -128 is not recommended as it may cause echo output to overflow and therefore click.
+- `1Dxx`: **Set noise generator frequency.** Range is `00` to `1F`. See noise frequencies chart below.
+- `1Exx`: **Set left dry / global volume.**
+- `1Fxx`: **Set right dry / global volume.**
+  - These do not affect echo.
+- `20xx`: **Set attack.** Range is `0` to `F`.
+- `21xx`: **Set decay.** Range is `0` to `7`.
+- `22xx`: **Set sustain.** Range is `0` to `7`.
+- `23xx`: **Set release.** Range is `00` to `1F`.
+  - These four are only used in ADSR envelope mode. See ADSR chart below.
+- `3xyy`: **Set echo filter coefficient.**
+  - `x` is the coefficient from 0 to 7.
+  - `yy` is the value (signed number).
+    - `00` to `7F` for 0 to 127.
+    - `80` to `FF` for -128 to -1.
+  - Note: Be sure the sum of all coefficients is between -128 and 127. Sums outside that may result in overflow and therefore clicking.
+
+## Info
+
+When two channels are joined for pitch modulation, the channel bar will show `mod` on a bracket tying them together.
+
+When using sample offset commands, be sure to open each involved sample in the sample editor, look to the "Info" section at the top-left, and check the "no BRR filters" box. This prevents sound glitches, at the cost of lowering the sample quality to 4-bit.
+
+## Chip Configuration
+
+The following options are available in the Chip Manager window:
+
+- **Volume scale**: Scale volumes to prevent clipping/distortion.
+- **Enable echo**: Enables the echo buffer.
+- **Initial echo state**: Selects which channels will have echo applied.
+- **Delay**: Sets echo length.
+- **Feedback**: Sets how much of the echo output will be fed back into the buffer.
+- **Echo volume**: Sets echo volume.
+- **Echo filter**: Adjusts echo filter.
+- **Dec/Hex**: Toggles decimal or hexadecimal mode for the filter settings text entry box to the right.
+- **Disable Gaussian interpolation**: Removes sample interpolation, resulting in crisper but aliased sound. Not accurate to hardware.
+- **Anti-click**: Reduces clicks in the output by using hardware envelopes to smooth them out.
+  - Make sure your samples start on center, or else you will still hear clicks.

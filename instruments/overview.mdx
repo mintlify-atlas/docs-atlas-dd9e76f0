@@ -1,0 +1,128 @@
+---
+title: Instrument Overview
+description: Learn about instruments and the instrument editor in Furnace
+---
+
+The instrument editor allows you to create and edit instruments. It can be activated by double-clicking on an instrument in the instrument list, or by going to **Window > Assets > Instrument Editor** in the main menu bar.
+
+![Instrument Editor](/images/instrument/instrument-editor-top.png)
+
+## Main Controls
+
+- **Select**: Displays a list of instruments in the song
+- **Load**: Open an instrument file
+- **Save**: Save current instrument to a file
+  - Right-click to see additional options, such as saving in DefleMask preset format (.dmp)
+- **Name**: Changes the instrument name
+- **Type**: Changes the instrument type (usually chip-specific)
+  - If changed, all applicable settings and macros will remain unchanged
+  - You may have to adjust them afterwards
+
+## Instrument Types
+
+Furnace supports a wide variety of instrument types, each designed for specific sound chips:
+
+<AccordionGroup>
+  <Accordion title="Sample-based Instruments">
+    - **Generic Sample** - For controlling Amiga and other sample channels/chips
+    - **ADPCM-A** - For use with ADPCM-A sample chip
+    - **ADPCM-B** - For use with ADPCM-B sample chip
+    - **C140** - For use with C140 sample chip
+    - **C219** - For use with C219 sample chip
+    - **ES5506** - For use with Ensoniq ES5506 sound chip
+    - **GA20** - For use with GA20 sample chip
+    - **K007232** - For use with K007232 sample chip
+    - **K053260** - For use with K053260 sample chip
+    - **MSM6258** - For use with MSM6258 sample chip
+    - **MSM6295** - For use with MSM6295 sample chip
+    - **MultiPCM/OPL4 PCM** - For use with OPL4's sample part
+    - **QSound** - For use with QSound sample chip
+    - **RF5C68** - For use with RF5C68 sample chip
+    - **SegaPCM** - For use with SegaPCM sample chip
+    - **YMZ280B** - For use with YMZ280B sample chip
+  </Accordion>
+  
+  <Accordion title="FM Synthesis">
+    - **FM (OPN)** - For use with YM2612, YM2203, YM2608, YM2610 and YM2610B
+    - **FM (OPLL)** - For use with YM2413
+    - **FM (OPL)** - For use with YM3526 (OPL), YM3812 (OPL2) and YMF262 (OPL3)
+    - **FM (OPM)** - For use with YM2151
+    - **FM (OPZ)** - For use with YM2414
+    - **FM (ESFM)** - For use with ESFM
+  </Accordion>
+  
+  <Accordion title="Wavetable Synthesis">
+    - **FDS** - For use with Famicom Disk System sound source
+    - **Konami SCC/Bubble System WSG** - For use with Konami SCC and wavetable portion in Bubble System
+    - **Namco 163** - For use with Namco 163
+    - **Namco WSG** - For use with Namco WSG wavetable chips, including C15 and C30
+    - **PC Engine** - For use with PC Engine's wavetable synthesizer
+    - **Seta/Allumer X1-010** - For use with wavetable portion in Seta/Allumer X1-010
+    - **WonderSwan** - For use with WonderSwan's wavetable synthesizer
+  </Accordion>
+  
+  <Accordion title="PSG and Other Chips">
+    - **AY-3-8910/SSG** - For use with AY-3-8910 PSG and SSG portion in YM2610
+    - **AY8930** - For use with Microchip AY8930 E-PSG sound source
+    - **Beeper** - For use with PC Speaker and ZX Spectrum Beeper (SFX-like engine)
+    - **C64** - For use with Commodore 64 SID
+    - **Dave** - For use with Dave chip
+    - **Game Boy** - For use with Game Boy APU
+    - **Game Boy Advance DMA** - For use with Game Boy Advance in direct mode
+    - **Game Boy Advance MinMod** - For use with GBA with MinMod software mixing driver
+    - **MSM5232** - For use with MSM5232 PSG sound source
+    - **NES** - For use with NES
+    - **PET** - For use with Commodore PET
+    - **POKEY** - For use with Atari 8-bit computers and their POKEY sound source
+    - **SAA1099** - For use with Philips SAA1099 PSG sound source
+    - **SN76489/Sega PSG** - For use with TI SN76489 and derivatives
+    - **SNES** - For use with SNES
+    - **Sound Unit** - For use with Sound Unit chip
+    - **T6W28** - For use with Toshiba T6W28 PSG sound source
+    - **TED** - For use with Commodore Plus/4 and Commodore 16's TED chip
+    - **TIA** - For use with Atari 2600 chip
+    - **VERA** - For use with Commander X16 VERA
+    - **VIC** - For use with VIC-20 sound chip
+    - **Virtual Boy** - For use with Virtual Boy
+    - **VRC6** - For use with VRC6's PSG sound source
+  </Accordion>
+  
+  <Accordion title="Fantasy/Modern Chips">
+    - **Bifurcator** - For use with Bifurcator chip
+    - **PowerNoise** - For use with PowerNoise chip
+    - **SID2** - For use with SID2 fantasy chip
+    - **SID3** - For use with SID3 fantasy chip
+  </Accordion>
+  
+  <Accordion title="Handheld Consoles">
+    - **Atari Lynx** - For use with Atari Lynx handheld console
+    - **Pokémon Mini/QuadTone** - For use with these systems
+    - **PV-1000** - For use with Casio PV-1000
+    - **SM8521** - For use with SM8521 chip, used in Tiger Game.com
+    - **Watara Supervision** - For use with Watara Supervision
+  </Accordion>
+</AccordionGroup>
+
+<Card title="Macros" icon="waveform-lines" href="/instruments/macros">
+  Learn how to use macros to automate instrument parameters
+</Card>
+
+## Wavetable Tab
+
+This tab appears for PC Engine, FDS, Namco WSG, and other wavetable-based instruments.
+
+![Wavetable Tab](/images/instrument/wavetable.png)
+
+When **Enable synthesizer** is off, the wavetable used for the instrument may be selected by creating a Waveform macro with a single value.
+
+<Card title="Wavetable Synthesizer" icon="wave-square" href="/wavetables/synthesizer">
+  Learn about the wavetable synthesizer for creating animated sounds
+</Card>
+
+## Sample Tab
+
+This tab appears for Generic PCM DAC, Amiga and SNES instruments.
+
+![Sample Tab](/images/instrument/sample-map.png)
+
+The sample tab allows you to map different samples to different note ranges, creating multi-sampled instruments.

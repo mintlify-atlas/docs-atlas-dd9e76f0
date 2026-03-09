@@ -1,0 +1,46 @@
+---
+title: Atari POKEY
+description: A sound and input chip from Atari 8-bit computers
+---
+
+A sound and input chip developed by Atari for their 8-bit computers (Atari 400, 800, XL/XE and so on). 4 channels of signature Atari sounds.
+
+## Effects
+
+- `10xx`: **Set waveform**
+  - `0`: Harsh noise (poly5+17)
+  - `1`: Square buzz (poly5)
+  - `2`: Weird noise (poly4+5)
+  - `3`: Square buzz (poly5)
+  - `4`: Soft noise (poly17)
+  - `5`: Square
+  - `6`: Bass (poly4)
+  - `7`: Buzz (poly4)
+
+- `11xx`: **Set AUDCTL** (bitmask)
+  - Bit 7: 9-bit poly mode (shortens noise)
+  - Bit 6: High channel 1 clock (~1.79MHz on NTSC, overrides 15KHz mode)
+  - Bit 5: High channel 3 clock (~1.79MHz on NTSC, overrides 15KHz mode)
+  - Bit 4: Join channels 1 and 2 for wide period range (use with bit 6; channel 2 becomes inaccessible)
+  - Bit 3: Join channels 3 and 4 for wide period range (use with bit 5; channel 4 becomes inaccessible)
+  - Bit 2: High-pass filter (channels 1 and 3, filtered output on channel 1)
+  - Bit 1: High-pass filter (channels 2 and 4, filtered output on channel 2)
+  - Bit 0: 15KHz mode
+
+- `12xx`: **Toggle two-tone mode**
+  - When enabled, channel 2 modulates channel 1 in an oscillator sync-like manner
+  - Only on ASAP core
+
+## Channel Status
+
+When two channels are joined for filtered output, the channel bar shows `filter` on a bracket tying them together.
+
+When two channels are joined for wide period range, the channel bar shows `16-bit` on a bracket tying them together.
+
+## ROM Export
+
+A song can be exported as SAP-R, a compressed register dump. More details are available (in Polish) at the [Atariki wiki](http://atariki.krap.pl/index.php/SAP_%28format_pliku%29).
+
+## Chip Configuration
+
+**PAL**: Run the chip at PAL clock (1.77MHz) instead of NTSC (1.79MHz)

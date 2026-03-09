@@ -1,0 +1,47 @@
+---
+title: "Watara Supervision"
+description: "Failed Game Boy competitor from Taiwan"
+---
+
+A failed competitor of Game Boy, straight from Taiwan. Released in 1992, it had a tilting screen, $50 price tag, very fast 4 MHz 6502-like CPU, framebuffer graphics and sound capabilities similar to Game Boy.
+
+These are 2 pulse wave channels (same as on GB), barely working PCM channel and noise channel, also not unlike Game Boy. No hardware envelopes or zombie mode, though.
+
+## Channel Configuration
+
+- **2 pulse wave channels** (similar to Game Boy)
+- **1 PCM channel** (4-bit DMA)
+- **1 noise channel**
+- **No hardware envelopes**
+- **No zombie mode**
+
+## Effects
+
+| Effect | Description |
+|--------|-------------|
+| `12xx` | **Set duty cycle/noise mode**<br/>Range: `0-3` for pulse<br/>Range: `0-1` for noise |
+
+## Sample Channel Information
+
+The sample channel is a **4-bit DMA channel** with 4 playback frequencies (1953.125, 3906.25, 7812.5, and 15625 Hz) assigned to the notes **C, C#, D, and D#** in all octaves.
+
+<Note>
+These frequencies will differ if a custom clock rate is used.
+</Note>
+
+### Sample Specifications
+
+- **Max sample size**: 4 kilobytes (8,192 samples)
+- Samples are padded to multiples of **32 samples**
+- **Loop points are ignored**
+
+## Chip Configuration
+
+The following options are available in the Chip Manager window:
+
+- **Swap noise duty cycles**: Enabled by default. When enabled, short noise is on odd-indexed duty cycles, like on Game Boy, rather than even
+- **Stereo pulse waves**: Disabled by default. When enabled, it forces pulse channel 1 to the right output channel and second pulse to the left output channel
+
+## Instrument Editor
+
+This chip uses the Watara Supervision and Generic Sample instrument editors.

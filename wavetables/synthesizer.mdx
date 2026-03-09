@@ -1,0 +1,151 @@
+---
+title: Wavetable Synthesizer
+description: Create animated wavetables using Furnace's wavetable synthesizer
+---
+
+Within the "Wavetable" tab of the instrument editor, Furnace allows you to modulate or combine 1 or 2 waves to create unique "animated" sounds. Think of it like a VST or a plugin, as it's basically an extension of regular wavetable soundchips that still allows it to run on real hardware.
+
+This is accomplished by selecting a wave or two, a mode, and adjusting the settings as needed until you come up with a sound that you like, without taking up a load of space. This allows you to create unique sound effects or instruments that, when used well, almost sound like they're Amiga samples.
+
+![Instrument Wavetable Tab](/images/instrument/instrument-wavetable.png)
+
+<Warning>
+On some chips like the HuC6280, you cannot use the wavetable synth to animate waveforms and have them sound smooth, as the chip resets the channel's phase when a waveform is changed while the channel is playing. On certain frequencies, this can be avoided, but not on most, unfortunately.
+</Warning>
+
+## Getting Started
+
+<Note>
+Input waveforms should match the size of the wavetable or unexpected results may occur.
+</Note>
+
+### Basic Setup
+
+1. **Enable synthesizer**: Must be on for the rest of this to work
+2. Select your **synthesizer type** to choose the synthesis algorithm
+3. Choose your input waveform(s)
+4. Adjust parameters to taste
+
+## Interface Elements
+
+### Waveform Selection
+
+- **Wave 1**: Selects input waveform
+  - This will turn yellow and display a warning sign to indicate that a Waveform macro is set, which will override the wavesynth
+- **Wave 2**: Selects second input waveform. Only appears when a dual-waveform synthesizer is selected
+
+### Preview Controls
+
+- **Pause preview**: Toggles live waveform preview
+- **Restart preview**: Restarts preview from initial state
+- **Copy to new wavetable**: Copies the currently displayed output waveform into the wavetable as a new entry
+
+### Waveform Display
+
+The synthesizer shows visual representations of:
+- Input waveform(s)
+- Current output waveform
+- **(width×height)**: Size of wavetable
+
+## Parameters
+
+### Timing
+
+- **Update Rate**: Time in ticks between waveform changes
+  - Lower values = faster animation
+  - Higher values = slower, more subtle changes
+- **Speed**: Rate of change with each update
+  - Controls how quickly the synthesis algorithm progresses
+
+### Synthesis Control
+
+- **Amount**: Strength of synthesizer function
+  - Controls the intensity of the synthesis effect
+  - Range and effect depends on the selected synthesis type
+- **Power**: Only appears when synthesizer type is "Phase Modulation"
+  - Controls the modulation intensity
+
+### Global Mode
+
+- **Global** (checkbox):
+  - **Disabled**: Each note resets the synthesizer to the start
+    - Good for percussive sounds or when you want consistent attack
+  - **Enabled**: Synthesis continues unbroken from note to note
+    - Good for pads, drones, or evolving textures
+
+## Synthesis Types
+
+Furnace offers several synthesis algorithms. Each type processes the input waveform(s) differently:
+
+<CardGroup cols={2}>
+  <Card title="None" icon="ban">
+    No synthesis - uses the input waveform directly. Useful as a starting point.
+  </Card>
+  
+  <Card title="Phase Modulation" icon="wave-sine">
+    Uses one waveform to modulate the phase of another. The **Power** parameter controls modulation depth. Creates metallic, bell-like timbres.
+  </Card>
+  
+  <Card title="Amplitude Modulation" icon="waveform-lines">
+    Multiplies two waveforms together. Creates ring modulation effects and complex harmonic content.
+  </Card>
+  
+  <Card title="Pulse Width" icon="square">
+    Varies the duty cycle of a pulse wave over time. Classic synthesizer effect.
+  </Card>
+  
+  <Card title="Waveform Blend" icon="blender">
+    Crossfades between two waveforms. **Amount** controls the blend ratio.
+  </Card>
+  
+  <Card title="Waveform Morph" icon="shuffle">
+    Smoothly morphs between waveforms in sequence. Great for evolving pads.
+  </Card>
+</CardGroup>
+
+## Tips and Techniques
+
+<AccordionGroup>
+  <Accordion title="Creating Pads and Strings">
+    - Use slower **Update Rate** (8-16 ticks)
+    - Enable **Global** mode
+    - Try Phase Modulation or Waveform Blend
+    - Use low to medium **Amount** values
+  </Accordion>
+  
+  <Accordion title="Bell and Metallic Sounds">
+    - Use Phase Modulation
+    - Fast **Update Rate** (1-2 ticks)
+    - High **Power** values
+    - Disable **Global** mode
+  </Accordion>
+  
+  <Accordion title="Bass Sounds">
+    - Use Pulse Width synthesis
+    - Medium **Update Rate** (4-8 ticks)
+    - Moderate **Amount**
+    - Can enable or disable **Global** depending on desired character
+  </Accordion>
+  
+  <Accordion title="Sound Effects">
+    - Use fast **Update Rate** with high **Speed**
+    - Try extreme **Amount** values
+    - Amplitude Modulation creates interesting noise textures
+    - Disable **Global** for consistent triggering
+  </Accordion>
+  
+  <Accordion title="Saving CPU/Memory">
+    - The wavetable synth generates waveforms in real-time
+    - Use **Copy to new wavetable** to "freeze" a good result
+    - You can then use the frozen wavetable with a simple Waveform macro
+    - This saves processing but loses the animation
+  </Accordion>
+</AccordionGroup>
+
+<Tip>
+Experiment! The wavetable synthesizer is great for happy accidents. Try random combinations of parameters and synthesis types to discover unique sounds.
+</Tip>
+
+<Warning>
+Be mindful of **Update Rate** values. Very fast rates (1 tick) on every channel can cause performance issues on real hardware. Test on your target platform.
+</Warning>

@@ -1,0 +1,180 @@
+---
+title: Sound Chip Overview
+description: Complete list of sound chips supported by Furnace
+---
+
+Furnace supports a vast collection of sound chips from vintage gaming consoles, home computers, arcade machines, and modern fantasy chips. Each chip has unique characteristics and capabilities that define the sound of different gaming eras.
+
+## What are Sound Chips?
+
+Sound chips (also called audio processors or PSGs - Programmable Sound Generators) are dedicated hardware components that generate audio in retro computers and gaming consoles. Unlike modern systems that use general-purpose audio, these chips have specific architectures that define their unique sound characteristics.
+
+## Chip Categories
+
+Furnace organizes chips into several categories based on their synthesis method and origin:
+
+<CardGroup cols={2}>
+  <Card title="FM Synthesis" icon="wave-square" href="/chips/fm/ym2612-opn2">
+    Yamaha's famous FM chips including OPL, OPN, and OPLL families
+  </Card>
+  <Card title="Square Wave" icon="square" href="/chips/square/ay8910">
+    Classic PSG chips with square wave and noise generators
+  </Card>
+  <Card title="Sample-Based" icon="waveform-lines" href="/chips/sample/amiga">
+    PCM and ADPCM chips that play digital samples
+  </Card>
+  <Card title="Wavetable" icon="chart-line" href="/chips/wavetable/namco-wsg">
+    Chips using custom waveforms and wavetable synthesis
+  </Card>
+  <Card title="Console Chips" icon="gamepad" href="/chips/console/nes">
+    Sound chips from Nintendo, Sega, and other game consoles
+  </Card>
+  <Card title="Computer Chips" icon="computer" href="/chips/computer/c64">
+    Audio hardware from home computers like C64, Amiga, and Atari
+  </Card>
+  <Card title="Modern & Fantasy" icon="sparkles" href="/chips/modern/vera">
+    Contemporary and imaginary chips designed for modern systems
+  </Card>
+</CardGroup>
+
+## Complete Chip List
+
+Below is the full list of chips that Furnace supports. Click any chip name to view detailed documentation, effects list, and configuration options.
+
+### FM Synthesis Chips
+
+Yamaha's FM synthesis chips were widely used in arcade machines, home computers, and consoles. They use frequency modulation to create complex, metallic sounds.
+
+- [YM2151 (OPM)](/chips/fm/ym2151-opm) - 8-channel FM chip used in arcade boards and X68000
+- [YM2203 (OPN)](/chips/fm/ym2203-opn) - 3 FM channels + 3 SSG channels
+- [YM2608 (OPNA)](/chips/fm/ym2608-opna) - Enhanced OPN with ADPCM
+- [YM2610 (OPNB)](/chips/fm/ym2610-opnb) - Neo Geo's sound chip
+- [YM2612/YM3438 (OPN2)](/chips/fm/ym2612-opn2) - Sega Genesis/Mega Drive FM chip
+- [YM2413 (OPLL)](/chips/fm/ym2413-opll) - Budget FM chip with preset instruments
+- [YM2414 (OPZ)](/chips/fm/ym2414-opz) - Yamaha TX81Z chip
+- [Y8950, YM3526, YM3812 (OPL)](/chips/fm/ym3526-opl) - AdLib and Sound Blaster chips
+- [YMF262 (OPL3)](/chips/fm/ymf262-opl3) - Advanced OPL with 4-operator mode
+- [YMF278 (OPL4)](/chips/fm/ymf278-opl4) - OPL3 combined with wavetable
+- [ESFM](/chips/fm/esfm) - Enhanced FM synthesis chip
+
+### Square Wave PSGs
+
+Classic programmable sound generators that produce square waves, triangle waves, and noise. These define the sound of 8-bit gaming.
+
+- [AY-3-8910/8914/YM2149(F)/Sunsoft 5B](/chips/square/ay8910) - Popular PSG used in MSX, ZX Spectrum, Amstrad CPC
+- [Microchip AY8930](/chips/square/ay8930) - Enhanced AY-3-8910
+- [SN76489/Sega PSG](/chips/square/sn76489) - Sega Master System and Genesis PSG
+- [SAA1099](/chips/square/saa1099) - Philips PSG with 6 channels
+- [MSM5232](/chips/square/msm5232) - 8-channel square wave generator
+
+### Sample-Based Chips
+
+These chips play back pre-recorded digital audio samples, either as PCM or compressed ADPCM.
+
+- [Amiga Paula](/chips/sample/amiga) - 4-channel 8-bit PCM
+- [SNES SPC700](/chips/sample/snes) - 8-channel ADPCM with DSP effects
+- [Sega PCM](/chips/sample/segapcm) - Sega arcade PCM chip
+- [QSound](/chips/sample/qsound) - Capcom CPS-2 surround sound
+- [YMZ280B](/chips/sample/ymz280b) - 8-channel ADPCM with compression
+- [RF5C68/RF5C164](/chips/sample/rf5c68) - Ricoh PCM chips
+- [MSM6258](/chips/sample/msm6258) - OKI ADPCM voice synthesis
+- [MSM6295](/chips/sample/msm6295) - 4-channel ADPCM used in many arcade games
+- [K007232](/chips/sample/k007232) - Konami PCM chip
+- [K053260](/chips/sample/k053260) - Konami arcade PCM
+- [Irem GA20](/chips/sample/ga20) - 4-channel PCM
+- [Ensoniq ES5506](/chips/sample/es5506) - 32-channel wavetable with filters
+- [Namco C140](/chips/sample/c140) - 24-channel PCM
+- [Namco C219](/chips/sample/c219) - 16-channel PCM
+
+### Wavetable Chips
+
+These chips use programmable waveforms to create custom timbres.
+
+- [HuC6280 (PC Engine)](/chips/wavetable/huc6280) - 6-channel wavetable chip
+- [Namco WSG/C15/C30](/chips/wavetable/namco-wsg) - Early Namco arcade wavetable
+- [Konami SCC](/chips/wavetable/scc) - 5-channel wavetable used in MSX cartridges
+- [WonderSwan](/chips/wavetable/wonderswan) - Bandai handheld wavetable chip
+- [X1-010](/chips/wavetable/x1-010) - Seta wavetable chip
+- [SM8521](/chips/wavetable/sm8521) - Game Boy-like chip with wavetable
+
+### Console-Specific Chips
+
+Sound processors from popular gaming consoles and their expansions.
+
+- [2A03 (NES)](/chips/console/nes) - Nintendo Entertainment System / Famicom
+- [Game Boy](/chips/console/game-boy) - 4-channel chip with wave synthesis
+- [Game Boy Advance](/chips/console/game-boy-advance) - 6-channel PCM + GB compatibility
+- [Virtual Boy](/chips/console/virtual-boy) - 6-channel wavetable
+- [Nintendo DS](/chips/console/nds) - 16-channel PCM
+- [FDS](/chips/console/fds) - Famicom Disk System wavetable expansion
+- [VRC6](/chips/console/vrc6) - Konami's Famicom expansion chip
+- [VRC7](/chips/console/vrc7) - Konami's FM expansion for Famicom
+- [MMC5](/chips/console/mmc5) - Nintendo's Famicom expansion
+- [Namco 163](/chips/console/n163) - Namco Famicom expansion
+- [Watara Supervision](/chips/console/supervision) - Handheld console chip
+
+### Computer Chips
+
+Sound hardware from vintage home computers.
+
+- [MOS 6581/8580 (SID)](/chips/computer/c64) - Commodore 64's legendary synthesizer chip
+- [VIC](/chips/computer/vic20) - Commodore VIC-20 sound chip
+- [PET](/chips/computer/pet) - Commodore PET piezo speaker
+- [TED](/chips/computer/ted) - Commodore Plus/4 and C16 sound
+- [POKEY](/chips/computer/pokey) - Atari 8-bit computers
+- [TIA](/chips/computer/tia) - Atari 2600/7800
+- [Atari Lynx](/chips/computer/lynx) - Handheld with 4 channels
+- [Pokémon Mini](/chips/computer/pokemini) - Tiny handheld console
+- [PV-1000](/chips/computer/pv1000) - Casio console chip
+- [PC Speaker](/chips/computer/pcspkr) - Classic PC beeper
+- [ZX Spectrum Beeper](/chips/computer/zxbeeper) - 1-bit audio
+
+### Modern & Fantasy Chips
+
+Contemporary chips and imaginary sound processors designed for modern retro projects.
+
+- [VERA](/chips/modern/vera) - Commander X16 modern retro chip
+- [tildearrow Sound Unit](/chips/modern/sound-unit) - Fantasy chip by Furnace's creator
+- [PowerNoise](/chips/modern/powernoise) - NES-inspired fantasy chip
+- [Bifurcator](/chips/modern/bifurcator) - Unique phase distortion chip
+- [SID2](/chips/modern/sid2) - Enhanced SID variant
+- [SID3](/chips/modern/sid3) - Another SID enhancement
+- [Generic PCM DAC](/chips/modern/dac) - Simple PCM output
+
+### Other Chips
+
+Additional specialized chips:
+
+- 5E01 - MMC5 variant
+- Dave - SAM Coupé sound chip
+- Bubble System WSG - Konami arcade wavetable
+- MultiPCM - Sega arcade multi-PCM
+- T6W28 - Neo Geo Pocket PSG
+- YMU759 - Yamaha MA-2 (read-only support)
+
+## System Presets
+
+Furnace includes pre-configured system presets that combine multiple chips as they appeared in actual hardware. See the [System Presets](/chips/systems) page for details on systems like:
+
+- Sega Genesis (YM2612 + SN76489)
+- Neo Geo (YM2610)
+- NES with various expansion chips
+- Arcade boards (Capcom CPS-1, CPS-2, etc.)
+- And many more!
+
+## Next Steps
+
+<CardGroup cols={2}>
+  <Card title="System Presets" icon="computer" href="/chips/systems">
+    Explore pre-configured systems like Genesis, NES, and arcade boards
+  </Card>
+  <Card title="Chip Manager" icon="sliders" href="/advanced/chip-manager">
+    Learn how to configure and manage chips in your songs
+  </Card>
+  <Card title="Instruments" icon="guitar" href="/instruments/overview">
+    Create instruments tailored to each chip's capabilities
+  </Card>
+  <Card title="Effects" icon="wand-magic-sparkles" href="/patterns/effects">
+    Master chip-specific effect commands
+  </Card>
+</CardGroup>

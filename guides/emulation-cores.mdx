@@ -1,0 +1,219 @@
+---
+title: Choosing Emulation Cores
+description: Understanding the different emulation cores and their tradeoffs
+---
+
+Furnace achieves the authentic sound of videogame hardware by emulating sound chips as accurately as possible, using **emulator cores**. In some cases there are multiple cores to choose from, each with different strengths and weaknesses.
+
+## Overview
+
+Emulation cores balance two main factors:
+
+- **Accuracy**: How closely the core matches real hardware behavior
+- **CPU Usage**: How much processing power the core requires
+
+Generally, more accurate cores require more CPU power. Choose cores based on your hardware capabilities and whether you're doing real-time playback or rendering.
+
+## YM2151 (OPM)
+
+<ParamField path="ymfm" type="core">
+  **Default playback core**. Much less CPU usage than Nuked-OPM, but less accurate.
+  
+  Recommended for users with mobile, last-gen or earlier hardware.
+</ParamField>
+
+<ParamField path="Nuked-OPM" type="core">
+  **Default render core**. Much more accurate than ymfm, due to the emulator being based on an image of the die map taken from a real YM2151.
+  
+  Very CPU heavy, only recommended for users with recent hardware.
+</ParamField>
+
+## YM2612 (OPN2)
+
+<ParamField path="Nuked-OPN2" type="core">
+  **Default core**. Lighter on the CPU than Nuked-OPM, can be used to simulate any variant of YM2612.
+</ParamField>
+
+<ParamField path="ymfm" type="core">
+  Same as ymfm for YM2151 - lower CPU usage, less accuracy.
+</ParamField>
+
+<ParamField path="YMF276-LLE" type="core">
+  A new core written by the author of the Nuked cores, specifically focused on YMF276 emulation.
+  
+  <Warning>
+    Very slow and not useful for real-time playback. Produces audio comparable to output of Sega Mega Drive model 2 and later Fujitsu FM Towns computers. Does not emulate DAC distortion of the original YM2612.
+  </Warning>
+</ParamField>
+
+## SN76489 (PSG)
+
+<ParamField path="MAME" type="core">
+  **Default core**. Less accurate than Nuked, but with lower CPU usage. Comes from the MAME emulator project.
+</ParamField>
+
+<ParamField path="Nuked-PSG Mod" type="core">
+  More accurate, but not by that much. This originally started as an emulator for the YM7101 PSG sound generator, but was modified to emulate the SN7 as the MAME core was deemed unsatisfactory by some.
+</ParamField>
+
+## NES (2A03)
+
+<ParamField path="puNES" type="core">
+  **Default core**. It comes from a dedicated NES emulator.
+</ParamField>
+
+<ParamField path="NSFplay" type="core">
+  Higher CPU usage than puNES.
+</ParamField>
+
+## FDS (Famicom Disk System)
+
+<ParamField path="puNES" type="core">
+  **Default playback core**. Lower CPU usage and far less accurate.
+</ParamField>
+
+<ParamField path="NSFplay" type="core">
+  **Default render core**. Higher CPU usage and much more accurate.
+</ParamField>
+
+## SID (Commodore 64)
+
+<ParamField path="reSID" type="core">
+  **Default playback core**. A high quality emulation core. Somewhat CPU heavy.
+</ParamField>
+
+<ParamField path="reSIDfp" type="core">
+  **Default render core**. Improved version of reSID. The most accurate choice.
+  
+  <Warning>
+    Very CPU heavy.
+  </Warning>
+</ParamField>
+
+<ParamField path="dSID" type="core">
+  A lightweight open-source core used in DefleMask. Not so accurate but it's very CPU light.
+</ParamField>
+
+## POKEY (Atari 8-bit)
+
+<ParamField path="Atari800 (mzpokeysnd)" type="core">
+  Does not emulate two-tone mode.
+</ParamField>
+
+<ParamField path="ASAP (C++ port)" type="core">
+  **Default core**. The sound core used in the ASAP player. Most accurate option.
+</ParamField>
+
+## OPN/OPNA/OPNB
+
+<ParamField path="ymfm only" type="core">
+  Lower CPU usage, less accurate FM.
+</ParamField>
+
+<ParamField path="Nuked-OPN2 (FM) + ymfm (SSG/ADPCM)" type="core">
+  **Default cores**. More accurate FM at the cost of more CPU load.
+</ParamField>
+
+<ParamField path="YM2608-LLE" type="core">
+  A new core written by the author of the Nuked cores. High accuracy.
+  
+  <Warning>
+    Extremely high CPU usage, far beyond any other emulation core (over 500% CPU time on 10th gen Intel Core i5!).
+  </Warning>
+</ParamField>
+
+## OPL/OPL2/Y8950
+
+<ParamField path="Nuked-OPL3" type="core">
+  High quality OPL emulation core. Slightly off due to tiny differences between OPL and OPL3, but otherwise it is good.
+</ParamField>
+
+<ParamField path="ymfm" type="core">
+  This core is supposed to use less CPU than Nuked-OPL3, but for some reason it actually doesn't.
+</ParamField>
+
+<ParamField path="YM3812-LLE" type="core">
+  A new core written by the author of the Nuked cores. Features extremely accurate emulation.
+  
+  <Warning>
+    This core uses a lot of CPU time. May not be suitable for playback!
+  </Warning>
+</ParamField>
+
+## OPL3
+
+<ParamField path="Nuked-OPL3" type="core">
+  High quality OPL emulation core.
+</ParamField>
+
+<ParamField path="ymfm" type="core">
+  This core is supposed to use less CPU than Nuked-OPL3, but for some reason it actually doesn't.
+</ParamField>
+
+<ParamField path="YMF262-LLE" type="core">
+  A new core written by the author of the Nuked cores. Features extremely accurate emulation.
+  
+  <Warning>
+    This core uses even more CPU than YM3812-LLE. Not suitable for playback or even rendering if you're impatient!
+  </Warning>
+</ParamField>
+
+## OPL4
+
+<ParamField path="Nuked-OPL3 (FM) + openMSX (PCM)" type="core">
+  High quality OPL4 emulation core.
+</ParamField>
+
+<ParamField path="ymfm" type="core">
+  This core is supposed to use less CPU than Nuked-OPL3, but for some reason it actually doesn't.
+</ParamField>
+
+## ESFM
+
+<ParamField path="ESFMu" type="core">
+  The ESFM emulator. Best choice but CPU intensive.
+</ParamField>
+
+<ParamField path="ESFMu (fast)" type="core">
+  A modification of ESFMu to reduce CPU usage at the cost of less accuracy.
+</ParamField>
+
+## OPLL (YM2413)
+
+<ParamField path="Nuked-OPLL" type="core">
+  **Default core**. Accurate emulation.
+</ParamField>
+
+<ParamField path="emu2413" type="core">
+  A less accurate core that uses less CPU.
+</ParamField>
+
+## AY-3-8910/SSG
+
+<ParamField path="MAME" type="core">
+  **Default core**.
+</ParamField>
+
+<ParamField path="AtomicSSG" type="core">
+  SSG core extracted from YM2608-LLE.
+</ParamField>
+
+## WonderSwan
+
+<ParamField path="asiekierka new core" type="core">
+  **Default core**. Highest accuracy and efficiency.
+</ParamField>
+
+<ParamField path="Mednafen" type="core">
+  Slower and less accurate. Included for compatibility with older modules.
+</ParamField>
+
+## Recommendations
+
+<Tip>
+  **For real-time playback**: Use default playback cores or lighter alternatives (ymfm, MAME, dSID)
+  
+  **For rendering**: Use default render cores or most accurate options (Nuked cores, reSIDfp)
+  
+  **For older hardware**: Stick with ymfm, MAME, puNES, and dSID cores
+</Tip>

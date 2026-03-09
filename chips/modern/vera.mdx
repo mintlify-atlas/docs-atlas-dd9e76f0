@@ -1,0 +1,34 @@
+---
+title: VERA
+description: Video and sound chip from the Commander X16
+---
+
+This is a video and sound generator chip used in the Commander X16, a modern 8-bit computer created by the 8-Bit Guy. It has 16 channels of pulse/triangle/saw/noise and one stereo PCM channel.
+
+Currently Furnace does not support the PCM channel's stereo mode (except for panning).
+
+Depending on the computer's configuration, the VERA may appear alongside one [Yamaha OPM](ym2151.md) or two [Yamaha OPL3](opl.md) chips.
+
+## Effects
+
+- `20xx`: **Set waveform**
+  - `0`: Pulse
+  - `1`: Saw
+  - `2`: Triangle
+  - `3`: Noise
+
+- `22xx`: **Set duty cycle** (range: `0` to `3F`)
+
+- `EExx`: **ZSM synchronization event**
+  - `xx` is the event payload
+  - This has no effect on how music is played in Furnace
+  - The ZSMKit library for Commander X16 interprets these events inside ZSM files and optionally triggers a callback routine
+  - Can be used to make game code respond to beats or certain points in the music
+
+## Chip Configuration
+
+**Chip revision**: Sets which version of the chip's firmware to use
+- **Initial release**: All earlier versions
+- **V 47.0.2 (9-bit volume)**: Introduces a slightly different volume table
+- **V 48.0.1 (Tri/Saw PW XOR)**: Adds the ability to XOR triangle or sawtooth waveforms with a pulse wave
+- **X16 Emu R49 (Noise freq fix)**: Fixes an emulation bug that previously doubled the noise frequency (default)

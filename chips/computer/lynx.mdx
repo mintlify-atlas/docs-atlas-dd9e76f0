@@ -1,0 +1,33 @@
+---
+title: Atari Lynx (MIKEY)
+description: The sound chip from the Atari Lynx handheld console
+---
+
+The Atari Lynx is a 16-bit handheld console developed by Atari Corporation, initially released in September 1989, with worldwide release in 1990.
+
+While it was an incredible handheld for the time (and a lot more powerful than Game Boy), it unfortunately was a market failure and contributed to the downfall of Atari.
+
+Although the Lynx still gets rather impressive homebrew developed for it, the system remains relatively unpopular.
+
+But hey, Furnace supports it!
+
+## Sound Capabilities
+
+The Atari Lynx has a 6502-based CPU with a sound part (the MIKEY chip) featuring:
+
+- 4 channels of LFSR-based sound, modulated with different frequencies (×0, ×1, ×2, ×3, ×4, ×5, ×7, ×10, ×11) to create square waves and wavetable-like results
+- When many modulators are activated, this provides a "pseudo-white noise"-like effect useful for drums and sound effects
+- Soft stereo panning via the `08xx` effect command
+- Four 8-bit DACs (one per voice) for sample playback (at the cost of CPU time and memory)
+- A variety of pitches from 32Hz to "above the range of human hearing" according to Atari
+
+## Effects
+
+- `3xxx`: **Load LFSR** (bitmask from `000` to `FFF`)
+  - For this to work, duty macro in instrument editor must be set to some value
+  - Without it, LFSR will not be fed with any bits
+
+## Chip Configuration
+
+**Consistent frequency across all duties**: Uses an algorithm to calculate frequency depending on duty
+- Make sure you reset phase on each note, otherwise sudden changes in the LFSR may make this option less effective

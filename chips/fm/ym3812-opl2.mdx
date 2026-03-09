@@ -1,0 +1,72 @@
+---
+title: Yamaha YM3812 (OPL2)
+description: Enhanced OPL with additional waveforms for AdLib compatibility
+---
+
+A series of FM sound chips which were very popular in DOS land. It was so popular that even Yamaha made a logo for it!
+
+Essentially a downgraded version of Yamaha's other FM chips, with only 2 operators per channel. However, it also had a drums mode, and later chips in the series added more waveforms (than just the typical sine) and even a 4-operator mode.
+
+The OPL2 (Yamaha YM3812) added 3 more waveforms and was one of the more popular chips because it was present on the AdLib card for PC. Later Creative would borrow the chip to make the Sound Blaster, and totally destroyed AdLib's dominance.
+
+## Effects
+
+- `10xx`: **set AM depth.** The following values are accepted:
+  - `0`: 1dB (shallow)
+  - `1`: 4.8dB (deep)
+  - This effect applies to all channels.
+- `11xx`: **set feedback of channel.**
+- `12xx`: **set operator 1 level.**
+- `13xx`: **set operator 2 level.**
+- `16xy`: **set multiplier of operator.**
+  - `x` is the operator (1-2).
+  - `y` is the new MULT value.
+- `17xx`: **set vibrato depth.**
+  - `0`: normal
+  - `1`: double
+  - This effect applies to all channels.
+- `18xx`: **toggle drums mode.**
+  - `0` disables it and `1` enables it.
+  - Only in drums chip.
+- `19xx`: **set attack of all operators.**
+- `1Axx`: **set attack of operator 1.**
+- `1Bxx`: **set attack of operator 2.**
+- `2Axy`: **set waveform of operator.**
+  - `x` is the operator (1-2). A value of `0` means "all operators".
+  - `y` is the value.
+- `30xx`: **enable envelope hard reset.**
+  - This works by inserting a quick release and tiny delay before a new note.
+- `50xy`: **set AM of operator.**
+  - `x` is the operator (1-2). A value of `0` means "all operators".
+  - `y` determines whether AM is on.
+- `51xy`: **set SL of operator.**
+  - `x` is the operator (1-2). A value of `0` means "all operators".
+  - `y` is the value.
+- `52xy`: **set RR of operator.**
+  - `x` is the operator (1-2). A value of `0` means "all operators".
+  - `y` is the value.
+- `53xy`: **set VIB of operator.**
+  - `x` is the operator (1-2). A value of `0` means "all operators".
+  - `y` determines whether VIB is on.
+- `54xy`: **set KSL of operator.**
+  - `x` is the operator (1-2). A value of `0` means "all operators".
+  - `y` is the value.
+- `55xy`: **set SUS of operator.**
+  - `x` is the operator (1-2). A value of `0` means "all operators".
+  - `y` determines whether SUS is on.
+- `56xx`: **set DR of all operators.**
+- `57xx`: **set DR of operator 1.**
+- `58xx`: **set DR of operator 2.**
+- `5Bxy`: **set KSR of operator.**
+  - `x` is the operator (1-2). A value of `0` means "all operators".
+  - `y` determines whether KSR is on.
+
+## Instrument Editor
+
+This chip uses the FM (OPL) instrument editor.
+
+## Chip Configuration
+
+The following options are available in the Chip Manager window:
+
+- **Clock rate**: Sets the rate at which the chip will run.
