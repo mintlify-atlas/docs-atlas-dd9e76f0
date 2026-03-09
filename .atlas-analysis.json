@@ -1,0 +1,211 @@
+{
+  "projectType": "general",
+  "projectName": "Furnace",
+  "projectDescription": "A multi-system chiptune tracker compatible with DefleMask modules, supporting 200+ sound chip configurations for retro music creation.",
+  "theme": "aspen",
+  "primaryColor": "#848484",
+  "lightColor": "#c8c8c8",
+  "darkColor": null,
+  "navigation": {
+    "tabs": [
+      {
+        "tab": "Documentation",
+        "groups": [
+          {
+            "group": "Getting Started",
+            "pages": [
+              "introduction",
+              "quickstart",
+              "concepts",
+              "faq",
+              "troubleshooting"
+            ]
+          },
+          {
+            "group": "Interface",
+            "pages": [
+              "interface/overview",
+              "interface/keyboard-shortcuts",
+              "interface/menu-bar",
+              "interface/orders",
+              "interface/play-edit-controls",
+              "interface/asset-list",
+              "interface/song-info"
+            ]
+          },
+          {
+            "group": "Patterns & Tracking",
+            "pages": [
+              "patterns/overview",
+              "patterns/editing",
+              "patterns/effects"
+            ]
+          },
+          {
+            "group": "Sound Design",
+            "pages": [
+              "instruments/overview",
+              "instruments/macros",
+              "wavetables/overview",
+              "wavetables/synthesizer",
+              "samples/overview",
+              "samples/editor"
+            ]
+          },
+          {
+            "group": "Advanced Features",
+            "pages": [
+              "advanced/channels",
+              "advanced/chip-manager",
+              "advanced/mixer",
+              "advanced/grooves",
+              "advanced/oscilloscope",
+              "advanced/find-replace",
+              "advanced/command-line"
+            ]
+          },
+          {
+            "group": "Guides",
+            "pages": [
+              "guides/envelopes",
+              "guides/tuning-samples",
+              "guides/emulation-cores"
+            ]
+          }
+        ]
+      },
+      {
+        "tab": "Sound Chips",
+        "groups": [
+          {
+            "group": "Overview",
+            "pages": [
+              "chips/overview",
+              "chips/systems"
+            ]
+          },
+          {
+            "group": "FM Synthesis",
+            "pages": [
+              "chips/fm/ym2151-opm",
+              "chips/fm/ym2203-opn",
+              "chips/fm/ym2608-opna",
+              "chips/fm/ym2610-opnb",
+              "chips/fm/ym2612-opn2",
+              "chips/fm/ym2413-opll",
+              "chips/fm/ym2414-opz",
+              "chips/fm/ym3526-opl",
+              "chips/fm/ym3812-opl2",
+              "chips/fm/ymf262-opl3",
+              "chips/fm/ymf278-opl4",
+              "chips/fm/esfm"
+            ]
+          },
+          {
+            "group": "Square Wave",
+            "pages": [
+              "chips/square/ay8910",
+              "chips/square/ay8930",
+              "chips/square/sn76489",
+              "chips/square/saa1099",
+              "chips/square/msm5232"
+            ]
+          },
+          {
+            "group": "Sample-Based",
+            "pages": [
+              "chips/sample/amiga",
+              "chips/sample/snes",
+              "chips/sample/segapcm",
+              "chips/sample/qsound",
+              "chips/sample/ymz280b",
+              "chips/sample/rf5c68",
+              "chips/sample/msm6258",
+              "chips/sample/msm6295",
+              "chips/sample/k007232",
+              "chips/sample/k053260",
+              "chips/sample/ga20",
+              "chips/sample/es5506",
+              "chips/sample/c140",
+              "chips/sample/c219"
+            ]
+          },
+          {
+            "group": "Wavetable",
+            "pages": [
+              "chips/wavetable/huc6280",
+              "chips/wavetable/namco-wsg",
+              "chips/wavetable/scc",
+              "chips/wavetable/wonderswan",
+              "chips/wavetable/x1-010",
+              "chips/wavetable/sm8521"
+            ]
+          },
+          {
+            "group": "Console Chips",
+            "pages": [
+              "chips/console/nes",
+              "chips/console/game-boy",
+              "chips/console/game-boy-advance",
+              "chips/console/virtual-boy",
+              "chips/console/nds",
+              "chips/console/fds",
+              "chips/console/vrc6",
+              "chips/console/vrc7",
+              "chips/console/mmc5",
+              "chips/console/n163",
+              "chips/console/supervision"
+            ]
+          },
+          {
+            "group": "Computer Chips",
+            "pages": [
+              "chips/computer/c64",
+              "chips/computer/vic20",
+              "chips/computer/pet",
+              "chips/computer/ted",
+              "chips/computer/pokey",
+              "chips/computer/tia",
+              "chips/computer/lynx",
+              "chips/computer/pokemini",
+              "chips/computer/pv1000",
+              "chips/computer/pcspkr",
+              "chips/computer/zxbeeper"
+            ]
+          },
+          {
+            "group": "Modern & Fantasy",
+            "pages": [
+              "chips/modern/vera",
+              "chips/modern/sound-unit",
+              "chips/modern/powernoise",
+              "chips/modern/bifurcator",
+              "chips/modern/sid2",
+              "chips/modern/sid3",
+              "chips/modern/dac"
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  "keyFeatures": [
+    "Multi-system chiptune tracker with 200+ sound chip presets",
+    "Pattern-based music composition with up to 32 chips or 128 channels",
+    "DefleMask compatibility (.dmf, .dmp, .dmw formats)",
+    "Built-in instrument, wavetable, and sample editors",
+    "Multiple export formats (VGM, ZSM, TIunA, SAP, audio files)",
+    "Quality emulation cores (Nuked, MAME, SameBoy, Mednafen)",
+    "MIDI input support and modular interface",
+    "Advanced features: FM macros, wavetable synthesizer, per-channel oscilloscope"
+  ],
+  "publicApiSurface": [
+    "GUI Application (furnace.exe / furnace binary)",
+    "Console mode playback: furnace -console <file>",
+    "Command line options: -view, -audio, -output",
+    "File formats: .fur (native), .dmf (DefleMask), .dmp (instruments), .dmw (wavetables)",
+    "Export formats: .vgm, .zsm, .wav, .mp3, .flac, .ogg",
+    "CMake build system with multiple configuration options",
+    "Plugin/preset system for chip configurations"
+  ]
+}
